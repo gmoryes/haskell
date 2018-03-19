@@ -67,7 +67,6 @@ data Player = Player
 
 data Street = Street
   { name :: String
-  , zone :: Int
   , price :: Int
   , isRent :: Bool
   , priceRent :: Int
@@ -155,7 +154,6 @@ initGame = GameState
   , land = 
     [ Street 
       { name ="Старт"
-      , zone = 0
       }
     , Street
       { name = "СКИ Квантовая информатика"
@@ -196,7 +194,6 @@ initGame = GameState
       }
     , Street 
       { name = "Шанс"
-      , zone = 15
       }
     , Street 
       { name = "СП УДИС"
@@ -214,7 +211,6 @@ initGame = GameState
       }
     , Street 
       { name = "Академ"
-      , zone = 17
       }
     , Street
       { name = "МатКиб ДММК"
@@ -396,7 +392,6 @@ initGame = GameState
     ]
   }
 
-
 -- =========================================
 -- Функции отрисовки
 -- =========================================
@@ -420,7 +415,14 @@ drawGameState images gameState
         , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
         ]
-    | (typeStep gameState) == "" = pictures[]
+    | otherwise = pictures
+        [ drawPlayingField (imagePlayingField images)
+        , drawPiece (imagePieceRed images) player1
+        , drawPiece (imagePieceBlue  images) player2
+        , drawPiece (imagePieceGreen  images) player3
+        , drawPiece (imagePieceYellow  images) player4
+        ]
+
   where
     player1 = ((players gameState) !! 0)
     player2 = ((players gameState) !! 1)
@@ -492,9 +494,102 @@ makeStepFeatures gameState
     | field == "налог" = payTax gameState 200
     | field == "сверхналог" = payTax gameState 100
     | field == "стоянка" = gameState { gamePlayer = mod (gamePlayer gameState) 4 + 1}
-    | otherwise = gameState
+    | otherwise = streetMove gameState
   where
     field = (typeStep gameState)
+
+{-
+data GameState = GameState
+  { players :: [Player]
+  , gamePlayer :: Int
+  , haveWinner :: Maybe Int
+  , cubes :: Cubes
+  , land :: [Street]
+  , typeStep :: String
+  }
+
+data Player = Player
+  { colour :: Int
+  --, name :: String
+  , money :: Int
+  , property :: [Street]
+  , playerCell :: Int
+  , playerPosition :: Point
+  --, position :: Int
+  }
+
+data Street = Street
+  { name :: String
+  , price :: Int
+  , isRent :: Bool
+  , priceRent :: Int
+  , owner :: Int
+  }
+
+-}
+{-
+data ChanceCard = ChanceCard
+	{ num :: Int
+	, price :: Int
+	, text :: String
+	}
+
+data Cards :: [ChanceCard]
+
+initCards :: Cards -> Cards
+initCards cards = [ ChanceCard 
+								{ num = 0
+								, price = 100
+								, text = "Вам подарок 100 баллов!"
+								}
+						 , ChanceCard
+						 		{ num = 1
+						 		, price = -100
+						 		, text = "Штраф 100 баллов!"
+						 		}
+						 , ChanceCard
+						 		{ num = 2
+						 		, price = 200
+						 		, text = "С днем рождения! Вам подарок 200 баллов"
+						 		}
+						 , ChanceCard
+						 		{ num = 3
+						 		, price = -200
+						 		, text = "Штраф 200 баллов!"
+						 		}
+						 , ChanceCard
+						 		{ num = 4
+						 		, price = 0
+						 		, text = "Живите спокойно!"
+						 		}
+
+						]
+-}
+chanceCard :: GameState -> GameState
+chanceCard gameState = gameState
+
+streetMove :: GameState -> GameState
+streetMove gameState | (isRent field) == False = gameState
+										 | otherwise = (payTax gameState (priceRent field))
+	where
+		player = (players gameState) !! ((gamePlayer gameState) - 1) 
+		field = ((land gameState) !! ((playerCell player) - 1))
+
+{-
+buyField :: GameState -> GameState
+buyField gameState | (price field) <= (money player) = gameState 
+		{ players = firstPlayers ++ [(player) { money = (money (player)) + (price field), property = (property player) ++ (name field) }] ++ lastPlayers
+    , gamePlayer = mod (gamePlayer gameState) 4 + 1
+    }
+									 --как отметить, что недвижимость купили у данного поля
+									 | otherwise = gameState
+									 --вместо просто геймстейт надо выдать завершение для него игры, ибо денег нет
+	where
+		firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState))) 
+		field = ((land gameState) !! ((playerCell player) - 1))
+-}
 
 payTax :: GameState -> Int -> GameState
 payTax gameState count = gameState
@@ -507,6 +602,16 @@ payTax gameState count = gameState
     player = (players gameState) !! ((gamePlayer gameState) - 1)
     lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
 
+{-throwCubes :: GameState -> IO GameState
+throwCubes gameState = do 
+    gen <- getStdGen
+    gen' <- newStdGen
+    gameState
+        { cubes = Cubes
+            { firstCube = randomR (1,6) gen 
+            , secondCube = randomR (1,6) gen'
+            }
+        }-}
 throwCubes :: GameState -> GameState
 throwCubes gameState = gameState
     { cubes = Cubes
@@ -520,8 +625,6 @@ makePay gameState = gameState
     { typeStep = "ход"
     , gamePlayer = (mod (gamePlayer gameState) 4) + 1
     }
-
-
 
 handlePay :: Event -> GameState -> GameState
 handlePay (EventKey (MouseButton LeftButton) Down _ mouse) = id
@@ -572,23 +675,6 @@ movePlayer player num cubesSum = player
     { playerCell = (mod ((playerCell player) + cubesSum - 1) 40) + 1
     , playerPosition = getPlayerPosition num ((mod ((playerCell player) + cubesSum - 1) 40) + 1)
     }
-
-chanceCard :: Player -> Player
-chanceCard player = player
---здесь написать различные варианты карточки шанс
-
-actionCell :: Player -> Int -> GameState -> Int -> Player
-actionCell player colour gameState num 
-    | (zone ((land gameState) !! (num - 1)) ) == 0 = player {money = (money player) + 200}
-    | (zone ((land gameState) !! (num - 1)) ) == 15 = chanceCard player
-    | (zone ((land gameState) !! (num - 1)) ) == 16 = player {money = (money player) - 200}
-    | (zone ((land gameState) !! (num - 1)) ) == 17 = player
-    | (zone ((land gameState) !! (num - 1)) ) == 18 = player {money = (money player) - 200, playerCell = 11}
-    | (zone ((land gameState) !! (num - 1)) ) == 19 = player {money = (money player) - 100}
-    | otherwise = player 
---здесь нужно для всех остальных ячеек придумать функцию, которая будет предлагать
---либо купить недвижимость, либо отказаться, и проверять принадлежит ли она кому
-
 
 
 getPlayerPosition :: Int -> Int -> Point

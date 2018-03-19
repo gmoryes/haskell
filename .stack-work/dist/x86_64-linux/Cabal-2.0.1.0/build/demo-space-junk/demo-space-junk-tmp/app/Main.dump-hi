@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-19 16:11:49.221664 UTC
+2018-03-19 19:36:57.405437 UTC
 
 interface main:Main 8022
-  interface hash: 8acd21a71c1741498189e20e1da240fe
-  ABI hash: cb7276ec0dbbcfcf6730e9363ae8ec22
+  interface hash: 7fc7a986280854c872e92de3b4e0ea23
+  ABI hash: f4d8df8e3b40f0763693cda8a0daf0b7
   export-list hash: 97db7b1117b8f2bb48da271ff6a2972a
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: ac0c54a92cc68852c7335baa8e2dccc5
@@ -58,7 +58,7 @@ family instance modules: JuicyPixels-3.2.9.4:Codec.Picture.Tga
                          vector-0.12.0.1:Data.Vector.Unboxed.Base
                          zlib-0.6.1.2:Codec.Compression.Zlib.Stream
 import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
-import  -/  demo-space-junk-0.1:SpaceJunk 60a500a9997a27861b994d719c225fa1
+import  -/  demo-space-junk-0.1:SpaceJunk ad16dfa628a11f5fdb576e9230e4fd49
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
@@ -78,12 +78,12 @@ e5875966b74dad2d29772660b8a75e33
 d026be77cb9ced20e35a61514e0458aa
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("main"#) -}
-b67f51bf3222cdf659108dbe93658049
+bcacfadb1d666169231c037b0787a479
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-8d73dbef3a46174c622afedf084496fc
+9597d729e35c1d1044024cc78a521663
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -92,7 +92,7 @@ b67f51bf3222cdf659108dbe93658049
                 (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
                  case SpaceJunk.loadImages1 s of ds1 { (#,#) ipv ipv1 ->
                  SpaceJunk.startGame1 ipv1 ipv }) -}
-dbbef21246116eacd6ff82e3a4ccc3bc
+99cf5c02fb284187f9570b0daebecdbd
   main2 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
