@@ -1,0 +1,3198 @@
+
+==================== FINAL INTERFACE ====================
+2018-03-19 16:11:47.062749 UTC
+
+interface demo-space-junk-0.1-HfePqCa4RzZA9RYPINVpCh:SpaceJunk 8022
+  interface hash: cb18e5ad24237dbcbab8df33a74901da
+  ABI hash: 60a500a9997a27861b994d719c225fa1
+  export-list hash: d81491a41dfd2fb1a6b3328e21a38d86
+  orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
+  flag hash: d3f9096bac2e1e79f6ff76d0840aa157
+  sig of: Nothing
+  used TH splices: False
+  where
+exports:
+  SpaceJunk.actionCell
+  SpaceJunk.canGo
+  SpaceJunk.chanceCard
+  SpaceJunk.changePlayerCell
+  SpaceJunk.doStep
+  SpaceJunk.drawGameState
+  SpaceJunk.drawPayMenu
+  SpaceJunk.drawPiece
+  SpaceJunk.drawPlayingField
+  SpaceJunk.getPlayerPosition
+  SpaceJunk.getTypeCell
+  SpaceJunk.handleGame
+  SpaceJunk.handlePay
+  SpaceJunk.initGame
+  SpaceJunk.initPay
+  SpaceJunk.isPay
+  SpaceJunk.isStep
+  SpaceJunk.isntPay
+  SpaceJunk.loadImages
+  SpaceJunk.makeMove
+  SpaceJunk.makePay
+  SpaceJunk.makeStepFeatures
+  SpaceJunk.move
+  SpaceJunk.movePlayer
+  SpaceJunk.payTax
+  SpaceJunk.satelliteRotationSpeed
+  SpaceJunk.screenHeight
+  SpaceJunk.screenWidth
+  SpaceJunk.startGame
+  SpaceJunk.throwCubes
+  SpaceJunk.ufoAccel
+  SpaceJunk.updateGameState
+  SpaceJunk.updatePay
+  SpaceJunk.Cubes{SpaceJunk.Cubes firstCube secondCube}
+  SpaceJunk.GameState{SpaceJunk.GameState cubes gamePlayer haveWinner land players typeStep}
+  SpaceJunk.Images{SpaceJunk.Images imagePayMenu imagePieceBlue imagePieceGreen imagePieceRed imagePieceYellow imagePlayingField}
+  SpaceJunk.Physical{SpaceJunk.getCell SpaceJunk.getPosition SpaceJunk.setCell SpaceJunk.setPosition}
+  SpaceJunk.Player{SpaceJunk.Player colour money playerCell playerPosition property}
+  SpaceJunk.Street{SpaceJunk.Street isRent name owner price priceRent zone}
+module dependencies:
+package dependencies: GLURaw-2.0.0.3 GLUT-2.7.0.12
+                      JuicyPixels-3.2.9.4 ObjectName-1.1.0.1 OpenGL-3.0.2.0
+                      OpenGLRaw-3.2.7.0 StateVar-1.1.0.4 array-0.5.2.0 base-4.10.1.0
+                      binary-0.8.5.1 bmp-1.2.6.3 bytestring-0.10.8.2 containers-0.5.10.2
+                      deepseq-1.4.3.0 fixed-0.2.1.1 ghc-prim-0.5.1.1 gloss-1.11.1.1
+                      gloss-juicy-0.2.2 gloss-rendering-1.11.1.1 half-0.2.2.3
+                      integer-gmp-1.0.1.0 mtl-2.2.1 primitive-0.6.3.0 stm-2.4.5.0
+                      text-1.2.2.2 transformers-0.5.2.0 vector-0.12.0.1 zlib-0.6.1.2
+orphans: vector-0.12.0.1:Data.Vector.Unboxed
+         gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture
+         stm-2.4.5.0:Control.Monad.STM text-1.2.2.2:Data.Text
+         binary-0.8.5.1:Data.Binary.Generic text-1.2.2.2:Data.Text.Show
+         bytestring-0.10.8.2:Data.ByteString.Builder
+         vector-0.12.0.1:Data.Vector.Fusion.Bundle
+         transformers-0.5.2.0:Control.Monad.Trans.Error
+         base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
+family instance modules: JuicyPixels-3.2.9.4:Codec.Picture.Tga
+                         JuicyPixels-3.2.9.4:Codec.Picture.Tiff
+                         JuicyPixels-3.2.9.4:Codec.Picture.Types
+                         base-4.10.1.0:Control.Applicative base-4.10.1.0:Data.Complex
+                         base-4.10.1.0:Data.Either base-4.10.1.0:Data.Functor.Compose
+                         base-4.10.1.0:Data.Functor.Const
+                         base-4.10.1.0:Data.Functor.Identity
+                         base-4.10.1.0:Data.Functor.Product base-4.10.1.0:Data.Functor.Sum
+                         base-4.10.1.0:Data.List.NonEmpty base-4.10.1.0:Data.Monoid
+                         base-4.10.1.0:Data.Semigroup base-4.10.1.0:Data.Type.Equality
+                         base-4.10.1.0:Data.Version base-4.10.1.0:Data.Void
+                         base-4.10.1.0:GHC.Exts base-4.10.1.0:GHC.Generics
+                         base-4.10.1.0:GHC.IO.Exception base-4.10.1.0:GHC.TypeLits
+                         base-4.10.1.0:GHC.TypeNats containers-0.5.10.2:Data.IntMap.Internal
+                         containers-0.5.10.2:Data.IntSet.Internal
+                         containers-0.5.10.2:Data.Map.Internal
+                         containers-0.5.10.2:Data.Sequence.Internal
+                         containers-0.5.10.2:Data.Set.Internal containers-0.5.10.2:Data.Tree
+                         primitive-0.6.3.0:Control.Monad.Primitive
+                         primitive-0.6.3.0:Data.Primitive.Array
+                         primitive-0.6.3.0:Data.Primitive.ByteArray text-1.2.2.2:Data.Text
+                         vector-0.12.0.1:Data.Vector vector-0.12.0.1:Data.Vector.Primitive
+                         vector-0.12.0.1:Data.Vector.Storable
+                         vector-0.12.0.1:Data.Vector.Unboxed
+                         vector-0.12.0.1:Data.Vector.Unboxed.Base
+                         zlib-0.6.1.2:Codec.Compression.Zlib.Stream
+import  -/  base-4.10.1.0:Data.Foldable 9ed87455d68e87ff2b5b8725eae9897e
+import  -/  base-4.10.1.0:GHC.Base 782fd99b5e36f3698a26179a49afca64
+import  -/  base-4.10.1.0:GHC.List e3060fbeb44ce0038e6b4dedf2dd9cf1
+import  -/  base-4.10.1.0:GHC.Num 6e1dc5d36d99a802edb39b92bb1923b8
+import  -/  base-4.10.1.0:GHC.Real 3c62834bc25e762eabc44149c4cc142d
+import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
+import  -/  ghc-prim-0.5.1.1:GHC.Classes 93e2660065dce9329577e83d76d8f0d4
+import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Data.Color 5c970575426b56bd25d4c8a1524c02e2
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Data.Display 1752ab407945af39220fa83fbf976e16
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Data.Picture 678ca3769d4299c211393ec63a71c773
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Data.Vector 881132e2c13844ce6bd4f8abb137babc
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Interface.Pure.Game ef061ea1b64f423c6939b4425530d68b
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Internals.Interface.Backend.Types 06ea8efd16f2e1213f3498c72fd3e865
+import  -/  gloss-1.11.1.1:Graphics.Gloss.Internals.Interface.Event 6b445d186c52105f8b7cecbbeaed200a
+import  -/  gloss-juicy-0.2.2:Graphics.Gloss.Juicy 20060d26a1e0336ba010c3f7b920f27e
+import  -/  gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture 8c8e04cee0f708c6318fcff275a5c211
+62c88da2f7cf78bd3d8be740a5e7b48f
+  $fPhysicalPlayer :: SpaceJunk.Physical SpaceJunk.Player
+  DFunId
+  {- HasNoCafRefs, Strictness: m, Inline: CONLIKE,
+     Unfolding: DFun:.
+                  @ SpaceJunk.Player
+                  SpaceJunk.playerPosition
+                  SpaceJunk.playerCell
+                  SpaceJunk.$fPhysicalPlayer_$csetPosition
+                  SpaceJunk.$fPhysicalPlayer_$csetCell -}
+5a1000d672efcbe8ad468bd85d57ce30
+  $fPhysicalPlayer_$csetCell ::
+    GHC.Types.Int -> SpaceJunk.Player -> SpaceJunk.Player
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,U><S,1*U(U,U,U,A,U)>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ (new :: GHC.Types.Int) (player :: SpaceJunk.Player) ->
+                 case player of wild { SpaceJunk.Player ds ds1 ds2 ds3 ds4 ->
+                 SpaceJunk.Player ds ds1 ds2 new ds4 }) -}
+004f1a6689da398d0544f8823aa46fe0
+  $fPhysicalPlayer_$csetPosition ::
+    Graphics.Gloss.Internals.Data.Picture.Point
+    -> SpaceJunk.Player -> SpaceJunk.Player
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,U><S,1*U(U,U,U,U,A)>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ (new :: Graphics.Gloss.Internals.Data.Picture.Point)
+                   (player :: SpaceJunk.Player) ->
+                 case player of wild { SpaceJunk.Player ds ds1 ds2 ds3 ds4 ->
+                 SpaceJunk.Player ds ds1 ds2 ds3 new }) -}
+7c2ebed32fee2d381cf3a14b3df95f29
+  $tc'C:Physical :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   3394432508075757034##
+                   17580906439734967253##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'C:Physical2
+                   1#
+                   SpaceJunk.$tc'C:Physical1) -}
+bf135df50b5ecf0053a113ae8a185df9
+  $tc'C:Physical1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+552076412871479bc265f0eeb5fbafc1
+  $tc'C:Physical2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'C:Physical3) -}
+59b397a249204e7c75ae4a3ff796a84b
+  $tc'C:Physical3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'C:Physical"#) -}
+c2672574296ac79c13dbb919f1c4125f
+  $tc'Cubes :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7797716931399040929##
+                   11622144014266575507##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'Cubes2
+                   0#
+                   SpaceJunk.$tc'Cubes1) -}
+f9d0e086585794e629b43d0ff72a955d
+  $tc'Cubes1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+145b07748d290387600631f71624b3c7
+  $tc'Cubes2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'Cubes3) -}
+2f58727f72667cae272b7fea616fbf53
+  $tc'Cubes3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Cubes"#) -}
+14af19127f4d8e1e4f851a2eb3c5a96d
+  $tc'GameState :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   2720502980593999393##
+                   2809409099418521767##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'GameState2
+                   0#
+                   SpaceJunk.$tc'GameState1) -}
+f86a6dc1d6beeb91318fa28ae6dcd6d1
+  $tc'GameState1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+fb4463ae9e0b1ecdd4762413993ffb05
+  $tc'GameState2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'GameState3) -}
+0c85ba759eb4d9aa60f21c8ad44cfe0b
+  $tc'GameState3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'GameState"#) -}
+0fc562b1788f90ff1422865a5084c50c
+  $tc'Images :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   7134652861729503437##
+                   536247177849254664##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'Images2
+                   0#
+                   SpaceJunk.$tc'Images1) -}
+e4f1bac1c19110336c9b7361af2e61aa
+  $tc'Images1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+7661d0f4925d6fc66b396f4c24ccd151
+  $tc'Images2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'Images3) -}
+52e5f91f2f780cc555b6ec8916079174
+  $tc'Images3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Images"#) -}
+96d019f7dfb2cea3d75fe8235e7176c1
+  $tc'Player :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   8164825687174012710##
+                   10226978588090699068##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'Player2
+                   0#
+                   SpaceJunk.$tc'Player1) -}
+100f58d6df103b7837bbfd7d8f75c3c5
+  $tc'Player1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+7f80e2b3e5671e53e0b2d5c0960568bb
+  $tc'Player2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'Player3) -}
+fdaaf5ba4c1265df31b21a1ff48c5a11
+  $tc'Player3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Player"#) -}
+f99ff7fa2bd9d71386363848f8f6fd2c
+  $tc'Street :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   14669608976624484016##
+                   6630514924888247945##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tc'Street2
+                   0#
+                   SpaceJunk.$tc'Street1) -}
+49c1c057e32339c4f633bdff1ce17379
+  $tc'Street1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+67c9f8d513bcb6aec1393a5a9e0f68e1
+  $tc'Street2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tc'Street3) -}
+98563b129c0ff02542513cc6630893fc
+  $tc'Street3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'Street"#) -}
+ed5438cd0ad8bea1fd011eec8d28168f
+  $tcCubes :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   2372349930001482578##
+                   14257026668100213066##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcCubes1
+                   0#
+                   GHC.Types.krep$*) -}
+6446091c8909982b71d5f85db54e55ac
+  $tcCubes1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcCubes2) -}
+8d8f4d4f611b58ed0c05c2f80e2ef0c5
+  $tcCubes2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Cubes"#) -}
+807ead5dd4beb3373fec2c73a84fefa7
+  $tcGameState :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   8769246809315220019##
+                   5585082966041346212##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcGameState1
+                   0#
+                   GHC.Types.krep$*) -}
+3b72a8c341d5066f6f23d50f4287b63c
+  $tcGameState1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcGameState2) -}
+fa7651f729415c68f4f3402e822199f7
+  $tcGameState2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("GameState"#) -}
+0926b9b32ce10585fea55dc4ef3f6026
+  $tcImages :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   11063933512372823573##
+                   6502428208372042336##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcImages1
+                   0#
+                   GHC.Types.krep$*) -}
+066664a53e0cf7ef044ed17e8c166bb4
+  $tcImages1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcImages2) -}
+e13ba9f1d9b38ca5865e928d6d0be84e
+  $tcImages2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Images"#) -}
+f7d43b149c33e0fe23bd28ec13b9d274
+  $tcPhysical :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   13230888544532279213##
+                   2315442903441447646##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcPhysical2
+                   0#
+                   SpaceJunk.$tcPhysical1) -}
+23905d4f70e073f48d2c401fc3f21fb2
+  $tcPhysical1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+9826fdd08f9e4b738258a9ef3d0dc5fe
+  $tcPhysical2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcPhysical3) -}
+76ae40babc1a622188dd6f0ca47e17e6
+  $tcPhysical3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Physical"#) -}
+fa5c9eebdca7e1ca8bd8490455942c12
+  $tcPlayer :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   9515458276217406701##
+                   17247916109989906326##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcPlayer1
+                   0#
+                   GHC.Types.krep$*) -}
+4468ddbb8a4a0f0f84af3ae874eb836a
+  $tcPlayer1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcPlayer2) -}
+9a204064664006b074109be0ebdb156f
+  $tcPlayer2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Player"#) -}
+c6a3d3be469dd66bb1ac704d5cdffb7b
+  $tcStreet :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   11038757159187155411##
+                   12588971124473832168##
+                   SpaceJunk.$trModule
+                   SpaceJunk.$tcStreet1
+                   0#
+                   GHC.Types.krep$*) -}
+e86c4b367136bbd2465e7871ee385445
+  $tcStreet1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$tcStreet2) -}
+b3ca0e3d3cf2bbfb4ef7145b740f9380
+  $tcStreet2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("Street"#) -}
+8737f5b10e93b7a649fc86b68b035d45
+  $trModule :: GHC.Types.Module
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.Module
+                   SpaceJunk.$trModule3
+                   SpaceJunk.$trModule1) -}
+58036815393a4e006935cea89cde3420
+  $trModule1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$trModule2) -}
+85bb248ec2edb5b86cb09bcb67f33727
+  $trModule2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("SpaceJunk"#) -}
+03be0a72021697e177b779e920f5592d
+  $trModule3 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS SpaceJunk.$trModule4) -}
+80da9ce40ada352650a012d3a6f3bf46
+  $trModule4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("demo-space-junk-0.1-HfePqCa4RzZA9RYPINVpCh"#) -}
+e628794c629d147c4db702faaa030fb3
+  $wchangePlayerCell ::
+    [SpaceJunk.Player]
+    -> GHC.Types.Int
+    -> GHC.Base.Maybe GHC.Types.Int
+    -> SpaceJunk.Cubes
+    -> [SpaceJunk.Street]
+    -> (# [SpaceJunk.Player], GHC.Types.Int,
+          GHC.Base.Maybe GHC.Types.Int, SpaceJunk.Cubes, [SpaceJunk.Street],
+          GHC.Base.String #)
+  {- Arity: 5, Strictness: <L,U><L,U(U)><L,U><L,U(U(U),U(U))><L,U>,
+     Inline: [0],
+     Unfolding: (\ (ww :: [SpaceJunk.Player])
+                   (ww1 :: GHC.Types.Int)
+                   (ww2 :: GHC.Base.Maybe GHC.Types.Int)
+                   (ww3 :: SpaceJunk.Cubes)
+                   (ww4 :: [SpaceJunk.Street]) ->
+                 let {
+                   cubesSum :: GHC.Types.Int
+                   = case ww3 of wild { SpaceJunk.Cubes ds ds1 ->
+                     case ds of wild1 { GHC.Types.I# x ->
+                     case ds1 of wild2 { GHC.Types.I# y ->
+                     GHC.Types.I# (GHC.Prim.+# x y) } } }
+                 } in
+                 let {
+                   player :: SpaceJunk.Player
+                   = case ww1 of wild { GHC.Types.I# x ->
+                     GHC.List.$w!! @ SpaceJunk.Player ww (GHC.Prim.-# x 1#) }
+                 } in
+                 (# case ww1 of wild { GHC.Types.I# x ->
+                    let {
+                      y :: GHC.Prim.Int# = GHC.Prim.-# x 1#
+                    } in
+                    let {
+                      n :: SpaceJunk.Player
+                      = case player of ww5 { SpaceJunk.Player ww6 ww7 ww8 ww9 ww10 ->
+                        SpaceJunk.Player
+                          ww6
+                          ww7
+                          ww8
+                          (case ww9 of wild1 { GHC.Types.I# x1 ->
+                           case cubesSum of wild2 { GHC.Types.I# y1 ->
+                           case GHC.Classes.modInt#
+                                  (GHC.Prim.-# (GHC.Prim.+# x1 y1) 1#)
+                                  40# of ww11 { DEFAULT ->
+                           GHC.Types.I# (GHC.Prim.+# ww11 1#) } } })
+                          (case ww9 of wild1 { GHC.Types.I# x1 ->
+                           case cubesSum of wild2 { GHC.Types.I# y1 ->
+                           case GHC.Classes.modInt#
+                                  (GHC.Prim.-# (GHC.Prim.+# x1 y1) 1#)
+                                  40# of ww11 { DEFAULT ->
+                           case SpaceJunk.$wgetPlayerPosition
+                                  wild
+                                  (GHC.Prim.+# ww11 1#) of ww12 { (#,#) ww13 ww14 ->
+                           (ww13, ww14) } } } }) }
+                    } in
+                    let {
+                      n1 :: [SpaceJunk.Player]
+                      = case GHC.List.$wlenAcc
+                               @ SpaceJunk.Player
+                               ww
+                               0# of ww5 { DEFAULT ->
+                        let {
+                          y1 :: GHC.Prim.Int# = GHC.Prim.-# ww5 x
+                        } in
+                        case GHC.Prim.tagToEnum#
+                               @ GHC.Types.Bool
+                               (GHC.Prim.<# 0# y1) of wild1 {
+                          GHC.Types.False -> SpaceJunk.changePlayerCell17
+                          GHC.Types.True
+                          -> GHC.List.reverse1
+                               @ SpaceJunk.Player
+                               (GHC.List.$wunsafeTake
+                                  @ SpaceJunk.Player
+                                  y1
+                                  (GHC.List.reverse1
+                                     @ SpaceJunk.Player
+                                     ww
+                                     (GHC.Types.[] @ SpaceJunk.Player)))
+                               (GHC.Types.[] @ SpaceJunk.Player) } }
+                    } in
+                    let {
+                      n2 :: [SpaceJunk.Player] = GHC.Types.: @ SpaceJunk.Player n n1
+                    } in
+                    case GHC.Prim.tagToEnum#
+                           @ GHC.Types.Bool
+                           (GHC.Prim.<# 0# y) of wild1 {
+                      GHC.Types.False -> n2
+                      GHC.Types.True
+                      -> letrec {
+                           $wgo :: [SpaceJunk.Player] -> GHC.Prim.Int# -> [SpaceJunk.Player]
+                             {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [0] -}
+                           = \ (w :: [SpaceJunk.Player]) (ww5 :: GHC.Prim.Int#) ->
+                             case w of wild2 {
+                               [] -> n2
+                               : y1 ys
+                               -> case ww5 of ds1 {
+                                    DEFAULT
+                                    -> GHC.Types.:
+                                         @ SpaceJunk.Player
+                                         y1
+                                         ($wgo ys (GHC.Prim.-# ds1 1#))
+                                    1# -> GHC.Types.: @ SpaceJunk.Player y1 n2 } }
+                         } in
+                         $wgo ww y } },
+                    ww1, ww2, ww3, ww4,
+                    case player of ww5 { SpaceJunk.Player ww6 ww7 ww8 ww9 ww10 ->
+                    case ww9 of wild { GHC.Types.I# x ->
+                    case cubesSum of wild1 { GHC.Types.I# y ->
+                    case GHC.Classes.modInt#
+                           (GHC.Prim.-# (GHC.Prim.+# x y) 1#)
+                           40# of ww11 { DEFAULT ->
+                    SpaceJunk.$wgetTypeCell (GHC.Prim.+# ww11 1#) } } } } #)) -}
+47b84f5b6e3a3253ab9c3cf4a8947c26
+  $wdrawGameState ::
+    SpaceJunk.Images
+    -> [SpaceJunk.Player]
+    -> GHC.Base.String
+    -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 3, Strictness: <L,U(1*U,1*U,1*U,1*U,1*U,1*U)><L,U><S,U>,
+     Inline: [0] -}
+455dd7b0111803e958e2daedaa9316f5
+  $wgetPlayerPosition ::
+    GHC.Types.Int
+    -> GHC.Prim.Int# -> (# GHC.Types.Float, GHC.Types.Float #)
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,1*U(U)><S,U>,
+     Inline: [0],
+     Unfolding: (\ (w :: GHC.Types.Int) (ww :: GHC.Prim.Int#) ->
+                 let {
+                   $j :: (# GHC.Types.Float, GHC.Types.Float #) <join 0>
+                   = let {
+                       $j1 :: (# GHC.Types.Float, GHC.Types.Float #) <join 0>
+                       = case GHC.Prim.tagToEnum#
+                                @ GHC.Types.Bool
+                                (GHC.Prim.>=# ww 22#) of wild {
+                           GHC.Types.False
+                           -> (# GHC.Types.F#
+                                   (GHC.Prim.int2Float#
+                                      (GHC.Prim.-# 365# (GHC.Prim.*# (GHC.Prim.-# ww 30#) 60#))),
+                                 case w of wild1 { GHC.Types.I# x ->
+                                 GHC.Types.F#
+                                   (GHC.Prim.int2Float#
+                                      (GHC.Prim.+# -360# (GHC.Prim.*# x 15#))) } #)
+                           GHC.Types.True
+                           -> case GHC.Prim.tagToEnum#
+                                     @ GHC.Types.Bool
+                                     (GHC.Prim.<=# ww 31#) of wild1 {
+                                GHC.Types.False
+                                -> (# GHC.Types.F#
+                                        (GHC.Prim.int2Float#
+                                           (GHC.Prim.-#
+                                              365#
+                                              (GHC.Prim.*# (GHC.Prim.-# ww 30#) 60#))),
+                                      case w of wild2 { GHC.Types.I# x ->
+                                      GHC.Types.F#
+                                        (GHC.Prim.int2Float#
+                                           (GHC.Prim.+# -360# (GHC.Prim.*# x 15#))) } #)
+                                GHC.Types.True
+                                -> (# case w of wild2 { GHC.Types.I# x ->
+                                      GHC.Types.F#
+                                        (GHC.Prim.int2Float#
+                                           (GHC.Prim.-# 360# (GHC.Prim.*# x 15#))) },
+                                      GHC.Types.F#
+                                        (GHC.Prim.int2Float#
+                                           (GHC.Prim.-#
+                                              365#
+                                              (GHC.Prim.*# (GHC.Prim.-# ww 20#) 60#))) #) } }
+                     } in
+                     case GHC.Prim.tagToEnum#
+                            @ GHC.Types.Bool
+                            (GHC.Prim.>=# ww 12#) of wild {
+                       GHC.Types.False -> $j1
+                       GHC.Types.True
+                       -> case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.<=# ww 21#) of wild1 {
+                            GHC.Types.False -> $j1
+                            GHC.Types.True
+                            -> (# GHC.Types.F#
+                                    (GHC.Prim.int2Float#
+                                       (GHC.Prim.+# -365# (GHC.Prim.*# (GHC.Prim.-# ww 10#) 60#))),
+                                  case w of wild2 { GHC.Types.I# x ->
+                                  GHC.Types.F#
+                                    (GHC.Prim.int2Float#
+                                       (GHC.Prim.-# 360# (GHC.Prim.*# x 15#))) } #) } }
+                 } in
+                 case GHC.Prim.tagToEnum#
+                        @ GHC.Types.Bool
+                        (GHC.Prim.>=# ww 1#) of wild {
+                   GHC.Types.False -> $j
+                   GHC.Types.True
+                   -> case GHC.Prim.tagToEnum#
+                             @ GHC.Types.Bool
+                             (GHC.Prim.<=# ww 11#) of wild1 {
+                        GHC.Types.False -> $j
+                        GHC.Types.True
+                        -> (# case w of wild2 { GHC.Types.I# x ->
+                              GHC.Types.F#
+                                (GHC.Prim.int2Float# (GHC.Prim.+# -360# (GHC.Prim.*# x 15#))) },
+                              GHC.Types.F#
+                                (GHC.Prim.int2Float#
+                                   (GHC.Prim.+# -350# (GHC.Prim.*# ww 60#))) #) } }) -}
+d75b1a115263d523982c09231b2a6cd0
+  $wgetTypeCell :: GHC.Prim.Int# -> [GHC.Types.Char]
+  {- Arity: 1, Strictness: <S,1*U>, Inline: [0],
+     Unfolding: (\ (ww :: GHC.Prim.Int#) ->
+                 case ww of wild {
+                   DEFAULT -> SpaceJunk.changePlayerCell15
+                   1# -> SpaceJunk.changePlayerCell13
+                   3# -> SpaceJunk.changePlayerCell11
+                   5# -> SpaceJunk.changePlayerCell9
+                   8# -> SpaceJunk.changePlayerCell7
+                   11# -> SpaceJunk.changePlayerCell5
+                   18# -> SpaceJunk.changePlayerCell11
+                   21# -> SpaceJunk.changePlayerCell5
+                   23# -> SpaceJunk.changePlayerCell7
+                   31# -> SpaceJunk.changePlayerCell3
+                   34# -> SpaceJunk.changePlayerCell11
+                   37# -> SpaceJunk.changePlayerCell7
+                   39# -> SpaceJunk.changePlayerCell1 }) -}
+af2f1b60b192e418d6a87f2494e6b2f9
+  $wisPay ::
+    GHC.Prim.Float# -> GHC.Types.Float -> GHC.Base.Maybe GHC.Types.Bool
+  {- Arity: 2, HasNoCafRefs, Strictness: <S,U><L,U(U)>, Inline: [0],
+     Unfolding: (\ (ww :: GHC.Prim.Float#) (ww1 :: GHC.Types.Float) ->
+                 let {
+                   $j :: GHC.Base.Maybe GHC.Types.Bool <join 0>
+                   = case GHC.Prim.tagToEnum#
+                            @ GHC.Types.Bool
+                            (GHC.Prim.gtFloat# ww 0.0#) of wild {
+                       GHC.Types.False -> GHC.Base.Nothing @ GHC.Types.Bool
+                       GHC.Types.True
+                       -> case GHC.Prim.tagToEnum#
+                                 @ GHC.Types.Bool
+                                 (GHC.Prim.ltFloat# ww 100.0#) of wild1 {
+                            GHC.Types.False -> GHC.Base.Nothing @ GHC.Types.Bool
+                            GHC.Types.True
+                            -> case ww1 of wild2 { GHC.Types.F# x ->
+                               case GHC.Prim.tagToEnum#
+                                      @ GHC.Types.Bool
+                                      (GHC.Prim.gtFloat# x -50.0#) of wild3 {
+                                 GHC.Types.False -> GHC.Base.Nothing @ GHC.Types.Bool
+                                 GHC.Types.True
+                                 -> case GHC.Prim.tagToEnum#
+                                           @ GHC.Types.Bool
+                                           (GHC.Prim.ltFloat# x 50.0#) of wild4 {
+                                      GHC.Types.False -> GHC.Base.Nothing @ GHC.Types.Bool
+                                      GHC.Types.True -> SpaceJunk.handleGame2 } } } } }
+                 } in
+                 case GHC.Prim.tagToEnum#
+                        @ GHC.Types.Bool
+                        (GHC.Prim.ltFloat# ww 0.0#) of wild {
+                   GHC.Types.False -> $j
+                   GHC.Types.True
+                   -> case GHC.Prim.tagToEnum#
+                             @ GHC.Types.Bool
+                             (GHC.Prim.gtFloat# ww -100.0#) of wild1 {
+                        GHC.Types.False -> $j
+                        GHC.Types.True
+                        -> case ww1 of wild2 { GHC.Types.F# x ->
+                           case GHC.Prim.tagToEnum#
+                                  @ GHC.Types.Bool
+                                  (GHC.Prim.gtFloat# x -50.0#) of wild3 {
+                             GHC.Types.False -> $j
+                             GHC.Types.True
+                             -> case GHC.Prim.tagToEnum#
+                                       @ GHC.Types.Bool
+                                       (GHC.Prim.ltFloat# x 50.0#) of wild4 {
+                                  GHC.Types.False -> $j
+                                  GHC.Types.True -> SpaceJunk.handleGame1 } } } } }) -}
+1b40b4fe3213a3770eab9c6767e7c2b2
+  $wpayTax ::
+    [SpaceJunk.Player]
+    -> GHC.Types.Int
+    -> GHC.Base.Maybe GHC.Types.Int
+    -> SpaceJunk.Cubes
+    -> [SpaceJunk.Street]
+    -> GHC.Base.String
+    -> GHC.Types.Int
+    -> (# [SpaceJunk.Player], GHC.Types.Int,
+          GHC.Base.Maybe GHC.Types.Int, SpaceJunk.Cubes, [SpaceJunk.Street],
+          GHC.Base.String #)
+  {- Arity: 7,
+     Strictness: <L,U><L,U(U)><L,U><L,U><L,U><L,U><L,1*U(U)>,
+     Inline: [0],
+     Unfolding: (\ (ww :: [SpaceJunk.Player])
+                   (ww1 :: GHC.Types.Int)
+                   (ww2 :: GHC.Base.Maybe GHC.Types.Int)
+                   (ww3 :: SpaceJunk.Cubes)
+                   (ww4 :: [SpaceJunk.Street])
+                   (ww5 :: GHC.Base.String)
+                   (w :: GHC.Types.Int) ->
+                 (# case ww1 of wild { GHC.Types.I# x ->
+                    let {
+                      y :: GHC.Prim.Int# = GHC.Prim.-# x 1#
+                    } in
+                    let {
+                      n :: SpaceJunk.Player
+                      = case GHC.List.$w!!
+                               @ SpaceJunk.Player
+                               ww
+                               y of wild1 { SpaceJunk.Player ds ds1 ds2 ds3 ds4 ->
+                        SpaceJunk.Player
+                          ds
+                          (case ds1 of wild2 { GHC.Types.I# x1 ->
+                           case w of wild3 { GHC.Types.I# y1 ->
+                           GHC.Types.I# (GHC.Prim.-# x1 y1) } })
+                          ds2
+                          ds3
+                          ds4 }
+                    } in
+                    let {
+                      n1 :: [SpaceJunk.Player]
+                      = case GHC.List.$wlenAcc
+                               @ SpaceJunk.Player
+                               ww
+                               0# of ww6 { DEFAULT ->
+                        let {
+                          y1 :: GHC.Prim.Int# = GHC.Prim.-# ww6 x
+                        } in
+                        case GHC.Prim.tagToEnum#
+                               @ GHC.Types.Bool
+                               (GHC.Prim.<# 0# y1) of wild1 {
+                          GHC.Types.False -> SpaceJunk.changePlayerCell17
+                          GHC.Types.True
+                          -> GHC.List.reverse1
+                               @ SpaceJunk.Player
+                               (GHC.List.$wunsafeTake
+                                  @ SpaceJunk.Player
+                                  y1
+                                  (GHC.List.reverse1
+                                     @ SpaceJunk.Player
+                                     ww
+                                     (GHC.Types.[] @ SpaceJunk.Player)))
+                               (GHC.Types.[] @ SpaceJunk.Player) } }
+                    } in
+                    let {
+                      n2 :: [SpaceJunk.Player] = GHC.Types.: @ SpaceJunk.Player n n1
+                    } in
+                    case GHC.Prim.tagToEnum#
+                           @ GHC.Types.Bool
+                           (GHC.Prim.<# 0# y) of wild1 {
+                      GHC.Types.False -> n2
+                      GHC.Types.True
+                      -> letrec {
+                           $wgo :: [SpaceJunk.Player] -> GHC.Prim.Int# -> [SpaceJunk.Player]
+                             {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [0] -}
+                           = \ (w1 :: [SpaceJunk.Player]) (ww6 :: GHC.Prim.Int#) ->
+                             case w1 of wild2 {
+                               [] -> n2
+                               : y1 ys
+                               -> case ww6 of ds1 {
+                                    DEFAULT
+                                    -> GHC.Types.:
+                                         @ SpaceJunk.Player
+                                         y1
+                                         ($wgo ys (GHC.Prim.-# ds1 1#))
+                                    1# -> GHC.Types.: @ SpaceJunk.Player y1 n2 } }
+                         } in
+                         $wgo ww y } },
+                    case ww1 of wild1 { GHC.Types.I# x ->
+                    GHC.Types.I# (GHC.Prim.+# (GHC.Prim.andI# x 3#) 1#) },
+                    ww2, ww3, ww4, ww5 #)) -}
+1d1d9b7a21613a07db2f63f349b29910
+  data Cubes
+    = Cubes {firstCube :: GHC.Types.Int, secondCube :: GHC.Types.Int}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  data GameState
+    = GameState {players :: [SpaceJunk.Player],
+                 gamePlayer :: GHC.Types.Int,
+                 haveWinner :: GHC.Base.Maybe GHC.Types.Int,
+                 cubes :: SpaceJunk.Cubes,
+                 land :: [SpaceJunk.Street],
+                 typeStep :: GHC.Base.String}
+459744eed0eee78cd9ffc4db9b28a435
+  data Images
+    = Images {imagePieceRed :: Graphics.Gloss.Internals.Data.Picture.Picture,
+              imagePieceBlue :: Graphics.Gloss.Internals.Data.Picture.Picture,
+              imagePieceGreen :: Graphics.Gloss.Internals.Data.Picture.Picture,
+              imagePieceYellow :: Graphics.Gloss.Internals.Data.Picture.Picture,
+              imagePlayingField :: Graphics.Gloss.Internals.Data.Picture.Picture,
+              imagePayMenu :: Graphics.Gloss.Internals.Data.Picture.Picture}
+62c88da2f7cf78bd3d8be740a5e7b48f
+  class Physical a where
+    getPosition :: a -> Graphics.Gloss.Internals.Data.Picture.Point
+    getCell :: a -> GHC.Types.Int
+    setPosition :: Graphics.Gloss.Internals.Data.Picture.Point
+                   -> a -> a
+    setCell :: GHC.Types.Int -> a -> a
+    {-# MINIMAL getPosition, getCell, setPosition, setCell #-}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  data Player
+    = Player {colour :: GHC.Types.Int,
+              money :: GHC.Types.Int,
+              property :: [SpaceJunk.Street],
+              playerCell :: GHC.Types.Int,
+              playerPosition :: Graphics.Gloss.Internals.Data.Picture.Point}
+32ad598b3bc019b9ced03464e345d74c
+  data Street
+    = Street {name :: GHC.Base.String,
+              zone :: GHC.Types.Int,
+              price :: GHC.Types.Int,
+              isRent :: GHC.Types.Bool,
+              priceRent :: GHC.Types.Int,
+              owner :: GHC.Types.Int}
+87f7f7f247d6e75b0636999637552f54
+  actionCell ::
+    SpaceJunk.Player
+    -> GHC.Types.Int
+    -> SpaceJunk.GameState
+    -> GHC.Types.Int
+    -> SpaceJunk.Player
+  {- Arity: 4,
+     Strictness: <S,1*U(U,U(U),U,U,U)><L,A><S(LLLLSL),1*U(A,A,A,A,1*U,A)><S(S),1*U(U)>m,
+     Inline: [0],
+     Unfolding: InlineRule (4, True, False)
+                (\ (w :: SpaceJunk.Player)
+                   (w1 :: GHC.Types.Int)
+                   (w2 :: SpaceJunk.GameState)
+                   (w3 :: GHC.Types.Int) ->
+                 case w of ww { SpaceJunk.Player ww1 ww2 ww3 ww4 ww5 ->
+                 case w2 of ww6 { SpaceJunk.GameState ww7 ww8 ww9 ww10 ww11 ww12 ->
+                 case w3 of ww13 { GHC.Types.I# ww14 ->
+                 case GHC.List.$w!!
+                        @ SpaceJunk.Street
+                        ww11
+                        (GHC.Prim.-#
+                           ww14
+                           1#) of wild { SpaceJunk.Street ds ds1 ds2 ds3 ds4 ds5 ->
+                 case ds1 of wild1 { GHC.Types.I# x ->
+                 case x of wild2 {
+                   DEFAULT
+                   -> case GHC.List.$w!!
+                             @ SpaceJunk.Street
+                             ww11
+                             (GHC.Prim.-#
+                                ww14
+                                1#) of wild3 { SpaceJunk.Street ds6 ds7 ds8 ds9 ds10 ds11 ->
+                      case ds7 of wild4 { GHC.Types.I# x1 ->
+                      case x1 of wild5 {
+                        DEFAULT
+                        -> case GHC.List.$w!!
+                                  @ SpaceJunk.Street
+                                  ww11
+                                  (GHC.Prim.-#
+                                     ww14
+                                     1#) of wild6 { SpaceJunk.Street ds12 ds13 ds14 ds15 ds16 ds17 ->
+                           case ds13 of wild7 { GHC.Types.I# x2 ->
+                           case x2 of wild8 {
+                             DEFAULT
+                             -> case GHC.List.$w!!
+                                       @ SpaceJunk.Street
+                                       ww11
+                                       (GHC.Prim.-#
+                                          ww14
+                                          1#) of wild9 { SpaceJunk.Street ds18 ds19 ds20 ds21 ds22 ds23 ->
+                                case ds19 of wild10 { GHC.Types.I# x3 ->
+                                case x3 of wild11 {
+                                  DEFAULT
+                                  -> case GHC.List.$w!!
+                                            @ SpaceJunk.Street
+                                            ww11
+                                            (GHC.Prim.-#
+                                               ww14
+                                               1#) of wild12 { SpaceJunk.Street ds24 ds25 ds26 ds27 ds28 ds29 ->
+                                     case ds25 of wild13 { GHC.Types.I# x4 ->
+                                     case x4 of wild14 {
+                                       DEFAULT
+                                       -> case GHC.List.$w!!
+                                                 @ SpaceJunk.Street
+                                                 ww11
+                                                 (GHC.Prim.-#
+                                                    ww14
+                                                    1#) of wild15 { SpaceJunk.Street ds30 ds31 ds32 ds33 ds34 ds35 ->
+                                          case ds31 of wild16 { GHC.Types.I# x5 ->
+                                          case x5 of wild17 {
+                                            DEFAULT -> SpaceJunk.Player ww1 ww2 ww3 ww4 ww5
+                                            19#
+                                            -> SpaceJunk.Player
+                                                 ww1
+                                                 (case ww2 of wild18 { GHC.Types.I# x6 ->
+                                                  GHC.Types.I# (GHC.Prim.-# x6 100#) })
+                                                 ww3
+                                                 ww4
+                                                 ww5 } } }
+                                       18#
+                                       -> SpaceJunk.Player
+                                            ww1
+                                            (case ww2 of wild15 { GHC.Types.I# x5 ->
+                                             GHC.Types.I# (GHC.Prim.-# x5 200#) })
+                                            ww3
+                                            SpaceJunk.actionCell1
+                                            ww5 } } }
+                                  17# -> SpaceJunk.Player ww1 ww2 ww3 ww4 ww5 } } }
+                             16#
+                             -> SpaceJunk.Player
+                                  ww1
+                                  (case ww2 of wild9 { GHC.Types.I# x3 ->
+                                   GHC.Types.I# (GHC.Prim.-# x3 200#) })
+                                  ww3
+                                  ww4
+                                  ww5 } } }
+                        15# -> SpaceJunk.Player ww1 ww2 ww3 ww4 ww5 } } }
+                   0#
+                   -> SpaceJunk.Player
+                        ww1
+                        (case ww2 of wild3 { GHC.Types.I# x1 ->
+                         GHC.Types.I# (GHC.Prim.+# x1 200#) })
+                        ww3
+                        ww4
+                        ww5 } } } } } }) -}
+f766087bbc14f15080f72dc4485d4ee9
+  actionCell1 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 11#) -}
+1a4bbd9566b7014439399a4a6abb0af4
+  canGo :: SpaceJunk.GameState -> GHC.Base.Maybe SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs, Strictness: <L,U>m2,
+     Unfolding: InlineRule (0, True, True)
+                (GHC.Base.Just @ SpaceJunk.GameState) -}
+635eb36a21c6df8afe840a4b187c6a4b
+  chanceCard :: SpaceJunk.Player -> SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,U,U)>m,
+     Unfolding: InlineRule (1, True, True)
+                (\ (player :: SpaceJunk.Player) -> player) -}
+c0fce75ce6188aeca0978d34b50661ab
+  changePlayerCell :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, Strictness: <S,1*U(U,U(U),U,U(U(U),U(U)),U,A)>m,
+     Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: SpaceJunk.GameState) ->
+                 case w of ww { SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case SpaceJunk.$wchangePlayerCell
+                        ww1
+                        ww2
+                        ww3
+                        ww4
+                        ww5 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                 SpaceJunk.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }) -}
+2f7e1c1b41fd1f04c226e646818c419b
+  changePlayerCell1 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell2) -}
+caec4912aff27653b26c503a35323b9b
+  changePlayerCell10 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+99bac05be4890cbce7178657eddd07ea
+  changePlayerCell11 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell12) -}
+82206438d5ba4c371bd299f90fc25748
+  changePlayerCell12 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
+be335c9a21d74f8387ce919c09cd60a0
+  changePlayerCell13 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell14) -}
+7a32727522fc8daa3a83d3d32824b018
+  changePlayerCell14 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\129\\209\\130\\208\\176\\209\\128\\209\\130"#) -}
+087ea1832a3e2370d544134bbeb366b4
+  changePlayerCell15 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell16) -}
+a93db05b5eee9480814acf547d035808
+  changePlayerCell16 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\131\\208\\187\\208\\184\\209\\134\\208\\176"#) -}
+d1fffff26f5fba1c168cfc9c92527bb0
+  changePlayerCell17 :: [SpaceJunk.Player]
+  {- Unfolding: (GHC.List.reverse1
+                   @ SpaceJunk.Player
+                   (GHC.Types.[] @ SpaceJunk.Player)
+                   (GHC.Types.[] @ SpaceJunk.Player)) -}
+ee5f4b30dcd1b9482afe9073ab7e529c
+  changePlayerCell2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\129\\208\\178\\208\\181\\209\\128\\209\\133\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+aced8bdab12ee08e884a66bd9286c24d
+  changePlayerCell3 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell4) -}
+7128447a456ef2e21f2006bc401cb137
+  changePlayerCell4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\130\\209\\142\\209\\128\\209\\140\\208\\188\\208\\176"#) -}
+ef9e75d1ca5056c7aa4bb9bd0afbc059
+  changePlayerCell5 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell6) -}
+1f6eb05caea048e4644108b8fc0e5d8c
+  changePlayerCell6 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\129\\209\\130\\208\\190\\209\\143\\208\\189\\208\\186\\208\\176"#) -}
+8766986e72f35a13abce0ce448d1a432
+  changePlayerCell7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell8) -}
+41301c4da16cff5c0e01c42e05572a61
+  changePlayerCell8 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\209\\136\\208\\176\\208\\189\\209\\129"#) -}
+1ae265bce78d6a0177312a246de57761
+  changePlayerCell9 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.changePlayerCell10) -}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  colour :: SpaceJunk.Player -> GHC.Types.Int
+  RecSel Left SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(SLLLL),1*U(1*U(U),A,A,A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Player) ->
+                 case ds of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 -> ds1 }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  cubes :: SpaceJunk.GameState -> SpaceJunk.Cubes
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLSLL),1*U(A,A,A,1*U(U,U),A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds4 }) -}
+a74328491cc73d7005f493b3005b368d
+  doStep ::
+    Graphics.Gloss.Internals.Data.Picture.Point
+    -> SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 2, Strictness: <L,A><S(LLSLLL),1*U(U,U(U),U,U,U,U)>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ (point :: Graphics.Gloss.Internals.Data.Picture.Point)
+                   (gameState :: SpaceJunk.GameState) ->
+                 case gameState of wild { SpaceJunk.GameState ds ds1 ds2 ds3 ds4 ds5 ->
+                 case ds2 of wild1 {
+                   GHC.Base.Nothing
+                   -> SpaceJunk.makeStepFeatures
+                        (SpaceJunk.changePlayerCell
+                           (SpaceJunk.GameState
+                              ds
+                              ds1
+                              (GHC.Base.Nothing @ GHC.Types.Int)
+                              SpaceJunk.doStep1
+                              ds4
+                              ds5))
+                   GHC.Base.Just ds6 -> wild } }) -}
+f66f4f74c9751b2ac188c03b24983923
+  doStep1 :: SpaceJunk.Cubes
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (SpaceJunk.Cubes SpaceJunk.doStep3 SpaceJunk.doStep2) -}
+889b3ae782c5c2ef6f526940355085ff
+  doStep2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 2#) -}
+b8613094018bb5f84a09ab53dbed4628
+  doStep3 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 1#) -}
+2c3fea4a051a1f6e380e051f601e0d03
+  drawGameState ::
+    SpaceJunk.Images
+    -> SpaceJunk.GameState
+    -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 2,
+     Strictness: <L,U(U,U,U,U,U,U)><S(LLLLLS),1*U(U,A,A,A,A,U)>,
+     Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: SpaceJunk.Images) (w1 :: SpaceJunk.GameState) ->
+                 case w1 of ww { SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 SpaceJunk.$wdrawGameState w ww1 ww6 }) -}
+447210a06ce4bdb906af520a8b6c2ce2
+  drawPayMenu ::
+    Graphics.Gloss.Internals.Data.Picture.Picture
+    -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 1, HasNoCafRefs, Strictness: <L,U>m11,
+     Unfolding: InlineRule (1, True, False)
+                (\ (image :: Graphics.Gloss.Internals.Data.Picture.Picture) ->
+                 Graphics.Gloss.Internals.Data.Picture.Translate
+                   SpaceJunk.drawPayMenu1
+                   SpaceJunk.drawPayMenu1
+                   image) -}
+df1404014de31cde41a640ef94d48f39
+  drawPayMenu1 :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 0.0#) -}
+043cc6b19b0520bfed8f843ccfc3cbde
+  drawPiece ::
+    Graphics.Gloss.Internals.Data.Picture.Picture
+    -> SpaceJunk.Player
+    -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 2, HasNoCafRefs,
+     Strictness: <L,U><L,1*U(A,A,A,A,1*U(1*U,1*U))>m11,
+     Unfolding: InlineRule (2, True, False)
+                (\ (image :: Graphics.Gloss.Internals.Data.Picture.Picture)
+                   (player :: SpaceJunk.Player) ->
+                 let {
+                   ds :: (GHC.Types.Float, GHC.Types.Float)
+                   = case player of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 ->
+                     ds5 }
+                 } in
+                 Graphics.Gloss.Internals.Data.Picture.Translate
+                   (case ds of wild { (,) x y -> x })
+                   (case ds of wild { (,) x y -> y })
+                   (Graphics.Gloss.Internals.Data.Picture.Scale
+                      SpaceJunk.drawPiece_r
+                      SpaceJunk.drawPiece_r
+                      image)) -}
+334693a9ff888e1b6510862e93a5f879
+  drawPiece_r :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 2.0#) -}
+99d7f2cbf98ff97a35e73bc91dcd757c
+  drawPlayingField ::
+    Graphics.Gloss.Internals.Data.Picture.Picture
+    -> Graphics.Gloss.Internals.Data.Picture.Picture
+  {- Arity: 1, HasNoCafRefs, Strictness: <L,U>m11,
+     Unfolding: InlineRule (1, True, False)
+                (\ (image :: Graphics.Gloss.Internals.Data.Picture.Picture) ->
+                 Graphics.Gloss.Internals.Data.Picture.Translate
+                   SpaceJunk.drawPayMenu1
+                   SpaceJunk.drawPayMenu1
+                   image) -}
+1d1d9b7a21613a07db2f63f349b29910
+  firstCube :: SpaceJunk.Cubes -> GHC.Types.Int
+  RecSel Left SpaceJunk.Cubes
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(SL),1*U(1*U(U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Cubes) ->
+                 case ds of wild { SpaceJunk.Cubes ds1 ds2 -> ds1 }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  gamePlayer :: SpaceJunk.GameState -> GHC.Types.Int
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LSLLLL),1*U(A,1*U(U),A,A,A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds2 }) -}
+e5f976ad4f5f350b997c462a7df0697d
+  getPlayerPosition ::
+    GHC.Types.Int
+    -> GHC.Types.Int -> Graphics.Gloss.Internals.Data.Picture.Point
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,1*U(U)><S(S),1*U(U)>m,
+     Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: GHC.Types.Int) (w1 :: GHC.Types.Int) ->
+                 case w1 of ww { GHC.Types.I# ww1 ->
+                 case SpaceJunk.$wgetPlayerPosition w ww1 of ww2 { (#,#) ww3 ww4 ->
+                 (ww3, ww4) } }) -}
+1344f7886c7f52d0f67155045dd06af7
+  getTypeCell :: GHC.Types.Int -> GHC.Base.String
+  {- Arity: 1, Strictness: <S(S),1*U(1*U)>, Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: GHC.Types.Int) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 SpaceJunk.$wgetTypeCell ww1 }) -}
+9af977fa6443146edf966da2a40099f8
+  handleGame ::
+    Graphics.Gloss.Internals.Interface.Event.Event
+    -> SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 2, Strictness: <S,1*U><S,1*U(U,U(U),U,U,U,U)>m,
+     Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: Graphics.Gloss.Internals.Interface.Event.Event)
+                   (w1 :: SpaceJunk.GameState) ->
+                 case w1 of ww { SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case w of wild {
+                   DEFAULT -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                   Graphics.Gloss.Internals.Interface.Event.EventKey ds ds1 ds2 mouse
+                   -> case ds of wild1 {
+                        DEFAULT -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                        Graphics.Gloss.Internals.Interface.Backend.Types.MouseButton ds3
+                        -> case ds3 of wild2 {
+                             DEFAULT -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                             Graphics.Gloss.Internals.Interface.Backend.Types.LeftButton
+                             -> case ds1 of wild3 {
+                                  Graphics.Gloss.Internals.Interface.Backend.Types.Down
+                                  -> case GHC.Base.eqString ww6 SpaceJunk.handleGame3 of wild4 {
+                                       GHC.Types.False
+                                       -> case GHC.Base.eqString
+                                                 ww6
+                                                 SpaceJunk.changePlayerCell15 of wild5 {
+                                            GHC.Types.False
+                                            -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                                            GHC.Types.True
+                                            -> case mouse of ww7 { (,) ww8 ww9 ->
+                                               case ww8 of ww10 { GHC.Types.F# ww11 ->
+                                               case SpaceJunk.$wisPay ww11 ww9 of wild6 {
+                                                 GHC.Base.Nothing
+                                                 -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                                                 GHC.Base.Just ds4
+                                                 -> case ds4 of wild7 {
+                                                      GHC.Types.False
+                                                      -> SpaceJunk.GameState
+                                                           ww1
+                                                           (case ww2 of wild8 { GHC.Types.I# x ->
+                                                            GHC.Types.I#
+                                                              (GHC.Prim.+#
+                                                                 (GHC.Prim.andI# x 3#)
+                                                                 1#) })
+                                                           ww3
+                                                           ww4
+                                                           ww5
+                                                           SpaceJunk.handleGame3
+                                                      GHC.Types.True
+                                                      -> SpaceJunk.GameState
+                                                           ww1
+                                                           (case ww2 of wild8 { GHC.Types.I# x ->
+                                                            GHC.Types.I#
+                                                              (GHC.Prim.+#
+                                                                 (GHC.Prim.andI# x 3#)
+                                                                 1#) })
+                                                           ww3
+                                                           ww4
+                                                           ww5
+                                                           SpaceJunk.handleGame3 } } } } }
+                                       GHC.Types.True
+                                       -> case ww3 of wild5 {
+                                            GHC.Base.Nothing
+                                            -> case SpaceJunk.$wchangePlayerCell
+                                                      ww1
+                                                      ww2
+                                                      (GHC.Base.Nothing @ GHC.Types.Int)
+                                                      SpaceJunk.doStep1
+                                                      ww5 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                                               case GHC.Base.eqString
+                                                      ww13
+                                                      SpaceJunk.changePlayerCell13 of wild6 {
+                                                 GHC.Types.False
+                                                 -> case GHC.Base.eqString
+                                                           ww13
+                                                           SpaceJunk.changePlayerCell9 of wild7 {
+                                                      GHC.Types.False
+                                                      -> case GHC.Base.eqString
+                                                                ww13
+                                                                SpaceJunk.changePlayerCell1 of wild8 {
+                                                           GHC.Types.False
+                                                           -> case GHC.Base.eqString
+                                                                     ww13
+                                                                     SpaceJunk.changePlayerCell5 of wild9 {
+                                                                GHC.Types.False
+                                                                -> SpaceJunk.GameState
+                                                                     ww8
+                                                                     ww9
+                                                                     ww10
+                                                                     ww11
+                                                                     ww12
+                                                                     ww13
+                                                                GHC.Types.True
+                                                                -> SpaceJunk.GameState
+                                                                     ww8
+                                                                     (case ww9 of wild10 { GHC.Types.I# x ->
+                                                                      GHC.Types.I#
+                                                                        (GHC.Prim.+#
+                                                                           (GHC.Prim.andI# x 3#)
+                                                                           1#) })
+                                                                     ww10
+                                                                     ww11
+                                                                     ww12
+                                                                     ww13 }
+                                                           GHC.Types.True
+                                                           -> case SpaceJunk.$wpayTax
+                                                                     ww8
+                                                                     ww9
+                                                                     ww10
+                                                                     ww11
+                                                                     ww12
+                                                                     ww13
+                                                                     SpaceJunk.makeStepFeatures2 of ww14 { (#,,,,,#) ww15 ww16 ww17 ww18 ww19 ww20 ->
+                                                              SpaceJunk.GameState
+                                                                ww15
+                                                                ww16
+                                                                ww17
+                                                                ww18
+                                                                ww19
+                                                                ww20 } }
+                                                      GHC.Types.True
+                                                      -> case SpaceJunk.$wpayTax
+                                                                ww8
+                                                                ww9
+                                                                ww10
+                                                                ww11
+                                                                ww12
+                                                                ww13
+                                                                SpaceJunk.makeStepFeatures1 of ww14 { (#,,,,,#) ww15 ww16 ww17 ww18 ww19 ww20 ->
+                                                         SpaceJunk.GameState
+                                                           ww15
+                                                           ww16
+                                                           ww17
+                                                           ww18
+                                                           ww19
+                                                           ww20 } }
+                                                 GHC.Types.True
+                                                 -> SpaceJunk.GameState
+                                                      ww8
+                                                      ww9
+                                                      ww10
+                                                      ww11
+                                                      ww12
+                                                      ww13 } }
+                                            GHC.Base.Just ds4
+                                            -> SpaceJunk.GameState ww1 ww2 wild5 ww4 ww5 ww6 } }
+                                  Graphics.Gloss.Internals.Interface.Backend.Types.Up
+                                  -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 } } } } }) -}
+1ef7023fc23ce10f92f63427ad6a232e
+  handleGame1 :: GHC.Base.Maybe GHC.Types.Bool
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Base.Just @ GHC.Types.Bool GHC.Types.True) -}
+1440519ce5905e1e789314330dcb4215
+  handleGame2 :: GHC.Base.Maybe GHC.Types.Bool
+  {- HasNoCafRefs, Strictness: m2,
+     Unfolding: (GHC.Base.Just @ GHC.Types.Bool GHC.Types.False) -}
+9b5f7d0e1ae96c0f60224c2a4ca0a217
+  handleGame3 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.handleGame4) -}
+fc026b18bf3d32785f2c9cb0935679a1
+  handleGame4 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("\\209\\133\\208\\190\\208\\180"#) -}
+23cce1a015b63ba75960e5afb9c6eb2c
+  handlePay ::
+    Graphics.Gloss.Internals.Interface.Event.Event
+    -> SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 2, HasNoCafRefs,
+     Strictness: <S,1*U><S,1*U(U,U,U,U,U,U)>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ (ds :: Graphics.Gloss.Internals.Interface.Event.Event)
+                   (eta :: SpaceJunk.GameState) ->
+                 case ds of wild {
+                   DEFAULT -> eta
+                   Graphics.Gloss.Internals.Interface.Event.EventKey ds1 ds2 ds3 mouse
+                   -> case ds1 of wild1 {
+                        DEFAULT -> eta
+                        Graphics.Gloss.Internals.Interface.Backend.Types.MouseButton ds4
+                        -> case ds4 of wild2 {
+                             DEFAULT -> eta
+                             Graphics.Gloss.Internals.Interface.Backend.Types.LeftButton
+                             -> case ds2 of wild3 { DEFAULT -> eta } } } }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  haveWinner :: SpaceJunk.GameState -> GHC.Base.Maybe GHC.Types.Int
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLSLLL),1*U(A,A,1*U,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds3 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePayMenu ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLLS),1*U(A,A,A,A,A,1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds6 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePieceBlue ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LSLLLL),1*U(A,1*U,A,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds2 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePieceGreen ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLSLLL),1*U(A,A,1*U,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds3 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePieceRed ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(SLLLLL),1*U(1*U,A,A,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds1 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePieceYellow ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLSLL),1*U(A,A,A,1*U,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds4 }) -}
+459744eed0eee78cd9ffc4db9b28a435
+  imagePlayingField ::
+    SpaceJunk.Images -> Graphics.Gloss.Internals.Data.Picture.Picture
+  RecSel Left SpaceJunk.Images
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLSL),1*U(A,A,A,A,1*U,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Images) ->
+                 case ds of wild { SpaceJunk.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds5 }) -}
+2497d23998c903f34c3177b500ae3c25
+  initGame :: SpaceJunk.GameState
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.GameState
+                   SpaceJunk.initGame253
+                   SpaceJunk.doStep3
+                   (GHC.Base.Nothing @ GHC.Types.Int)
+                   SpaceJunk.initGame252
+                   SpaceJunk.initGame1
+                   SpaceJunk.handleGame3) -}
+1037a4e7772d38c0b81d23af45518392
+  initGame1 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame245
+                   SpaceJunk.initGame2) -}
+af160b2b4386275efc4f3d50b6d087f4
+  initGame10 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame202
+                   SpaceJunk.initGame11) -}
+4e0f48d2a8c176ef35018d77cf502d8c
+  initGame100 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\158\\209\\130\\208\\191\\209\\128\\208\\176\\208\\178\\208\\187\\209\\143\\208\\185\\209\\129\\209\\143 \\208\\178 \\208\\176\\208\\186\\208\\176\\208\\180\\208\\181\\208\\188"#) -}
+e5fce6ed70e87b813b12aff5d35a23c6
+  initGame101 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame104
+                   SpaceJunk.initGame103
+                   SpaceJunk.initGame102
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+77153c0d0568d189acca4b4dbf592185
+  initGame102 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 280#) -}
+8bf08076ff05ab726947e3062c1e057a
+  initGame103 :: GHC.Types.Int
+  {- Strictness: x -}
+b9659dd56e5c67a0ccce5fdcd79b297b
+  initGame104 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame105) -}
+a61f50bd683c6ae81378a3e42ce98bf3
+  initGame105 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\156\\208\\181\\208\\180\\208\\184\\208\\176\\208\\187\\208\\176\\208\\177"#) -}
+3ffb9b1ca8149f6b630bd7894f6d7a2f
+  initGame106 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame109
+                   SpaceJunk.initGame108
+                   SpaceJunk.initGame107
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+2cd622bd1e5cdc83a6151f8a7b56eff4
+  initGame107 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 150#) -}
+401d633512d26d8ac282bad0031fa6dc
+  initGame108 :: GHC.Types.Int
+  {- Strictness: x -}
+eb426e43c572bffa50b6c0094efc8b0c
+  initGame109 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame110) -}
+f90b2a10a16d2b046705760cbce721ff
+  initGame11 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame194
+                   SpaceJunk.initGame12) -}
+6b51c60f1de150c262f2fb25dc70c484
+  initGame110 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\162\\208\\181\\209\\133\\208\\189\\208\\190\\209\\129\\209\\132\\208\\181\\209\\128\\208\\176"#) -}
+e898fb2a1bdcfe7b3f7488f29d3056fe
+  initGame111 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame114
+                   SpaceJunk.initGame113
+                   SpaceJunk.initGame112
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+c3fd954636219b67eaccb9a8cb242a37
+  initGame112 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 260#) -}
+8c5e29e12a0f3a74702c90826d36a3f2
+  initGame113 :: GHC.Types.Int
+  {- Strictness: x -}
+5b50a29ad049a4777680443ffdbf104f
+  initGame114 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame115) -}
+67bedab443210320cdfdde8a2b5ea637
+  initGame115 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\155\\208\\146\\208\\154"#) -}
+53a44d6a0cf7b67389bcda309f1e21a3
+  initGame116 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame118
+                   SpaceJunk.initGame117
+                   SpaceJunk.initGame112
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+3b33e51431dfe40c4c6b06ae1f68d5a3
+  initGame117 :: GHC.Types.Int
+  {- Strictness: x -}
+f2d0aff07a013369a3c27b184e2b4acf
+  initGame118 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame119) -}
+0dcd376edff62d0589939d7452df1ee1
+  initGame119 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\155\\208\\145\\208\\152\\208\\161"#) -}
+aebe1c77cfb024b2e201074c2931e198
+  initGame12 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame190
+                   SpaceJunk.initGame13) -}
+e3e80a693e29c1a55f8e65555022f56d
+  initGame120 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame122
+                   SpaceJunk.initGame121
+                   SpaceJunk.makeStepFeatures1
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+fa14e17bae0b8f4b202650b98b392712
+  initGame121 :: GHC.Types.Int
+  {- Strictness: x -}
+475103c1d40b810cdd073a40180a68e4
+  initGame122 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame123) -}
+3f59ed275130de8ef2ffe25fe868f8fb
+  initGame123 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 3"#) -}
+e7312bb6425228f91faff0f15c12a96a
+  initGame124 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame127
+                   SpaceJunk.initGame126
+                   SpaceJunk.initGame125
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+ea7e6b30a2d2a764bc6e85b7b239b9fa
+  initGame125 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 240#) -}
+cb23b77c904a49fa7f3fa58851a2257f
+  initGame126 :: GHC.Types.Int
+  {- Strictness: x -}
+aa3fec8da6d3bd86fdf27efebd11249e
+  initGame127 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame128) -}
+0034d7a43a94bdddfe48b6b80eb238bd
+  initGame128 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\156\\208\\158\\208\\162\\208\\146\\208\\171"#) -}
+cbb83999284ea54e514e99944c2dad4d
+  initGame129 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame132
+                   SpaceJunk.initGame131
+                   SpaceJunk.initGame130
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+3823fc2b36d5dfddd7de177f5cb9f6f5
+  initGame13 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame186
+                   SpaceJunk.initGame14) -}
+124d4be9e4689533388cff4e3e9d1b7a
+  initGame130 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 220#) -}
+296f6d76de20278d482f9262aee5a02c
+  initGame131 :: GHC.Types.Int
+  {- Strictness: x -}
+d93fa6a4412b0966c2cce506b32b6187
+  initGame132 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame133) -}
+87c9658f9ae1edab08822f4643cfc8b5
+  initGame133 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\148\\208\\147\\208\\156\\208\\161"#) -}
+d7985bc044005f5a853c4ed56c558b99
+  initGame134 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame65
+                   SpaceJunk.initGame139
+                   SpaceJunk.initGame138
+                   SpaceJunk.initGame137
+                   SpaceJunk.initGame136
+                   SpaceJunk.initGame135) -}
+1c3d9834d5966650b7b3193d1396966f
+  initGame135 :: GHC.Types.Int
+  {- Strictness: x -}
+14291c95ae5ae654e4a9bde0fc9e76ce
+  initGame136 :: GHC.Types.Int
+  {- Strictness: x -}
+ec6d952183d38f9f3e364dde1fa78a8f
+  initGame137 :: GHC.Types.Bool
+  {- Strictness: x -}
+6c97b3ddbd803da23429308776788b7d
+  initGame138 :: GHC.Types.Int
+  {- Strictness: x -}
+dbef8c420eb6b5f513fe49a25e1dcfa8
+  initGame139 :: GHC.Types.Int
+  {- Strictness: x -}
+9bae45e2b9b8672099a6d10fed63b167
+  initGame14 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame181
+                   SpaceJunk.initGame15) -}
+b93896df6c3b3b7e390e551e337201fe
+  initGame140 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame142
+                   SpaceJunk.initGame141
+                   SpaceJunk.initGame130
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+f8083ea0bbcd6ccdbf43b1069515dc49
+  initGame141 :: GHC.Types.Int
+  {- Strictness: x -}
+d61d8522194bd6954b29f5c288bdddd4
+  initGame142 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame143) -}
+a38d1de3a0fa1d66694303195d639d61
+  initGame143 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\162\\208\\181\\208\\190\\209\\128\\208\\184\\209\\143 \\209\\128\\208\\184\\209\\129\\208\\186\\208\\190\\208\\178"#) -}
+5888b4971f273e7fbe986005a83bb296
+  initGame144 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame150
+                   SpaceJunk.initGame149
+                   SpaceJunk.initGame148
+                   SpaceJunk.initGame147
+                   SpaceJunk.initGame146
+                   SpaceJunk.initGame145) -}
+34fe6f3d67eb321f22c2d18023a0a0f1
+  initGame145 :: GHC.Types.Int
+  {- Strictness: x -}
+72b9cb73059863262ced8cb06bc8a97d
+  initGame146 :: GHC.Types.Int
+  {- Strictness: x -}
+bfc8560e7d84b4ec802dde943fca76f6
+  initGame147 :: GHC.Types.Bool
+  {- Strictness: x -}
+6af53780234e30924cbb821bfd497d7b
+  initGame148 :: GHC.Types.Int
+  {- Strictness: x -}
+8639a77e21917ccceb1e23037ca4b24c
+  initGame149 :: GHC.Types.Int
+  {- Strictness: x -}
+3c83bc47c303b62235f2408bcdb596d9
+  initGame15 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame176
+                   SpaceJunk.initGame16) -}
+44c00bcb73abc72fdb53003f0334fcae
+  initGame150 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame151) -}
+35e29c95eb11b2188ff76c00a14cd4d6
+  initGame151 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\145\\208\\181\\209\\129\\208\\191\\208\\187\\208\\176\\209\\130\\208\\189\\208\\176\\209\\143 \\208\\186\\209\\131\\209\\128\\208\\184\\208\\187\\208\\186\\208\\176"#) -}
+9e254d22213ff9ab263dd479ec3b1fdc
+  initGame152 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame154
+                   SpaceJunk.initGame153
+                   SpaceJunk.makeStepFeatures1
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+460267d01c03a50a7206cfdae49c548c
+  initGame153 :: GHC.Types.Int
+  {- Strictness: x -}
+7144853fb783f117ff0e681a715cf1b2
+  initGame154 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame155) -}
+93efa56e61d35fa48663726e2f29b134
+  initGame155 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\152\\208\\158 \\208\\148\\208\\181\\208\\189\\208\\184\\209\\129\\208\\190\\208\\178"#) -}
+a317279257747578d83764b52855a737
+  initGame156 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame159
+                   SpaceJunk.initGame158
+                   SpaceJunk.initGame157
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+2d159756a57ee9ab81bd113585ef6c76
+  initGame157 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 180#) -}
+caea04f8debc6a7c55257c5d20a09062
+  initGame158 :: GHC.Types.Int
+  {- Strictness: x -}
+2ef2acc0172b3af5a9999fb5c123bd28
+  initGame159 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame160) -}
+d99da4e98d7b4428776b59665833ca44
+  initGame16 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame172
+                   SpaceJunk.initGame17) -}
+5537b372e47aeaed6cce63d7fc221777
+  initGame160 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\152\\208\\158 \\208\\157\\208\\190\\208\\178\\208\\184\\208\\186\\208\\190\\208\\178\\208\\176"#) -}
+92472c9ddce0b6ebb42873170b58b7d7
+  initGame161 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame166
+                   SpaceJunk.initGame165
+                   SpaceJunk.initGame164
+                   GHC.Types.False
+                   SpaceJunk.initGame163
+                   SpaceJunk.initGame162) -}
+2c5c9244b69b5388e1a78616acece1f1
+  initGame162 :: GHC.Types.Int
+  {- Strictness: x -}
+b028f0239efbd5d3ac55c2f1e8d7ed3c
+  initGame163 :: GHC.Types.Int
+  {- Strictness: x -}
+adc8cc8115a53b7c325f8d5d1d8e219b
+  initGame164 :: GHC.Types.Int
+  {- Strictness: x -}
+d0f475bcff98771421854c4b27d550f8
+  initGame165 :: GHC.Types.Int
+  {- Strictness: x -}
+bf72a9d9a5b0b8225b40c4f1da9cc2c1
+  initGame166 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame167) -}
+d61fe9b1115ec4baaca3bb1490519e41
+  initGame167 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\158\\208\\177\\209\\137\\208\\181\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\189\\208\\176\\209\\143 \\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
+e1f7521355a36d379679e96aa9271a08
+  initGame168 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame170
+                   SpaceJunk.initGame169
+                   SpaceJunk.initGame157
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+c2ce5b0e55e61bef26f3b29e2aa6daf8
+  initGame169 :: GHC.Types.Int
+  {- Strictness: x -}
+017e3ae0d426e92ff9c3ec6b6e0bc475
+  initGame17 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame168
+                   SpaceJunk.initGame18) -}
+758b5e3eb7f34371a6c7a3fc231278db
+  initGame170 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame171) -}
+bd5564938c7c61578181f7c7a7378a0a
+  initGame171 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\152\\208\\158 \\208\\156\\208\\190\\209\\128\\208\\190\\208\\183\\208\\190\\208\\178"#) -}
+7c28160f9401cf36c96f03094b8b69b9
+  initGame172 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame174
+                   SpaceJunk.initGame173
+                   SpaceJunk.makeStepFeatures1
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+ceebb6cd271288b3f19b943ecdc07325
+  initGame173 :: GHC.Types.Int
+  {- Strictness: x -}
+44428122823efe8e09b3c049851fa943
+  initGame174 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame175) -}
+dd823ba88c4d6adbebe4bc4a26fe8601
+  initGame175 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 2"#) -}
+a783c6d57c6e2ecba6156839894f6eb5
+  initGame176 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame179
+                   SpaceJunk.initGame178
+                   SpaceJunk.initGame177
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+616ebb810015705771b65fc7f820f491
+  initGame177 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 160#) -}
+0fde5664bb234c3427fd3e9440b92a1d
+  initGame178 :: GHC.Types.Int
+  {- Strictness: x -}
+d3ed4c20c23a131d4219b6875f8e9471
+  initGame179 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame180) -}
+d3316a85316f1cbce90f25e9a111a6ea
+  initGame18 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame161
+                   SpaceJunk.initGame19) -}
+83213d0d79efcf4e9e14a17bd21668e5
+  initGame180 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\186\\208\\184\\208\\177 \\208\\148\\208\\184\\209\\129\\208\\186\\209\\128\\208\\181\\209\\130\\208\\189\\209\\139\\208\\185 \\208\\176\\208\\189\\208\\176\\208\\187\\208\\184\\208\\183"#) -}
+00af3afe7e3fa6e7c8f15ec993f77625
+  initGame181 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame184
+                   SpaceJunk.initGame183
+                   SpaceJunk.initGame182
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+2b862bca56130d3653d56ddc47f3b82a
+  initGame182 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 140#) -}
+d82dc4460b99b74fd9707db0e7bb2813
+  initGame183 :: GHC.Types.Int
+  {- Strictness: x -}
+d025f4dbcfec8350445e9fd71530fa96
+  initGame184 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame185) -}
+1993dab59da9a4f386151bfc974b9a29
+  initGame185 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\154\\208\\184\\208\\177 \\208\\148\\208\\164\\208\\161\\208\\144"#) -}
+ed43943879feb0a1a8979bd45f1cf7f3
+  initGame186 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame188
+                   SpaceJunk.initGame187
+                   SpaceJunk.initGame107
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+dc002ce3b64134208621e5c0282668d5
+  initGame187 :: GHC.Types.Int
+  {- Strictness: x -}
+659607677a365f4a7aaf1edf692900c8
+  initGame188 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame189) -}
+d1f49d3afa322d5d7365639a4f6c3d7d
+  initGame189 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\159\\208\\190\\209\\130\\208\\181\\209\\128\\209\\143\\209\\136\\208\\186\\208\\184"#) -}
+60a202ef1b7ce314b21cdc92b6a40296
+  initGame19 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame156
+                   SpaceJunk.initGame20) -}
+5433f3e417d122409ed705e305e14e4b
+  initGame190 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame192
+                   SpaceJunk.initGame191
+                   SpaceJunk.initGame182
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+57e839d1fbc79635fc82449d3757ed41
+  initGame191 :: GHC.Types.Int
+  {- Strictness: x -}
+29e96609f2d6d19cbb2a345afd97c1a3
+  initGame192 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame193) -}
+83a00e7e85d41c1eee4a68aec623f269
+  initGame193 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\154\\208\\184\\208\\177 \\208\\148\\208\\156\\208\\156\\208\\154"#) -}
+4bf73ea2b5306dc3c8d7237f777598cb
+  initGame194 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame200
+                   SpaceJunk.initGame199
+                   SpaceJunk.initGame198
+                   SpaceJunk.initGame197
+                   SpaceJunk.initGame196
+                   SpaceJunk.initGame195) -}
+5b06d6e83256080b3f160307683a97e8
+  initGame195 :: GHC.Types.Int
+  {- Strictness: x -}
+3a534115efcf6581fb2174314d0bbd01
+  initGame196 :: GHC.Types.Int
+  {- Strictness: x -}
+61297fdcc166c25bdd9000cac0f2556d
+  initGame197 :: GHC.Types.Bool
+  {- Strictness: x -}
+c735f109d3bf7ea2ab807365b372edd5
+  initGame198 :: GHC.Types.Int
+  {- Strictness: x -}
+5d023b79312969ea188752b6fb341206
+  initGame199 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 17#) -}
+63bd8243126ef606863d6f31ea9b0a7d
+  initGame2 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame241
+                   SpaceJunk.initGame3) -}
+530b2ca09367059bec5825ff68adbde1
+  initGame20 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame152
+                   SpaceJunk.initGame21) -}
+d0eff8774e33e2248c3164dc16c9d466
+  initGame200 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame201) -}
+467a360b84b59abe6c7265c997fb2021
+  initGame201 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\186\\208\\176\\208\\180\\208\\181\\208\\188"#) -}
+f6c6597b112e47106380d023616056bb
+  initGame202 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame205
+                   SpaceJunk.initGame204
+                   SpaceJunk.initGame203
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+42d2c4043d5f8e02f1a97f2a708c9f83
+  initGame203 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 120#) -}
+462383b75fead5f8a07dfb463c3b2ee2
+  initGame204 :: GHC.Types.Int
+  {- Strictness: x -}
+a1f12b4f35a23640bb6e0efe071f7fb7
+  initGame205 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame206) -}
+4bb4876f8f225e3e6524f9954d6bc053
+  initGame206 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\159 \\208\\154\\208\\190\\209\\128\\209\\128\\208\\181\\208\\186\\209\\130\\208\\189\\208\\190\\209\\129\\209\\130\\209\\140 \\208\\191\\209\\128\\208\\190\\208\\179\\209\\128\\208\\176\\208\\188\\208\\188"#) -}
+74f512eba85736e355cf96961944db9c
+  initGame207 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame209
+                   SpaceJunk.initGame208
+                   SpaceJunk.makeStepFeatures2
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+8306e13bf6d6f3216da6934d1085c4a6
+  initGame208 :: GHC.Types.Int
+  {- Strictness: x -}
+2fdeba9d76a6012d99e0b34cc50a438d
+  initGame209 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame210) -}
+0034cd2a9e7df77848ca52dc9478fee8
+  initGame21 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame144
+                   SpaceJunk.initGame22) -}
+f8140582d483d9a8f56fe2fe2fc0c091
+  initGame210 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\159 \\208\\163\\208\\148\\208\\152\\208\\161"#) -}
+03c671b1637dad94969bb67d37b1b9d3
+  initGame211 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame65
+                   SpaceJunk.initGame216
+                   SpaceJunk.initGame215
+                   SpaceJunk.initGame214
+                   SpaceJunk.initGame213
+                   SpaceJunk.initGame212) -}
+ed9dd672e219014afb9b0a4aeaaa2635
+  initGame212 :: GHC.Types.Int
+  {- Strictness: x -}
+2c80bc21c73b311750523320ddc624db
+  initGame213 :: GHC.Types.Int
+  {- Strictness: x -}
+b5a01aecdd402318b3c9446bc72f4ae7
+  initGame214 :: GHC.Types.Bool
+  {- Strictness: x -}
+f53cd952bd0267d0e4d6a17fae6971eb
+  initGame215 :: GHC.Types.Int
+  {- Strictness: x -}
+1992a7e60ac2bca87a5edcc1da07f088
+  initGame216 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 15#) -}
+0256a0812e58cbfa7ab5cb46c755fbd5
+  initGame217 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame219
+                   SpaceJunk.initGame218
+                   SpaceJunk.makeStepFeatures2
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+defab2b182e3a47ec277de50866eea38
+  initGame218 :: GHC.Types.Int
+  {- Strictness: x -}
+a61230193b96ab8a649aaa3e122c75d0
+  initGame219 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame220) -}
+0b65c6fd4c4fd20d7298586a720e0d11
+  initGame22 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame140
+                   SpaceJunk.initGame23) -}
+d5298102d0f24c24cf9b3da1db3daccf
+  initGame220 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\159 \\208\\159\\208\\166\\208\\148"#) -}
+a9357b6fa8b84b7808a77a5f6c8d26e9
+  initGame221 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame223
+                   SpaceJunk.initGame222
+                   SpaceJunk.makeStepFeatures1
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+6c3ec2805f03945fa69d274c73e73624
+  initGame222 :: GHC.Types.Int
+  {- Strictness: x -}
+9a45ad9a9f36645f7258fdd7f5157be7
+  initGame223 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame224) -}
+82841f50017c8ebab3b76a36c23999ba
+  initGame224 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 1"#) -}
+4e77b902eef1cd5a91cf0cc184fb87ab
+  initGame225 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame229
+                   SpaceJunk.initGame228
+                   SpaceJunk.makeStepFeatures1
+                   SpaceJunk.initGame227
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame226) -}
+467cb8ab59b7873879d57445ea1d489d
+  initGame226 :: GHC.Types.Int
+  {- Strictness: x -}
+50e678da967f6b3f7d39ea7e9c34c689
+  initGame227 :: GHC.Types.Bool
+  {- Strictness: x -}
+285a475871f3505cad3354fceabd02d3
+  initGame228 :: GHC.Types.Int
+  {- Strictness: x -}
+a83a74639218c83cd86083e88ad80eec
+  initGame229 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame230) -}
+d28acbbc8a3e86fedd5f6c935262c4c4
+  initGame23 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame134
+                   SpaceJunk.initGame24) -}
+36d641fdd5af8f5d1aceba2fa0349dac
+  initGame230 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\157\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+cc10481d7b99f0157f4e0bfe38c50abf
+  initGame231 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame234
+                   SpaceJunk.initGame233
+                   SpaceJunk.initGame232
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+4b4b9ae80c107f51035ff107151ff8d9
+  initGame232 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 60#) -}
+b6fadb3a0a647ac1b8b7f13c22707411
+  initGame233 :: GHC.Types.Int
+  {- Strictness: x -}
+423f11840b5671dc525b709455ddb8a8
+  initGame234 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame235) -}
+cc93a4927b075abd410dedfc226ec49e
+  initGame235 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\154\\208\\152 \\208\\159\\208\\176\\209\\128\\208\\176\\208\\187\\208\\187\\208\\181\\208\\187\\209\\140\\208\\189\\209\\139\\208\\181 \\208\\178\\209\\139\\209\\135\\208\\184\\209\\129\\208\\187\\208\\181\\208\\189\\208\\184\\209\\143"#) -}
+dd74523e6623514c7f83fcf7f7bd7638
+  initGame236 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame166
+                   SpaceJunk.initGame240
+                   SpaceJunk.initGame239
+                   GHC.Types.False
+                   SpaceJunk.initGame238
+                   SpaceJunk.initGame237) -}
+0f1586cc8194cef33d4880030397a589
+  initGame237 :: GHC.Types.Int
+  {- Strictness: x -}
+7572a18ec331a4a69285fb01f1a4eed5
+  initGame238 :: GHC.Types.Int
+  {- Strictness: x -}
+feacaa35943a58003cbeb1c9237b6551
+  initGame239 :: GHC.Types.Int
+  {- Strictness: x -}
+a51291ce281defe26883425018d55e6f
+  initGame24 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame129
+                   SpaceJunk.initGame25) -}
+09782a32be9f6c2f71c8712baaea30f5
+  initGame240 :: GHC.Types.Int
+  {- Strictness: x -}
+a95db690139474683d29769f927866f5
+  initGame241 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame243
+                   SpaceJunk.initGame242
+                   SpaceJunk.initGame232
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+925959ead7bcc75340f3956f893232a9
+  initGame242 :: GHC.Types.Int
+  {- Strictness: x -}
+fb66d41dcbffeceaaf0285547065e902
+  initGame243 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame244) -}
+fc45a69e81a8ac3fb223b1783fe6f45c
+  initGame244 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\154\\208\\152 \\208\\154\\208\\178\\208\\176\\208\\189\\209\\130\\208\\190\\208\\178\\208\\176\\209\\143 \\208\\184\\208\\189\\209\\132\\208\\190\\209\\128\\208\\188\\208\\176\\209\\130\\208\\184\\208\\186\\208\\176"#) -}
+2331ab78fa5bc6f37661bc65549630eb
+  initGame245 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame250
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame249
+                   SpaceJunk.initGame248
+                   SpaceJunk.initGame247
+                   SpaceJunk.initGame246) -}
+c0229446b5cd1fbccdb273c227e052a4
+  initGame246 :: GHC.Types.Int
+  {- Strictness: x -}
+3cb230fcf93ad568d2451de0a44174e5
+  initGame247 :: GHC.Types.Int
+  {- Strictness: x -}
+f70d731ae91e094a94f7cdcec7f16f51
+  initGame248 :: GHC.Types.Bool
+  {- Strictness: x -}
+959b6c92b3df09a75503ec62cd30e07d
+  initGame249 :: GHC.Types.Int
+  {- Strictness: x -}
+894f82e69955feb72c3c53286f43b347
+  initGame25 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame124
+                   SpaceJunk.initGame26) -}
+cdd547ec957fd1ee205f2d01070187fb
+  initGame250 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame251) -}
+8c1bee7c34265930e97a27527a81b15b
+  initGame251 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\209\\130\\208\\176\\209\\128\\209\\130"#) -}
+d8cf486c623fa4124daa39345fb8dc7f
+  initGame252 :: SpaceJunk.Cubes
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (SpaceJunk.Cubes
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame42) -}
+1e689c0f26aef60e3d6df784e9aaf642
+  initGame253 :: [SpaceJunk.Player]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Player
+                   SpaceJunk.initGame266
+                   SpaceJunk.initGame254) -}
+25409453af7275c255ddd8fc453447d2
+  initGame254 :: [SpaceJunk.Player]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Player
+                   SpaceJunk.initGame264
+                   SpaceJunk.initGame255) -}
+4b7a2a1d66f69c8dcbd6e23225064698
+  initGame255 :: [SpaceJunk.Player]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Player
+                   SpaceJunk.initGame261
+                   SpaceJunk.initGame256) -}
+5b46fac3a890d3e2ee7b6a282cf41636
+  initGame256 :: [SpaceJunk.Player]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Player
+                   SpaceJunk.initGame257
+                   (GHC.Types.[] @ SpaceJunk.Player)) -}
+ccd61bc4f0dfdbf2787a8ad5c9ee0f8d
+  initGame257 :: SpaceJunk.Player
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Player
+                   SpaceJunk.initGame259
+                   SpaceJunk.initGame260
+                   (GHC.Types.[] @ SpaceJunk.Street)
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame258) -}
+74470347d7fcaa97e1a012bfa46305a3
+  initGame258 :: Graphics.Gloss.Internals.Data.Picture.Point
+  {- Unfolding: (case SpaceJunk.$wgetPlayerPosition
+                        SpaceJunk.initGame259
+                        1# of ww { (#,#) ww1 ww2 ->
+                 (ww1, ww2) }) -}
+612325c189876d31c0ab7b20931d607c
+  initGame259 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 4#) -}
+fdc810ce52fa8ad691dc2062abd25b77
+  initGame26 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame120
+                   SpaceJunk.initGame27) -}
+0f4262893135250f99ec0c8347b4f702
+  initGame260 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 15000#) -}
+68a3b45a5dd8e177cdc15bfc2ca425ea
+  initGame261 :: SpaceJunk.Player
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Player
+                   SpaceJunk.initGame263
+                   SpaceJunk.initGame260
+                   (GHC.Types.[] @ SpaceJunk.Street)
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame262) -}
+ab45c46694ed9b1c7d1aa86f3d9fef63
+  initGame262 :: Graphics.Gloss.Internals.Data.Picture.Point
+  {- Unfolding: (case SpaceJunk.$wgetPlayerPosition
+                        SpaceJunk.initGame263
+                        1# of ww { (#,#) ww1 ww2 ->
+                 (ww1, ww2) }) -}
+67e602b28ee139ef17e6ca7ce7e603ad
+  initGame263 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 3#) -}
+b4e2119a781f65902aef4faadebe9d2e
+  initGame264 :: SpaceJunk.Player
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Player
+                   SpaceJunk.doStep2
+                   SpaceJunk.initGame260
+                   (GHC.Types.[] @ SpaceJunk.Street)
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame265) -}
+641a29ed8015c632ff98521ce6a992fc
+  initGame265 :: Graphics.Gloss.Internals.Data.Picture.Point
+  {- Unfolding: (case SpaceJunk.$wgetPlayerPosition
+                        SpaceJunk.doStep2
+                        1# of ww { (#,#) ww1 ww2 ->
+                 (ww1, ww2) }) -}
+6758d7eaa30267e406b2b1e3b19997ec
+  initGame266 :: SpaceJunk.Player
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Player
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame260
+                   (GHC.Types.[] @ SpaceJunk.Street)
+                   SpaceJunk.doStep3
+                   SpaceJunk.initGame267) -}
+7d4551ef621beb2fbf1a3f1e2c46dce4
+  initGame267 :: Graphics.Gloss.Internals.Data.Picture.Point
+  {- Unfolding: (case SpaceJunk.$wgetPlayerPosition
+                        SpaceJunk.doStep3
+                        1# of ww { (#,#) ww1 ww2 ->
+                 (ww1, ww2) }) -}
+831833c983bfabcb4097854f461aaee7
+  initGame27 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame116
+                   SpaceJunk.initGame28) -}
+f3b5183695d070c8ee8fee1f8cf88ef7
+  initGame28 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame111
+                   SpaceJunk.initGame29) -}
+b3053708c5039d72509f5243acb709f8
+  initGame29 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame106
+                   SpaceJunk.initGame30) -}
+5f5b5f05aac311cc1861626ecab01696
+  initGame3 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame236
+                   SpaceJunk.initGame4) -}
+acebd358e8922f3da6f29c7431a5090d
+  initGame30 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame101
+                   SpaceJunk.initGame31) -}
+7b2ab2696774eb7b5ef32cc5beea719a
+  initGame31 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame93
+                   SpaceJunk.initGame32) -}
+16316249511c635296372af0ec1398cb
+  initGame32 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame89
+                   SpaceJunk.initGame33) -}
+3ad3cbae1a7f7a8b0d9cece002fb2d0c
+  initGame33 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame84
+                   SpaceJunk.initGame34) -}
+cf3148477cef6ce39afd725a2fffe453
+  initGame34 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame76
+                   SpaceJunk.initGame35) -}
+7cf51c77ec6cd02727cf15c8ac6c4312
+  initGame35 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame71
+                   SpaceJunk.initGame36) -}
+f19d9cdbda2068bae91b6cd67e44cb56
+  initGame36 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame67
+                   SpaceJunk.initGame37) -}
+f34bb180c03a92acad80e8c1cb6fa965
+  initGame37 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame59
+                   SpaceJunk.initGame38) -}
+c8ad4a52744af7db34cf529a3c305dbd
+  initGame38 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame54
+                   SpaceJunk.initGame39) -}
+81b9a6ee925e9e305895110ff3f3f634
+  initGame39 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame47
+                   SpaceJunk.initGame40) -}
+fe5ffa033e0cec823b69949c83b2e75f
+  initGame4 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame231
+                   SpaceJunk.initGame5) -}
+6e76e063c0cf016e9c319b9402af30ab
+  initGame40 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame41
+                   (GHC.Types.[] @ SpaceJunk.Street)) -}
+2e9a76b4b2647290c9e3c8f2ed8066b4
+  initGame41 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame45
+                   SpaceJunk.initGame44
+                   SpaceJunk.initGame43
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+746214a9f18718c686d133d65e1a7a00
+  initGame42 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
+3eff2579c62deff2125ca24505fc134a
+  initGame43 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 400#) -}
+ca9643944d90add3a5e8995c140d21fb
+  initGame44 :: GHC.Types.Int
+  {- Strictness: x -}
+e15c3eb428cf1a0fdb0bc7fd9857df54
+  initGame45 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame46) -}
+c89132945528578405d9a831196171e4
+  initGame46 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\156\\208\\159 \\208\\145\\208\\156\\208\\156\\208\\158"#) -}
+9cbaef3367cdcfccf0fa3e2bd71d0a1b
+  initGame47 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame52
+                   SpaceJunk.initGame51
+                   SpaceJunk.makeStepFeatures2
+                   SpaceJunk.initGame50
+                   SpaceJunk.initGame49
+                   SpaceJunk.initGame48) -}
+3d84d528cf6b9038ca862532ea96a44c
+  initGame48 :: GHC.Types.Int
+  {- Strictness: x -}
+d1933d14848ff9e8efbf11bade542c06
+  initGame49 :: GHC.Types.Int
+  {- Strictness: x -}
+7c9ed2afd44bfd3e6b9f7875b8c4b746
+  initGame5 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame225
+                   SpaceJunk.initGame6) -}
+d6a29ba0a53661c6957f0375790bce7d
+  initGame50 :: GHC.Types.Bool
+  {- Strictness: x -}
+fc5f4e52281089e7686549a123237d84
+  initGame51 :: GHC.Types.Int
+  {- Strictness: x -}
+1f71ccab7480b33f36567a2433171d6e
+  initGame52 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame53) -}
+a16662ae7bf8e83441ab027d67a4f0ea
+  initGame53 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161\\208\\178\\208\\181\\209\\128\\209\\133\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+a2461e94abcb4cdf2af3ab2817a10f3a
+  initGame54 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame57
+                   SpaceJunk.initGame56
+                   SpaceJunk.initGame55
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+bb7aab3100344a8238d3872360d3138b
+  initGame55 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 350#) -}
+cafd4cfc7ffdaf59bc7561ecaf316dd0
+  initGame56 :: GHC.Types.Int
+  {- Strictness: x -}
+924af88830f7a356823052707e7d0808
+  initGame57 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame58) -}
+f7b3d0ee2bc97e3e59349b90b3908bb0
+  initGame58 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\156\\208\\159 \\208\\156\\208\\144\\208\\162"#) -}
+0f9e10ef25dbb62211a006e9e827a858
+  initGame59 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame65
+                   SpaceJunk.initGame64
+                   SpaceJunk.initGame63
+                   SpaceJunk.initGame62
+                   SpaceJunk.initGame61
+                   SpaceJunk.initGame60) -}
+01a006fed521e202ead07febed032586
+  initGame6 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame221
+                   SpaceJunk.initGame7) -}
+6b81a74ae20311721cdd346b2c7465b7
+  initGame60 :: GHC.Types.Int
+  {- Strictness: x -}
+fbb1ce9101e78250e61972b7c9c40aaf
+  initGame61 :: GHC.Types.Int
+  {- Strictness: x -}
+124dd3c1eaff4dddb9b5416fc10a957a
+  initGame62 :: GHC.Types.Bool
+  {- Strictness: x -}
+3e6dfa7b53514390d63fc16a52174691
+  initGame63 :: GHC.Types.Int
+  {- Strictness: x -}
+bab0adb52a2f44de77fc6c934090e6a3
+  initGame64 :: GHC.Types.Int
+  {- Strictness: x -}
+976b543f5b3849e238b843efdcfa554d
+  initGame65 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame66) -}
+88f774f1c006d2e190f0047cc31e64e7
+  initGame66 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\168\\208\\176\\208\\189\\209\\129"#) -}
+3c2141ed9aa62c44407081be7f47f15d
+  initGame67 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame69
+                   SpaceJunk.initGame68
+                   SpaceJunk.makeStepFeatures1
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+dec2f8bb0015d704e163886ab799f211
+  initGame68 :: GHC.Types.Int
+  {- Strictness: x -}
+b7d913a9e4c521979078384a75a8cdc2
+  initGame69 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame70) -}
+910b7548020ec2357e895c20a055e222
+  initGame7 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame217
+                   SpaceJunk.initGame8) -}
+798736484b38fae91740fa051ba88d54
+  initGame70 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 4"#) -}
+bbd43414567e4ba20c10308aa14aa582
+  initGame71 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame74
+                   SpaceJunk.initGame73
+                   SpaceJunk.initGame72
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+e747039cb0aa4ade7d49312aecae1f69
+  initGame72 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 320#) -}
+dcf7ba6e2d173b4a1a72f1dd2991a7ca
+  initGame73 :: GHC.Types.Int
+  {- Strictness: x -}
+1a634195a325b8f1f9b12eb38433932a
+  initGame74 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame75) -}
+9d9e15caaca0cf5c79ea7db2a08b5d59
+  initGame75 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\175 \\208\\152\\209\\129\\208\\186\\209\\131\\209\\129\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\189\\209\\139\\208\\185 \\208\\184\\208\\189\\209\\130\\208\\181\\208\\187\\208\\187\\208\\181\\208\\186\\209\\130"#) -}
+56050278efda15af1c081f7c21211f85
+  initGame76 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame82
+                   SpaceJunk.initGame81
+                   SpaceJunk.initGame80
+                   SpaceJunk.initGame79
+                   SpaceJunk.initGame78
+                   SpaceJunk.initGame77) -}
+9e219d415ca7c1b97a0dcfb8f2fd651e
+  initGame77 :: GHC.Types.Int
+  {- Strictness: x -}
+76d1eacc6ac6aa2289a7792aee241e50
+  initGame78 :: GHC.Types.Int
+  {- Strictness: x -}
+bf1ea847c319f69480d365f08585d280
+  initGame79 :: GHC.Types.Bool
+  {- Strictness: x -}
+a3f5b66a6b374f2c8046a249812d256d
+  initGame8 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame211
+                   SpaceJunk.initGame9) -}
+8bcfa28dc9a77e0d1f9abfdc5940f279
+  initGame80 :: GHC.Types.Int
+  {- Strictness: x -}
+bc157b4d6a8dddca7c2c9ad2efd65348
+  initGame81 :: GHC.Types.Int
+  {- Strictness: x -}
+ed86f6640f53cb477d37e006e38daf6f
+  initGame82 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame83) -}
+469b6ed914b6107416176da258f283af
+  initGame83 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\158\\208\\177\\209\\137\\208\\181\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\176\\209\\143 \\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
+90027fceb96d99f3ab6f3d28cdf9c936
+  initGame84 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame87
+                   SpaceJunk.initGame86
+                   SpaceJunk.initGame85
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+5d9a62b010113f314cc9eb17da47c7a9
+  initGame85 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 300#) -}
+f8c60cf5c9eab047acbc2fa42f3e1b71
+  initGame86 :: GHC.Types.Int
+  {- Strictness: x -}
+06851dae360bf18cb7ff455cd31d1029
+  initGame87 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame88) -}
+c856db021e9013a499b0a0fc7fa5802f
+  initGame88 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\175 \\208\\154\\208\\190\\208\\188\\208\\191\\209\\140\\209\\142\\209\\130\\208\\181\\209\\128\\208\\189\\208\\176\\209\\143 \\208\\187\\208\\184\\208\\189\\208\\179\\208\\178\\208\\184\\209\\129\\209\\130\\208\\184\\208\\186\\208\\176"#) -}
+149f0122b66300fe1d7bbe1371de12d1
+  initGame89 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame91
+                   SpaceJunk.initGame90
+                   SpaceJunk.initGame85
+                   GHC.Types.False
+                   SpaceJunk.initGame42
+                   SpaceJunk.initGame42) -}
+1c7d34151214712db94be3e7e3d58886
+  initGame9 :: [SpaceJunk.Street]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ SpaceJunk.Street
+                   SpaceJunk.initGame207
+                   SpaceJunk.initGame10) -}
+72ffc03a52d30ba8aa57db6eeddff42a
+  initGame90 :: GHC.Types.Int
+  {- Strictness: x -}
+ac4661f81316c7ce6f011c0ff7db85a7
+  initGame91 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame92) -}
+3cdea1c822b3095e20efa804d89f94d1
+  initGame92 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\175 \\208\\159\\208\\176\\209\\128\\208\\176\\208\\180\\208\\184\\208\\179\\208\\188\\209\\139 \\208\\191\\209\\128\\208\\190\\208\\179\\209\\128\\208\\176\\208\\188\\208\\188\\208\\184\\209\\128\\208\\190\\208\\178\\208\\176\\208\\189\\208\\184\\209\\143"#) -}
+cd662cdfca49b685baf7d6fd948cf53f
+  initGame93 :: SpaceJunk.Street
+  {- Strictness: m,
+     Unfolding: (SpaceJunk.Street
+                   SpaceJunk.initGame99
+                   SpaceJunk.initGame98
+                   SpaceJunk.initGame97
+                   SpaceJunk.initGame96
+                   SpaceJunk.initGame95
+                   SpaceJunk.initGame94) -}
+3af9c88d1a10604b8d207c5094c687e0
+  initGame94 :: GHC.Types.Int
+  {- Strictness: x -}
+8d388b98b4f4be22560cbfa638d5ad2e
+  initGame95 :: GHC.Types.Int
+  {- Strictness: x -}
+5bb18c7af32cd615eb36ab4986640965
+  initGame96 :: GHC.Types.Bool
+  {- Strictness: x -}
+6f1787e5cef335d016ea1d9bcb202089
+  initGame97 :: GHC.Types.Int
+  {- Strictness: x -}
+d7a2a9cbbc81ed0fd22cfba36331311d
+  initGame98 :: GHC.Types.Int
+  {- Strictness: x -}
+fcb4ea6c4ca576b54fbd3b312191a1a0
+  initGame99 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   SpaceJunk.initGame100) -}
+b8654a61013a6c70955b3b8e26c27739
+  initPay :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,U,U,U)>m,
+     Unfolding: InlineRule (1, True, True)
+                (\ (gameState :: SpaceJunk.GameState) -> gameState) -}
+8cd15ecc79a735481c26d9e7c9d0bd29
+  isPay ::
+    Graphics.Gloss.Internals.Data.Picture.Point
+    -> GHC.Base.Maybe GHC.Types.Bool
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(S(S)L),1*U(1*U(U),U(U))>,
+     Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: Graphics.Gloss.Internals.Data.Picture.Point) ->
+                 case w of ww { (,) ww1 ww2 ->
+                 case ww1 of ww3 { GHC.Types.F# ww4 ->
+                 SpaceJunk.$wisPay ww4 ww2 } }) -}
+32ad598b3bc019b9ced03464e345d74c
+  isRent :: SpaceJunk.Street -> GHC.Types.Bool
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLSLL),1*U(A,A,A,1*U,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds4 }) -}
+251f0b32f586808b851d222c003a7e46
+  isStep ::
+    Graphics.Gloss.Internals.Data.Picture.Point -> GHC.Types.Bool
+  {- Arity: 1, HasNoCafRefs, Strictness: <L,A>,
+     Unfolding: InlineRule (1, True, True)
+                (\ (ds :: Graphics.Gloss.Internals.Data.Picture.Point) ->
+                 GHC.Types.True) -}
+5435226acbe79105f2e3ef4b8114e923
+  isntPay ::
+    Graphics.Gloss.Internals.Data.Picture.Point -> GHC.Types.Bool
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(S(S)L),1*U(1*U(U),A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: (GHC.Types.Float, GHC.Types.Float)) ->
+                 case ds of wild { (,) x y ->
+                 case x of wild1 { GHC.Types.F# x1 ->
+                 GHC.Prim.tagToEnum#
+                   @ GHC.Types.Bool
+                   (GHC.Prim.gtFloat# x1 0.0#) } }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  land :: SpaceJunk.GameState -> [SpaceJunk.Street]
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLSL),1*U(A,A,A,A,1*U,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds5 }) -}
+e8d8d916eb2cfcedfb8dba5e0fea6156
+  loadImages :: GHC.Types.IO SpaceJunk.Images
+  {- Arity: 1, Strictness: <S,U>,
+     Unfolding: InlineRule (0, True, True)
+                SpaceJunk.loadImages1
+                  `cast`
+                (Sym (GHC.Types.N:IO[0] <SpaceJunk.Images>_R)) -}
+50f6fe064aebc31b276ddba173cbea5c
+  loadImages1 ::
+    GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, SpaceJunk.Images #)
+  {- Arity: 1, Strictness: <S,U> -}
+a24309f56314fcb9dc7a66b6854dd8dd
+  makeMove :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, Strictness: <S,1*U(U,U(U),U,A,U,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (gameState :: SpaceJunk.GameState) ->
+                 case gameState of wild { SpaceJunk.GameState ds ds1 ds2 ds3 ds4 ds5 ->
+                 SpaceJunk.makeStepFeatures
+                   (SpaceJunk.changePlayerCell
+                      (SpaceJunk.GameState ds ds1 ds2 SpaceJunk.doStep1 ds4 ds5)) }) -}
+03133baa17cffa4407ca0b727bcfeb0d
+  makePay :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, Strictness: <S,1*U(U,1*U(U),U,U,U,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (gameState :: SpaceJunk.GameState) ->
+                 case gameState of wild { SpaceJunk.GameState ds ds1 ds2 ds3 ds4 ds5 ->
+                 SpaceJunk.GameState
+                   ds
+                   (case ds1 of wild1 { GHC.Types.I# x ->
+                    GHC.Types.I# (GHC.Prim.+# (GHC.Prim.andI# x 3#) 1#) })
+                   ds2
+                   ds3
+                   ds4
+                   SpaceJunk.handleGame3 }) -}
+8bcf7483994c18b60bbee6501cff1582
+  makeStepFeatures :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, Strictness: <S(LLLLLS),1*U(U,U(U),U,U,U,U)>m,
+     Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: SpaceJunk.GameState) ->
+                 case w of ww { SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case GHC.Base.eqString ww6 SpaceJunk.changePlayerCell13 of wild {
+                   GHC.Types.False
+                   -> case GHC.Base.eqString
+                             ww6
+                             SpaceJunk.changePlayerCell9 of wild1 {
+                        GHC.Types.False
+                        -> case GHC.Base.eqString
+                                  ww6
+                                  SpaceJunk.changePlayerCell1 of wild2 {
+                             GHC.Types.False
+                             -> case GHC.Base.eqString
+                                       ww6
+                                       SpaceJunk.changePlayerCell5 of wild3 {
+                                  GHC.Types.False -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6
+                                  GHC.Types.True
+                                  -> SpaceJunk.GameState
+                                       ww1
+                                       (case ww2 of wild4 { GHC.Types.I# x ->
+                                        GHC.Types.I# (GHC.Prim.+# (GHC.Prim.andI# x 3#) 1#) })
+                                       ww3
+                                       ww4
+                                       ww5
+                                       ww6 }
+                             GHC.Types.True
+                             -> case SpaceJunk.$wpayTax
+                                       ww1
+                                       ww2
+                                       ww3
+                                       ww4
+                                       ww5
+                                       ww6
+                                       SpaceJunk.makeStepFeatures2 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                                SpaceJunk.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }
+                        GHC.Types.True
+                        -> case SpaceJunk.$wpayTax
+                                  ww1
+                                  ww2
+                                  ww3
+                                  ww4
+                                  ww5
+                                  ww6
+                                  SpaceJunk.makeStepFeatures1 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                           SpaceJunk.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }
+                   GHC.Types.True
+                   -> SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 } }) -}
+4255b6fe49c8b2e9a58969728bba37dd
+  makeStepFeatures1 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 200#) -}
+8e966f1804c97e1ba9ef621e1fbf8375
+  makeStepFeatures2 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 100#) -}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  money :: SpaceJunk.Player -> GHC.Types.Int
+  RecSel Left SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LSLLL),1*U(A,1*U(U),A,A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Player) ->
+                 case ds of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 -> ds2 }) -}
+3351d396bca369b818332179ea4f675a
+  move :: SpaceJunk.Physical a => GHC.Types.Float -> a -> a
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S(LLC(C(S))L),U(1*C1(U),A,1*C1(C1(U)),A)><L,A><L,U>,
+     Unfolding: InlineRule (3, True, False)
+                (\ @ a
+                   ($dPhysical :: SpaceJunk.Physical a)
+                   (dt :: GHC.Types.Float)
+                   (object :: a) ->
+                 SpaceJunk.setPosition
+                   @ a
+                   $dPhysical
+                   (SpaceJunk.getPosition @ a $dPhysical object)
+                   object) -}
+4f66b7b9de10f6c57ea5d05e6a3d4b9b
+  movePlayer ::
+    SpaceJunk.Player
+    -> GHC.Types.Int -> GHC.Types.Int -> SpaceJunk.Player
+  {- Arity: 3, HasNoCafRefs,
+     Strictness: <S,1*U(U,U,U,U(U),A)><L,1*U(U)><L,U(U)>m, Inline: [0],
+     Unfolding: InlineRule (3, True, False)
+                (\ (w :: SpaceJunk.Player)
+                   (w1 :: GHC.Types.Int)
+                   (w2 :: GHC.Types.Int) ->
+                 case w of ww { SpaceJunk.Player ww1 ww2 ww3 ww4 ww5 ->
+                 SpaceJunk.Player
+                   ww1
+                   ww2
+                   ww3
+                   (case ww4 of wild { GHC.Types.I# x ->
+                    case w2 of wild1 { GHC.Types.I# y ->
+                    case GHC.Classes.modInt#
+                           (GHC.Prim.-# (GHC.Prim.+# x y) 1#)
+                           40# of ww6 { DEFAULT ->
+                    GHC.Types.I# (GHC.Prim.+# ww6 1#) } } })
+                   (case ww4 of wild { GHC.Types.I# x ->
+                    case w2 of wild1 { GHC.Types.I# y ->
+                    case GHC.Classes.modInt#
+                           (GHC.Prim.-# (GHC.Prim.+# x y) 1#)
+                           40# of ww6 { DEFAULT ->
+                    case SpaceJunk.$wgetPlayerPosition
+                           w1
+                           (GHC.Prim.+# ww6 1#) of ww7 { (#,#) ww8 ww9 ->
+                    (ww8, ww9) } } } }) }) -}
+32ad598b3bc019b9ced03464e345d74c
+  name :: SpaceJunk.Street -> GHC.Base.String
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(SLLLLL),1*U(1*U,A,A,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds1 }) -}
+32ad598b3bc019b9ced03464e345d74c
+  owner :: SpaceJunk.Street -> GHC.Types.Int
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLLS),1*U(A,A,A,A,A,1*U(U))>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds6 }) -}
+0dcb459f68c71b131a2c589c484617b9
+  payTax ::
+    SpaceJunk.GameState -> GHC.Types.Int -> SpaceJunk.GameState
+  {- Arity: 2, Strictness: <S,1*U(U,U(U),U,U,U,U)><L,1*U(U)>m,
+     Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: SpaceJunk.GameState) (w1 :: GHC.Types.Int) ->
+                 case w of ww { SpaceJunk.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case SpaceJunk.$wpayTax
+                        ww1
+                        ww2
+                        ww3
+                        ww4
+                        ww5
+                        ww6
+                        w1 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                 SpaceJunk.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }) -}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  playerCell :: SpaceJunk.Player -> GHC.Types.Int
+  RecSel Left SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLSL),1*U(A,A,A,1*U(U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Player) ->
+                 case ds of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 -> ds4 }) -}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  playerPosition ::
+    SpaceJunk.Player -> Graphics.Gloss.Internals.Data.Picture.Point
+  RecSel Left SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLS),1*U(A,A,A,A,1*U(U,U))>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Player) ->
+                 case ds of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 -> ds5 }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  players :: SpaceJunk.GameState -> [SpaceJunk.Player]
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(SLLLLL),1*U(1*U,A,A,A,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds1 }) -}
+32ad598b3bc019b9ced03464e345d74c
+  price :: SpaceJunk.Street -> GHC.Types.Int
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLSLLL),1*U(A,A,1*U(U),A,A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds3 }) -}
+32ad598b3bc019b9ced03464e345d74c
+  priceRent :: SpaceJunk.Street -> GHC.Types.Int
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLSL),1*U(A,A,A,A,1*U(U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds5 }) -}
+0fc1a280fb78a81d9a9edca8fbacf05b
+  property :: SpaceJunk.Player -> [SpaceJunk.Street]
+  RecSel Left SpaceJunk.Player
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LLSLL),1*U(A,A,1*U,A,A)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Player) ->
+                 case ds of wild { SpaceJunk.Player ds1 ds2 ds3 ds4 ds5 -> ds3 }) -}
+6fad21d750c50fd19eb60ab4a06ed924
+  satelliteRotationSpeed :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 0.1#) -}
+cc3d644d7700ded8a62a7ddb39115d8c
+  screenHeight :: GHC.Num.Num a => a
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLLLC(S)),1*U(A,A,A,A,A,A,1*C1(U))>,
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a ($dNum :: GHC.Num.Num a) ->
+                 GHC.Num.fromInteger @ a $dNum SpaceJunk.screenHeight1) -}
+4cdb0676ed9730a7e0125e8c6797b2f7
+  screenHeight1 :: GHC.Integer.Type.Integer
+  {- HasNoCafRefs, Unfolding: (800) -}
+0b05c317e9acbc5f7b66233b3f43fed5
+  screenWidth :: GHC.Num.Num a => a
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLLLC(S)),1*U(A,A,A,A,A,A,1*C1(U))>,
+     Unfolding: InlineRule (1, True, False)
+                (\ @ a ($dNum :: GHC.Num.Num a) ->
+                 GHC.Num.fromInteger @ a $dNum SpaceJunk.screenHeight1) -}
+1d1d9b7a21613a07db2f63f349b29910
+  secondCube :: SpaceJunk.Cubes -> GHC.Types.Int
+  RecSel Left SpaceJunk.Cubes
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LS),1*U(A,1*U(U))>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Cubes) ->
+                 case ds of wild { SpaceJunk.Cubes ds1 ds2 -> ds2 }) -}
+d672f461f920e5be0f368ab01b73267c
+  startGame :: SpaceJunk.Images -> GHC.Types.IO ()
+  {- Arity: 2, Strictness: <L,U(U,U,U,U,U,U)><S,U>,
+     Unfolding: InlineRule (0, True, True)
+                SpaceJunk.startGame1
+                  `cast`
+                (<SpaceJunk.Images>_R ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
+c1a28b581fa255e878a752c19e699f22
+  startGame1 ::
+    SpaceJunk.Images
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
+  {- Arity: 2, Strictness: <L,U(U,U,U,U,U,U)><S,U>,
+     Unfolding: (\ (images :: SpaceJunk.Images)
+                   (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 case Graphics.Gloss.Internals.Interface.Game.playWithBackendIO1
+                        @ SpaceJunk.GameState
+                        @ Graphics.Gloss.Internals.Interface.Backend.GLUT.GLUTState
+                        Graphics.Gloss.Internals.Interface.Backend.GLUT.$fBackendGLUTState
+                        Graphics.Gloss.Internals.Interface.Backend.GLUT.glutStateInit
+                        Graphics.Gloss.Data.Display.FullScreen
+                        Graphics.Gloss.Data.Color.white
+                        SpaceJunk.makeStepFeatures2
+                        SpaceJunk.initGame
+                        (\ (x :: SpaceJunk.GameState)
+                           (s1 :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                         (# s1, SpaceJunk.drawGameState images x #))
+                          `cast`
+                        (<SpaceJunk.GameState>_R
+                         ->_R Sym (GHC.Types.N:IO[0]
+                                       <Graphics.Gloss.Internals.Data.Picture.Picture>_R))
+                        SpaceJunk.startGame3
+                          `cast`
+                        (<Graphics.Gloss.Internals.Interface.Event.Event>_R
+                         ->_R <SpaceJunk.GameState>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <SpaceJunk.GameState>_R))
+                        SpaceJunk.startGame2
+                          `cast`
+                        (<GHC.Types.Float>_R
+                         ->_R <SpaceJunk.GameState>_R
+                         ->_R Sym (GHC.Types.N:IO[0] <SpaceJunk.GameState>_R))
+                        GHC.Types.True
+                        s of ds1 { (#,#) ipv ipv1 ->
+                 (# ipv, GHC.Tuple.() #) }) -}
+d951b229ac4042694240ecad4fd474e5
+  startGame2 ::
+    GHC.Types.Float
+    -> SpaceJunk.GameState
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, SpaceJunk.GameState #)
+  {- Arity: 3, HasNoCafRefs, Strictness: <L,A><L,U><S,U>,
+     Unfolding: InlineRule (3, True, True)
+                (\ (time :: GHC.Types.Float)
+                   (world1 :: SpaceJunk.GameState)
+                   (s1 :: GHC.Prim.State# GHC.Prim.RealWorld) ->
+                 (# s1, world1 #)) -}
+16773c91adce62844fbecf1755a4c7d4
+  startGame3 ::
+    Graphics.Gloss.Internals.Interface.Event.Event
+    -> SpaceJunk.GameState
+    -> GHC.Prim.State# GHC.Prim.RealWorld
+    -> (# GHC.Prim.State# GHC.Prim.RealWorld, SpaceJunk.GameState #)
+  {- Arity: 3, Strictness: <L,1*U><L,1*U(U,U(U),U,U,U,U)><S,U>,
+     Unfolding: InlineRule (3, True, False)
+                (\ (event :: Graphics.Gloss.Internals.Interface.Event.Event)
+                   (world1 :: SpaceJunk.GameState)[OneShot]
+                   (s1 :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
+                 (# s1, SpaceJunk.handleGame event world1 #)) -}
+fcf9cf94b699a737203013c42f0a9b1f
+  throwCubes :: SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,A,U,U)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (gameState :: SpaceJunk.GameState) ->
+                 case gameState of wild { SpaceJunk.GameState ds ds1 ds2 ds3 ds4 ds5 ->
+                 SpaceJunk.GameState ds ds1 ds2 SpaceJunk.doStep1 ds4 ds5 }) -}
+6b1d4a2f996efde3f5ad03ab1b2984fc
+  typeStep :: SpaceJunk.GameState -> GHC.Base.String
+  RecSel Left SpaceJunk.GameState
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LLLLLS),1*U(A,A,A,A,A,1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.GameState) ->
+                 case ds of wild { SpaceJunk.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds6 }) -}
+c6af02d289c5bf7f87c25f55a068c22b
+  ufoAccel :: GHC.Types.Float
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.F# 15.0#) -}
+7490cc38cb18628d20a4a5e5c6eadac0
+  updateGameState ::
+    GHC.Types.Float -> SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,A>,
+     Unfolding: InlineRule (1, True, True)
+                (\ (ds :: GHC.Types.Float) -> GHC.Base.id @ SpaceJunk.GameState) -}
+6c59ed9400018d53c56064ad27f85fba
+  updatePay ::
+    GHC.Types.Float -> SpaceJunk.GameState -> SpaceJunk.GameState
+  {- Arity: 2, HasNoCafRefs, Strictness: <L,A>,
+     Unfolding: InlineRule (1, True, True)
+                (\ (ds :: GHC.Types.Float) -> GHC.Base.id @ SpaceJunk.GameState) -}
+32ad598b3bc019b9ced03464e345d74c
+  zone :: SpaceJunk.Street -> GHC.Types.Int
+  RecSel Left SpaceJunk.Street
+  {- Arity: 1, HasNoCafRefs,
+     Strictness: <S(LSLLLL),1*U(A,1*U(U),A,A,A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: SpaceJunk.Street) ->
+                 case ds of wild { SpaceJunk.Street ds1 ds2 ds3 ds4 ds5 ds6 ->
+                 ds2 }) -}
+instance SpaceJunk.Physical [SpaceJunk.Player]
+  = SpaceJunk.$fPhysicalPlayer
+vectorised variables:
+vectorised tycons:
+vectorised reused tycons:
+parallel variables:
+parallel tycons:
+trusted: none
+require own pkg trusted: False
+

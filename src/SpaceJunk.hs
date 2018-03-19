@@ -69,7 +69,8 @@ data Street = Street
   { name :: String
   , zone :: Int
   , price :: Int
-  , isrent :: Bool
+  , isRent :: Bool
+  , priceRent :: Int
   , owner :: Int
   }
 
@@ -151,178 +152,250 @@ initGame = GameState
   , haveWinner = Nothing
   , gamePlayer = 1
   , typeStep = "ход"
-  , land = [ 
-  	Street {name ="Старт"
-  	, zone = 0
-  	}
-  	,Street {name = "Тернополь"
-    , zone = 1
-    , price = 60
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Общественная казна"
-    , zone = 15
-    , isrent = False}
-    ,Street {name = "Ровно"
-    , zone = 1
-    , price = 60
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Подоходный налог"
-    , zone = 16
-    , price =200}
-    ,Street {name = "Арена львов"
-    , zone = 9
-    , price = 200
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Ужгород"
-    , zone = 2
-    , price = 100
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Шанс"
-    , zone = 15}
-    ,Street {name = "Иваново-Франковск"
-    , zone = 2
-    , price = 100
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Львов"
-    , zone = 2
-    , price = 120
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Тюрьма"
-    , zone = 17}
-    ,Street{name = "Чернигов"
-    , zone = 3
-    , price = 140
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "ДНЕПРОГЭС"
-    , zone = 10
-    , price = 150
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Сумы"
-    , zone = 3
-    , price = 140
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Полтава"
-    , zone = 3
-    , price = 160
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "ОСК Металлист"
-    , zone = 11
-    , price = 200
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Хмельницкий"
-    , zone = 4
-    , price = 180
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Общественная казна"
-    , zone = 15
-    , isrent = False}
-    ,Street {name = "Житомир"
-    , zone = 4
-    , price = 180
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Винница"
-    , zone = 4
-    , price = 200
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Бесплатная стоянка"
-    , zone = 17}
-    ,Street {name = "Херсон"
-    , zone = 5
-    , price = 220
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Шанс"
-    , zone = 15}
-    ,Street {name = "Николаев"
-    , zone = 5
-    , price = 220
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Одесса"
-    , zone = 5
-    , price = 240
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Донбасс Арена"
-    , zone = 12
-    , price = 200
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Кривой рог"
-    , zone = 6
-    , price = 260
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Запорожье"
-    , zone = 6
-    , price = 260
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Каховское водохранилище"
-    , zone = 13
-    , price = 150
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Днепропетровск"
-    , zone = 6
-    , price = 280
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Отправляйся в тюрьму"
-    , zone = 18}
-    ,Street {name = "Луганск"
-    , zone = 7
-    , price = 300
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Донецк"
-    , zone = 7
-    , price = 300
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Общественая казна"
-    , zone = 15}
-    ,Street {name = "Харьков"
-    , zone = 7
-    , price = 320
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "НСК Олимпийский"
-    , zone = 14
-    , price = 200
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Шанс"
-    , zone = 0}
-    ,Street {name = "АР Крым"
-    , zone = 8
-    , price = 350
-    , isrent = False
-    , owner = 0}
-    ,Street {name = "Сверхналог"
-    , zone = 19
-    , price = 100}
-    ,Street {name = "Киев"
-    , zone = 8
-    , price = 400
-    , isrent = False
-    , owner = 0}
+  , land = 
+    [ Street 
+      { name ="Старт"
+      , zone = 0
+      }
+    , Street
+      { name = "СКИ Квантовая информатика"
+      , price = 60
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Общественная казна"
+      , isRent = False
+      }
+    , Street 
+      { name = "СКИ Параллельные вычисления"
+      , price = 60
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Налог"
+      , price =200
+      , priceRent = 0
+      }
+    , Street 
+      { name = "Машзал 1"
+      , price = 200
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "СП ПЦД"
+      , price = 100
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Шанс"
+      , zone = 15
+      }
+    , Street 
+      { name = "СП УДИС"
+      , price = 100
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "СП Корректность программ"
+      , price = 120
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Академ"
+      , zone = 17
+      }
+    , Street
+      { name = "МатКиб ДММК"
+      , price = 140
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Потеряшки"
+      , price = 150
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "МатКиб ДФСА"
+      , price = 140
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Маткиб Дискретный анализ"
+      , price = 160
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Машзал 2"
+      , price = 200
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "ИО Морозов"
+      , price = 180
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Общественная казна"
+      , isRent = False
+      }
+    , Street 
+      { name = "ИО Новикова"
+      , price = 180
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "ИО Денисов"
+      , price = 200
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Бесплатная курилка"
+      }
+    , Street 
+      { name = "МАТСТАТ Теория рисков"
+      , price = 220
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Шанс"
+      }
+    , Street 
+      { name = "МАТСТАТ ДГМС"
+      , price = 220
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "МАТСТАТ МОТВЫ"
+      , price = 240
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Машзал 3"
+      , price = 200
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "АСВК ЛБИС"
+      , price = 260
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "АСВК ЛВК"
+      , price = 260
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Техносфера"
+      , price = 150
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "АСВК Медиалаб"
+      , price = 280
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Отправляйся в академ"
+      }
+    , Street 
+      { name = "АЯ Парадигмы программирования"
+      , price = 300
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "АЯ Компьютерная лингвистика"
+      , price = 300
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Общественая казна"
+      }
+    , Street 
+      { name = "АЯ Искусственный интеллект"
+      , price = 320
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Машзал 4"
+      , price = 200
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Шанс"
+      }
+    , Street 
+      { name = "ММП МАТ"
+      , price = 350
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
+    , Street 
+      { name = "Сверхналог"
+      , price = 100
+      }
+    , Street 
+      { name = "ММП БММО"
+      , price = 400
+      , priceRent = 0
+      , isRent = False
+      , owner = 0
+      }
     ]
   }
+
 
 -- =========================================
 -- Функции отрисовки
