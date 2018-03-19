@@ -47,10 +47,7 @@ data Images = Images
   }
 
 data GameState = GameState
-  { player1 :: Player
-  , player2 :: Player
-  , player3 :: Player
-  , player4 :: Player
+  { players :: [Player]
   , gamePlayer :: Int
   , haveWinner :: Maybe Int
   , cubes :: Cubes
@@ -117,34 +114,36 @@ instance Physical Player where
 -- | Сгенерировать начальное состояние игры.
 initGame :: GameState
 initGame = GameState
-  { player1 = Player 
-      { colour = 1
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 1 1
-      }
-  , player2 = Player 
-      { colour = 2
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 2 1
-      }
-  , player3 = Player 
-      { colour = 3
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 3 1
-      }
-  , player4 = Player 
-      { colour = 4
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 4 1
-      }
+  { players = 
+      [ Player 
+        { colour = 1
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 1 1
+        }
+      ,  Player 
+        { colour = 2
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 2 1
+        }
+      , Player 
+        { colour = 3
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 3 1
+        }
+      , Player 
+        { colour = 4
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 4 1
+        }
+      ]
   , cubes = Cubes 
       { firstCube = 1
       , secondCube = 0
@@ -335,20 +334,26 @@ drawGameState images gameState
     | (typeStep gameState) == "ход" ||
       (typeStep gameState) == "старт" = pictures
         [ drawPlayingField (imagePlayingField images)
-        , drawPiece (imagePieceRed images) (player1 gameState)
-        , drawPiece (imagePieceBlue  images) (player2 gameState)
-        , drawPiece (imagePieceGreen  images) (player3 gameState)
-        , drawPiece (imagePieceYellow  images) (player4 gameState)
+        , drawPiece (imagePieceRed images) player1
+        , drawPiece (imagePieceBlue  images) player2
+        , drawPiece (imagePieceGreen  images) player3
+        , drawPiece (imagePieceYellow  images) player4
         ]
     | (typeStep gameState) == "улица" = pictures
         [ drawPlayingField (imagePlayingField images)
-        , drawPiece (imagePieceRed images) (player1 gameState)
-        , drawPiece (imagePieceBlue  images) (player2 gameState)
-        , drawPiece (imagePieceGreen  images) (player3 gameState)
-        , drawPiece (imagePieceYellow  images) (player4 gameState)
+        , drawPiece (imagePieceRed images) player1
+        , drawPiece (imagePieceBlue  images) player2
+        , drawPiece (imagePieceGreen  images) player3
+        , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
         ]
     | (typeStep gameState) == "" = pictures[]
+  where
+    player1 = ((players gameState) !! 0)
+    player2 = ((players gameState) !! 1)
+    player3 = ((players gameState) !! 2)
+    player4 = ((players gameState) !! 3)
+
 
 drawPayMenu :: Picture -> Picture
 drawPayMenu image = translate 0 0 image
@@ -411,7 +416,7 @@ makeMove gameState = (makeStepFeatures (changePlayerCell (throwCubes gameState))
 makeStepFeatures :: GameState -> GameState
 makeStepFeatures gameState
     | field == "старт" = gameState
-    | field == "налог" = payTax gameState 100
+    | field == "налог" = payTax gameState 200
     | field == "сверхналог" = payTax gameState 100
     | field == "стоянка" = gameState { gamePlayer = mod (gamePlayer gameState) 4 + 1}
     | otherwise = gameState
@@ -419,28 +424,15 @@ makeStepFeatures gameState
     field = (typeStep gameState)
 
 payTax :: GameState -> Int -> GameState
-payTax gameState count 
-    | (gamePlayer gameState) == 1 = gameState
-        { player1 = (player1 gameState) 
-            { money = (money (player1 gameState)) - count
-            }
-        }
-    | (gamePlayer gameState) == 2 = gameState
-        { player2 = (player2 gameState) 
-            { money = (money (player2 gameState)) - count
-            }
-        }
-    | (gamePlayer gameState) == 3 = gameState
-        { player3 = (player3 gameState) 
-            { money = (money (player3 gameState)) - count
-            }
-        }
-    | (gamePlayer gameState) == 4 = gameState
-        { player4 = (player4 gameState) 
-            { money = (money (player4 gameState)) - count
-            }
-        }
-    | otherwise = gameState
+payTax gameState count = gameState
+    { players = firstPlayers ++ [(player) { money = (money (player)) - count}]
+        ++ lastPlayers
+    , gamePlayer = mod (gamePlayer gameState) 4 + 1
+    }
+  where
+    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
 
 throwCubes :: GameState -> GameState
 throwCubes gameState = gameState
@@ -469,12 +461,11 @@ initPay :: GameState -> GameState
 initPay gameState = gameState
 
 changePlayerCell :: GameState -> GameState
-changePlayerCell gameState
-  | (gamePlayer gameState) == 1 = gameState
-    { player1  = movePlayer (player1 gameState) 1 cubesSum
-    , typeStep = getTypeCell (playerCell (movePlayer (player1 gameState) 1 cubesSum))
+changePlayerCell gameState = gameState
+    { players = firstPlayers ++ [(movePlayer player (gamePlayer gameState) cubesSum)] ++ lastPlayers
+    , typeStep = getTypeCell (playerCell (movePlayer player (gamePlayer gameState) cubesSum))
     }
-  | (gamePlayer gameState) == 2 = gameState
+{-| (gamePlayer gameState) == 2 = gameState
     { player2  = movePlayer (player2 gameState) 2 cubesSum
     , typeStep = getTypeCell (playerCell (movePlayer (player2 gameState) 2 cubesSum))
     }
@@ -485,10 +476,12 @@ changePlayerCell gameState
   | (gamePlayer gameState) == 4 = gameState
     { player4  = movePlayer (player4 gameState) 4 cubesSum
     , typeStep = getTypeCell (playerCell (movePlayer (player4 gameState) 4 cubesSum))
-    }
-
-    where
-        cubesSum = (firstCube (cubes gameState)) + (secondCube (cubes gameState))
+    }-}
+  where
+    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+    cubesSum = (firstCube (cubes gameState)) + (secondCube (cubes gameState))
 
 getTypeCell :: Int -> String
 getTypeCell num 
