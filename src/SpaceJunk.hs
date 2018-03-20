@@ -1,8 +1,10 @@
 module SpaceJunk where
 
+import Graphics.Gloss.Juicy
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game
-import Graphics.Gloss.Juicy
+
+
 --import System.Random
 
 -- | Запустить моделирование с заданным начальным состоянием вселенной.
@@ -37,6 +39,7 @@ loadImages = do
 -- =========================================
 
 -- | Изображения объектов.
+
 data Images = Images
   { imagePieceRed    :: Picture   -- ^ Изображение фишек.
   , imagePieceBlue   :: Picture
@@ -78,38 +81,6 @@ data Cubes = Cubes
   , secondCube :: Int
   }
 
--- | Объект с изменяемым положением.
-class Physical a where
-  getPosition :: a -> Point
-  getCell :: a -> Int
-  setPosition :: Point -> a -> a
-  setCell :: Int -> a -> a
-  
--- | Переместить физический объект.
---
--- prop> \(object :: Asteroid) -> move 0 object == object
--- prop> \(object :: Asteroid) -> move x (move y object) ~= move (x + y) object
-move :: Physical a => Float -> a -> a
-move dt object = setPosition new object
-  where
-    new = getPosition object
-
--- | Фишка.
-{-data Piece = Piece
-  { piecePosition :: Point      -- ^ Положение фишки.
-  , pieceCell :: Int
-  --, pieceSize :: Float
-  } deriving (Eq, Show)
--}
-
-instance Physical Player where
-  getPosition = playerPosition
-  getCell = playerCell
-  setPosition new player = player
-    { playerPosition = new }
-  setCell new player = player
-    { playerCell = new }
-
 
 -- | Сгенерировать начальное состояние игры.
 initGame :: GameState
@@ -117,28 +88,28 @@ initGame = GameState
   { players = 
       [ Player 
         { colour = 1
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 1 1
         }
       ,  Player 
         { colour = 2
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 2 1
         }
       , Player 
         { colour = 3
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 3 1
         }
       , Player 
         { colour = 4
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 4 1
@@ -437,7 +408,7 @@ drawPayMenu image = translate 0 0 image
 drawPiece :: Picture -> Player -> Picture
 drawPiece image player = translate x y (scale r r image)
   where
-    (x, y) = getPosition player
+    (x, y) = (playerPosition player)
     r = 2
 
 drawPlayingField :: Picture -> Picture
@@ -522,35 +493,6 @@ getPriceRent gameState = gameState
 changeBalance :: Player -> Int -> Player
 changeBalance player sum = player
     { money = (money player) + sum }
-
-{-
-data GameState = GameState
-  { players :: [Player]
-  , gamePlayer :: Int
-  , haveWinner :: Maybe Int
-  , cubes :: Cubes
-  , land :: [Street]
-  , typeStep :: String
-  }
-
-data Player = Player
-  { colour :: Int
-  --, name :: String
-  , money :: Int
-  , property :: [Street]
-  , playerCell :: Int
-  , playerPosition :: Point
-  --, position :: Int
-  }
-
-data Street = Street
-  { name :: String
-  , price :: Int
-  , isRent :: Bool
-  , priceRent :: Int
-  , owner :: Int
-  }
--}
 
 data ChanceCard = ChanceCard
 	{ num :: Int

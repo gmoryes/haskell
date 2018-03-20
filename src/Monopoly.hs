@@ -1,8 +1,10 @@
-module SpaceJunk where
+module Monopoly where
 
+import Graphics.Gloss.Juicy
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game
-import Graphics.Gloss.Juicy
+
+
 --import System.Random
 
 -- | Запустить моделирование с заданным начальным состоянием вселенной.
@@ -37,6 +39,7 @@ loadImages = do
 -- =========================================
 
 -- | Изображения объектов.
+
 data Images = Images
   { imagePieceRed    :: Picture   -- ^ Изображение фишек.
   , imagePieceBlue   :: Picture
@@ -78,38 +81,6 @@ data Cubes = Cubes
   , secondCube :: Int
   }
 
--- | Объект с изменяемым положением.
-class Physical a where
-  getPosition :: a -> Point
-  getCell :: a -> Int
-  setPosition :: Point -> a -> a
-  setCell :: Int -> a -> a
-  
--- | Переместить физический объект.
---
--- prop> \(object :: Asteroid) -> move 0 object == object
--- prop> \(object :: Asteroid) -> move x (move y object) ~= move (x + y) object
-move :: Physical a => Float -> a -> a
-move dt object = setPosition new object
-  where
-    new = getPosition object
-
--- | Фишка.
-{-data Piece = Piece
-  { piecePosition :: Point      -- ^ Положение фишки.
-  , pieceCell :: Int
-  --, pieceSize :: Float
-  } deriving (Eq, Show)
--}
-
-instance Physical Player where
-  getPosition = playerPosition
-  getCell = playerCell
-  setPosition new player = player
-    { playerPosition = new }
-  setCell new player = player
-    { playerCell = new }
-
 
 -- | Сгенерировать начальное состояние игры.
 initGame :: GameState
@@ -117,28 +88,28 @@ initGame = GameState
   { players = 
       [ Player 
         { colour = 1
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 1 1
         }
       ,  Player 
         { colour = 2
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 2 1
         }
       , Player 
         { colour = 3
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 3 1
         }
       , Player 
         { colour = 4
-        , money = 15000
+        , money = 1500
         , property = []
         , playerCell = 1
         , playerPosition = getPlayerPosition 4 1
@@ -415,14 +386,13 @@ drawGameState images gameState
         , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
         ]
-    | otherwise = pictures 
+    | otherwise = pictures
         [ drawPlayingField (imagePlayingField images)
         , drawPiece (imagePieceRed images) player1
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
         ]
-
   where
     player1 = ((players gameState) !! 0)
     player2 = ((players gameState) !! 1)
@@ -437,7 +407,7 @@ drawPayMenu image = translate 0 0 image
 drawPiece :: Picture -> Player -> Picture
 drawPiece image player = translate x y (scale r r image)
   where
-    (x, y) = getPosition player
+    (x, y) = (playerPosition player)
     r = 2
 
 drawPlayingField :: Picture -> Picture
@@ -523,40 +493,11 @@ changeBalance :: Player -> Int -> Player
 changeBalance player sum = player
     { money = (money player) + sum }
 
-{-
-data GameState = GameState
-  { players :: [Player]
-  , gamePlayer :: Int
-  , haveWinner :: Maybe Int
-  , cubes :: Cubes
-  , land :: [Street]
-  , typeStep :: String
-  }
-
-data Player = Player
-  { colour :: Int
-  --, name :: String
-  , money :: Int
-  , property :: [Street]
-  , playerCell :: Int
-  , playerPosition :: Point
-  --, position :: Int
-  }
-
-data Street = Street
-  { name :: String
-  , price :: Int
-  , isRent :: Bool
-  , priceRent :: Int
-  , owner :: Int
-  }
--}
-
 data ChanceCard = ChanceCard
-	{ num :: Int
-	, price2 :: Int
-	, text2 :: String
-	}
+    { num :: Int
+    , price2 :: Int
+    , text2 :: String
+    }
 
 type Cards = [ChanceCard]
 
@@ -689,11 +630,11 @@ changePlayerCell gameState = gameState
 getTypeCell :: Int -> GameState -> String
 getTypeCell num gameState
   | num == 1 = "старт"
-  | num == 3 || num == 18 || num == 34 = "казна"
+  | num == 3 || num == 18 || num == 34 = "кафедра свободная" --казна
   | num == 5 = "налог"
-  | num == 8 || num == 23 || num == 37 = "шанс"
+  | num == 8 || num == 23 || num == 37 = "кафедра свободная" --шанс
   | num == 11 || num == 21 = "стоянка"
-  | num == 31 = "тюрьма"
+  | num == 31 = "кафедра свободная" --академ
   | num == 39 = "сверхналог"
   | (isRent ((land gameState) !! (num - 1))) == False  = "кафедра свободная"
   | otherwise = "кафедра занята"
