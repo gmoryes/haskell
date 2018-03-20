@@ -377,6 +377,10 @@ drawGameState images gameState
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
     | (typeStep gameState) == "кафедра свободная" = pictures
         [ drawPlayingField (imagePlayingField images)
@@ -385,6 +389,10 @@ drawGameState images gameState
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
     | otherwise = pictures
         [ drawPlayingField (imagePlayingField images)
@@ -392,6 +400,10 @@ drawGameState images gameState
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
   where
     player1 = ((players gameState) !! 0)
@@ -399,6 +411,13 @@ drawGameState images gameState
     player3 = ((players gameState) !! 2)
     player4 = ((players gameState) !! 3)
 
+drawMoney :: Player -> Picture
+drawMoney player = translate x y (scale r r (text money_str))
+    where
+        (x, y) = (-630, 400 - 50 * (fromIntegral (colour player)))
+        money_str = "Player " ++ colour_str ++ ": " ++ show (money player)
+        r = 1 / fromIntegral 5
+        colour_str = show (colour player)
 
 drawPayMenu :: Picture -> Picture
 drawPayMenu image = translate 0 0 image
