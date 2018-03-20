@@ -1,4 +1,4 @@
-module SpaceJunk where
+module Monopoly where
 
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game

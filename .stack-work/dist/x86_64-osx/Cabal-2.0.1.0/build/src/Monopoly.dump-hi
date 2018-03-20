@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-20 11:31:58.776203 UTC
+2018-03-20 12:25:03.651567 UTC
 
 interface monopoly-0.1-EHoOAVlKhvJDKzSG2oZd5j:Monopoly 8022
-  interface hash: dc2c32baeabad7cdaa047baeed585068
-  ABI hash: 1be2582dab5cc1125ef409c67e97b03e
-  export-list hash: aa53de3dae5f640ef6bc8ea8a68685de
+  interface hash: 86495a32351447becd3d853d929060cb
+  ABI hash: 4d75e63b75d43bb0f7aed7e2b2c738d4
+  export-list hash: 27a9939b96b9e2c124afefa73c22bd48
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: 0451a77cc0d8e5d99d548d6441c7dd35
   sig of: Nothing
@@ -14,6 +14,7 @@ interface monopoly-0.1-EHoOAVlKhvJDKzSG2oZd5j:Monopoly 8022
 exports:
   Monopoly.canGo
   Monopoly.chanceCard
+  Monopoly.changeBalance
   Monopoly.changePlayerCell
   Monopoly.doStep
   Monopoly.drawGameState
@@ -21,9 +22,11 @@ exports:
   Monopoly.drawPiece
   Monopoly.drawPlayingField
   Monopoly.getPlayerPosition
+  Monopoly.getPriceRent
   Monopoly.getTypeCell
   Monopoly.handleGame
   Monopoly.handlePay
+  Monopoly.initCards
   Monopoly.initGame
   Monopoly.initPay
   Monopoly.isPay
@@ -35,6 +38,7 @@ exports:
   Monopoly.makeStepFeatures
   Monopoly.move
   Monopoly.movePlayer
+  Monopoly.payPrictRent
   Monopoly.payTax
   Monopoly.satelliteRotationSpeed
   Monopoly.screenHeight
@@ -45,6 +49,8 @@ exports:
   Monopoly.ufoAccel
   Monopoly.updateGameState
   Monopoly.updatePay
+  Monopoly.Cards
+  Monopoly.ChanceCard{Monopoly.ChanceCard num price2 text2}
   Monopoly.Cubes{Monopoly.Cubes firstCube secondCube}
   Monopoly.GameState{Monopoly.GameState cubes gamePlayer haveWinner land players typeStep}
   Monopoly.Images{Monopoly.Images imagePayMenu imagePieceBlue imagePieceGreen imagePieceRed imagePieceYellow imagePlayingField}
@@ -58,9 +64,8 @@ package dependencies: GLURaw-2.0.0.3 GLUT-2.7.0.12
                       binary-0.8.5.1 bmp-1.2.6.3 bytestring-0.10.8.2 containers-0.5.10.2
                       deepseq-1.4.3.0 fixed-0.2.1.1 ghc-prim-0.5.1.1 gloss-1.11.1.1
                       gloss-juicy-0.2.2 gloss-rendering-1.11.1.1 half-0.2.2.3
-                      integer-gmp-1.0.1.0 mtl-2.2.1 primitive-0.6.3.0 random-1.1
-                      stm-2.4.5.0 text-1.2.2.2 time-1.8.0.2 transformers-0.5.2.0
-                      vector-0.12.0.1 zlib-0.6.1.2
+                      integer-gmp-1.0.1.0 mtl-2.2.1 primitive-0.6.3.0 stm-2.4.5.0
+                      text-1.2.2.2 transformers-0.5.2.0 vector-0.12.0.1 zlib-0.6.1.2
 orphans: vector-0.12.0.1:Data.Vector.Unboxed
          gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture
          stm-2.4.5.0:Control.Monad.STM text-1.2.2.2:Data.Text
@@ -68,11 +73,7 @@ orphans: vector-0.12.0.1:Data.Vector.Unboxed
          bytestring-0.10.8.2:Data.ByteString.Builder
          vector-0.12.0.1:Data.Vector.Fusion.Bundle
          transformers-0.5.2.0:Control.Monad.Trans.Error
-         time-1.8.0.2:Data.Time.Format.Parse
-         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
-         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
-         time-1.8.0.2:Data.Time.Calendar.Gregorian base-4.10.1.0:GHC.Float
-         base-4.10.1.0:GHC.Base
+         base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
 family instance modules: JuicyPixels-3.2.9.4:Codec.Picture.Tga
                          JuicyPixels-3.2.9.4:Codec.Picture.Tiff
                          JuicyPixels-3.2.9.4:Codec.Picture.Types
@@ -116,7 +117,6 @@ import  -/  gloss-1.11.1.1:Graphics.Gloss.Internals.Interface.Backend.Types 06ea
 import  -/  gloss-1.11.1.1:Graphics.Gloss.Internals.Interface.Event f16844b468f3b0afda143b6d1f143412
 import  -/  gloss-juicy-0.2.2:Graphics.Gloss.Juicy 46a9eca8d76b0eb9834882dca76d1776
 import  -/  gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture d666c96398fc251f92f60389aa7562f8
-import  -/  random-1.1:System.Random c9dfbade5c0e5bc4ae42c058f948952b
 78cf08954a4a97e6e70eb90650024072
   $fPhysicalPlayer :: Monopoly.Physical Monopoly.Player
   DFunId
@@ -165,6 +165,26 @@ df17e651a73788749aceb26834ca495d
 d8637616c5a72615cd75219cf1400ed4
   $tc'C:Physical3 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("'C:Physical"#) -}
+a238d52fcd943cf6af59563501985dcb
+  $tc'ChanceCard :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   16684506854786530181##
+                   10862240134661998355##
+                   Monopoly.$trModule
+                   Monopoly.$tc'ChanceCard2
+                   0#
+                   Monopoly.$tc'ChanceCard1) -}
+bcfb4d7325849a2f6a4601140d2ef98c
+  $tc'ChanceCard1 :: GHC.Types.KindRep
+  {- HasNoCafRefs, Strictness: m4, Inline: [~] -}
+daf1e96d81f0b6ac7fda7c514c61cc6e
+  $tc'ChanceCard2 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Monopoly.$tc'ChanceCard3) -}
+a39882c1e1216a4fbeda1b68a7e6e7b5
+  $tc'ChanceCard3 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("'ChanceCard"#) -}
 4fd734913533a9e56e3bf6a91e55daa8
   $tc'Cubes :: GHC.Types.TyCon
   {- HasNoCafRefs, Strictness: m,
@@ -265,6 +285,23 @@ a53c933256e245ec4bb8c9476b5e9970
 071483ae1c3214f23afdb0be8a73f870
   $tc'Street3 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("'Street"#) -}
+54b28ccbf3b934bf6e58c815d2f5bd79
+  $tcChanceCard :: GHC.Types.TyCon
+  {- HasNoCafRefs, Strictness: m,
+     Unfolding: (GHC.Types.TyCon
+                   10864997254005274989##
+                   9225381818848966281##
+                   Monopoly.$trModule
+                   Monopoly.$tcChanceCard1
+                   0#
+                   GHC.Types.krep$*) -}
+00bb927767b0a6202c033d1ebe553719
+  $tcChanceCard1 :: GHC.Types.TrName
+  {- HasNoCafRefs, Strictness: m1,
+     Unfolding: (GHC.Types.TrNameS Monopoly.$tcChanceCard2) -}
+c526b98a614671762687d61410319b02
+  $tcChanceCard2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("ChanceCard"#) -}
 dba68f381283720c77d13121d1fcb3e3
   $tcCubes :: GHC.Types.TyCon
   {- HasNoCafRefs, Strictness: m,
@@ -391,7 +428,7 @@ d7bf0718b0ea801964bbdbbe1e417e59
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("monopoly-0.1-EHoOAVlKhvJDKzSG2oZd5j"#) -}
-f25812646d845b956ae4f53cd09693b8
+22b887f279957963ebd9facd44861815
   $wchangePlayerCell ::
     [Monopoly.Player]
     -> GHC.Types.Int
@@ -459,7 +496,7 @@ f25812646d845b956ae4f53cd09693b8
                         case GHC.Prim.tagToEnum#
                                @ GHC.Types.Bool
                                (GHC.Prim.<# 0# y1) of wild1 {
-                          GHC.Types.False -> Monopoly.changePlayerCell17
+                          GHC.Types.False -> Monopoly.changePlayerCell21
                           GHC.Types.True
                           -> GHC.List.reverse1
                                @ Monopoly.Player
@@ -503,7 +540,15 @@ f25812646d845b956ae4f53cd09693b8
                     case GHC.Classes.modInt#
                            (GHC.Prim.-# (GHC.Prim.+# x y) 1#)
                            40# of ww11 { DEFAULT ->
-                    Monopoly.$wgetTypeCell (GHC.Prim.+# ww11 1#) } } } } #)) -}
+                    Monopoly.$wgetTypeCell
+                      (GHC.Prim.+# ww11 1#)
+                      (Monopoly.GameState
+                         ww
+                         ww1
+                         ww2
+                         ww3
+                         ww4
+                         Monopoly.changePlayerCell1) } } } } #)) -}
 85677049d80ce1ea5f789d3228fe8c7e
   $wdrawGameState ::
     Monopoly.Images
@@ -593,24 +638,144 @@ aed6c94f772de239690a9084eab7107b
                               GHC.Types.F#
                                 (GHC.Prim.int2Float#
                                    (GHC.Prim.+# -350# (GHC.Prim.*# ww 60#))) #) } }) -}
-8c41d93dd2c933fe6b14b2a87bca36ce
-  $wgetTypeCell :: GHC.Prim.Int# -> [GHC.Types.Char]
-  {- Arity: 1, Strictness: <S,1*U>, Inline: [0],
-     Unfolding: (\ (ww :: GHC.Prim.Int#) ->
+ec6266fe2276f6d86aa89bf12d1175ea
+  $wgetPriceRent ::
+    [Monopoly.Player]
+    -> GHC.Types.Int
+    -> GHC.Base.Maybe GHC.Types.Int
+    -> Monopoly.Cubes
+    -> [Monopoly.Street]
+    -> GHC.Base.String
+    -> (# [Monopoly.Player], GHC.Types.Int,
+          GHC.Base.Maybe GHC.Types.Int, Monopoly.Cubes, [Monopoly.Street],
+          GHC.Base.String #)
+  {- Arity: 6, Strictness: <L,U><L,U(U)><L,U><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ (ww :: [Monopoly.Player])
+                   (ww1 :: GHC.Types.Int)
+                   (ww2 :: GHC.Base.Maybe GHC.Types.Int)
+                   (ww3 :: Monopoly.Cubes)
+                   (ww4 :: [Monopoly.Street])
+                   (ww5 :: GHC.Base.String) ->
+                 (# case ww1 of ww6 { GHC.Types.I# ww7 ->
+                    case GHC.List.$w!!
+                           @ Monopoly.Player
+                           ww
+                           ww7 of wild { Monopoly.Player ds ds1 ds2 ds3 ds4 ->
+                    case ds3 of wild1 { GHC.Types.I# x ->
+                    case GHC.List.$w!!
+                           @ Monopoly.Street
+                           ww4
+                           (GHC.Prim.-#
+                              x
+                              1#) of wild2 { Monopoly.Street ds5 ds6 ds7 ds8 ds9 ->
+                    case ds9 of wild3 { GHC.Types.I# x1 ->
+                    case GHC.List.$w!!
+                           @ Monopoly.Player
+                           ww
+                           (GHC.Prim.-#
+                              x1
+                              1#) of wild4 { Monopoly.Player ds10 ds11 ds12 ds13 ds14 ->
+                    case ds10 of wild5 { GHC.Types.I# x2 ->
+                    let {
+                      y :: GHC.Prim.Int# = GHC.Prim.-# x2 1#
+                    } in
+                    let {
+                      n :: GHC.Types.Int
+                      = case ds11 of wild6 { GHC.Types.I# x3 ->
+                        case ds13 of wild7 { GHC.Types.I# x4 ->
+                        case GHC.List.$w!!
+                               @ Monopoly.Street
+                               ww4
+                               (GHC.Prim.-#
+                                  x4
+                                  1#) of wild8 { Monopoly.Street ds15 ds16 ds17 ds18 ds19 ->
+                        case ds18 of wild9 { GHC.Types.I# x5 ->
+                        GHC.Types.I# (GHC.Prim.+# x3 (GHC.Prim.*# x5 -1#)) } } } }
+                    } in
+                    let {
+                      n1 :: Monopoly.Player = Monopoly.Player wild5 n ds12 ds13 ds14
+                    } in
+                    let {
+                      n2 :: [Monopoly.Player]
+                      = case GHC.List.$wlenAcc
+                               @ Monopoly.Player
+                               ww
+                               0# of ww8 { DEFAULT ->
+                        let {
+                          y1 :: GHC.Prim.Int# = GHC.Prim.-# ww8 x2
+                        } in
+                        case GHC.Prim.tagToEnum#
+                               @ GHC.Types.Bool
+                               (GHC.Prim.<# 0# y1) of wild6 {
+                          GHC.Types.False -> Monopoly.changePlayerCell21
+                          GHC.Types.True
+                          -> GHC.List.reverse1
+                               @ Monopoly.Player
+                               (GHC.List.$wunsafeTake
+                                  @ Monopoly.Player
+                                  y1
+                                  (GHC.List.reverse1
+                                     @ Monopoly.Player
+                                     ww
+                                     (GHC.Types.[] @ Monopoly.Player)))
+                               (GHC.Types.[] @ Monopoly.Player) } }
+                    } in
+                    let {
+                      n3 :: [Monopoly.Player] = GHC.Types.: @ Monopoly.Player n1 n2
+                    } in
+                    case GHC.Prim.tagToEnum#
+                           @ GHC.Types.Bool
+                           (GHC.Prim.<# 0# y) of wild6 {
+                      GHC.Types.False -> n3
+                      GHC.Types.True
+                      -> letrec {
+                           $wgo :: [Monopoly.Player] -> GHC.Prim.Int# -> [Monopoly.Player]
+                             {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [0] -}
+                           = \ (w :: [Monopoly.Player]) (ww8 :: GHC.Prim.Int#) ->
+                             case w of wild7 {
+                               [] -> n3
+                               : y1 ys
+                               -> case ww8 of ds15 {
+                                    DEFAULT
+                                    -> GHC.Types.:
+                                         @ Monopoly.Player
+                                         y1
+                                         ($wgo ys (GHC.Prim.-# ds15 1#))
+                                    1# -> GHC.Types.: @ Monopoly.Player y1 n3 } }
+                         } in
+                         $wgo ww y } } } } } } } },
+                    ww1, ww2, ww3, ww4, ww5 #)) -}
+d7de114890a43104ee7651b3b45e08bb
+  $wgetTypeCell ::
+    GHC.Prim.Int# -> Monopoly.GameState -> [GHC.Types.Char]
+  {- Arity: 2, Strictness: <S,1*U><L,1*U(A,A,A,A,1*U,A)>,
+     Inline: [0],
+     Unfolding: (\ (ww :: GHC.Prim.Int#) (w :: Monopoly.GameState) ->
                  case ww of wild {
-                   DEFAULT -> Monopoly.changePlayerCell15
-                   1# -> Monopoly.changePlayerCell13
-                   3# -> Monopoly.changePlayerCell11
-                   5# -> Monopoly.changePlayerCell9
-                   8# -> Monopoly.changePlayerCell7
-                   11# -> Monopoly.changePlayerCell5
-                   18# -> Monopoly.changePlayerCell11
-                   21# -> Monopoly.changePlayerCell5
-                   23# -> Monopoly.changePlayerCell7
-                   31# -> Monopoly.changePlayerCell3
-                   34# -> Monopoly.changePlayerCell11
-                   37# -> Monopoly.changePlayerCell7
-                   39# -> Monopoly.changePlayerCell1 }) -}
+                   DEFAULT
+                   -> case w of wild1 { Monopoly.GameState ds ds1 ds2 ds3 ds4 ds5 ->
+                      case GHC.List.$w!!
+                             @ Monopoly.Street
+                             ds4
+                             (GHC.Prim.-#
+                                wild
+                                1#) of wild2 { Monopoly.Street ds6 ds7 ds8 ds9 ds10 ->
+                      case ds8 of wild3 {
+                        GHC.Types.False -> Monopoly.changePlayerCell19
+                        GHC.Types.True -> Monopoly.changePlayerCell17 } } }
+                   1# -> Monopoly.changePlayerCell15
+                   3# -> Monopoly.changePlayerCell13
+                   5# -> Monopoly.changePlayerCell11
+                   8# -> Monopoly.changePlayerCell9
+                   11# -> Monopoly.changePlayerCell7
+                   18# -> Monopoly.changePlayerCell13
+                   21# -> Monopoly.changePlayerCell7
+                   23# -> Monopoly.changePlayerCell9
+                   31# -> Monopoly.changePlayerCell5
+                   34# -> Monopoly.changePlayerCell13
+                   37# -> Monopoly.changePlayerCell9
+                   39# -> Monopoly.changePlayerCell3 }) -}
 bad03acef8ee0b70fe7001269c377ec2
   $wisPay ::
     GHC.Prim.Float# -> GHC.Types.Float -> GHC.Base.Maybe GHC.Types.Bool
@@ -661,7 +826,7 @@ bad03acef8ee0b70fe7001269c377ec2
                                        (GHC.Prim.ltFloat# x 50.0#) of wild4 {
                                   GHC.Types.False -> $j
                                   GHC.Types.True -> Monopoly.handleGame1 } } } } }) -}
-749b93015cfcfb3015751dc2a66918fd
+d773be70b60b7cdb443667b3af015e87
   $wmakeStepFeatures ::
     [Monopoly.Player]
     -> GHC.Types.Int
@@ -680,32 +845,29 @@ bad03acef8ee0b70fe7001269c377ec2
                    (ww3 :: Monopoly.Cubes)
                    (ww4 :: [Monopoly.Street])
                    (ww5 :: GHC.Base.String) ->
-                 case GHC.Base.eqString ww5 Monopoly.changePlayerCell13 of wild {
+                 case GHC.Base.eqString ww5 Monopoly.changePlayerCell15 of wild {
                    GHC.Types.False
-                   -> case GHC.Base.eqString ww5 Monopoly.changePlayerCell9 of wild1 {
+                   -> case GHC.Base.eqString
+                             ww5
+                             Monopoly.changePlayerCell11 of wild1 {
                         GHC.Types.False
-                        -> case GHC.Base.eqString ww5 Monopoly.changePlayerCell1 of wild2 {
+                        -> case GHC.Base.eqString ww5 Monopoly.changePlayerCell3 of wild2 {
                              GHC.Types.False
-                             -> case GHC.Base.eqString ww5 Monopoly.changePlayerCell5 of wild3 {
+                             -> case GHC.Base.eqString ww5 Monopoly.changePlayerCell7 of wild3 {
                                   GHC.Types.False
-                                  -> case ww1 of ww6 { GHC.Types.I# ww7 ->
-                                     case GHC.List.$w!!
-                                            @ Monopoly.Player
-                                            ww
-                                            (GHC.Prim.-#
-                                               ww7
-                                               1#) of wild4 { Monopoly.Player ds ds1 ds2 ds3 ds4 ->
-                                     case ds3 of wild5 { GHC.Types.I# x ->
-                                     case GHC.List.$w!!
-                                            @ Monopoly.Street
-                                            ww4
-                                            (GHC.Prim.-#
-                                               x
-                                               1#) of wild6 { Monopoly.Street ds5 ds6 ds7 ds8 ds9 ->
-                                     case ds7 of wild7 {
-                                       GHC.Types.False -> (# ww, ww6, ww2, ww3, ww4, ww5 #)
+                                  -> case GHC.Base.eqString
+                                            ww5
+                                            Monopoly.changePlayerCell17 of wild4 {
+                                       GHC.Types.False -> (# ww, ww1, ww2, ww3, ww4, ww5 #)
                                        GHC.Types.True
-                                       -> Monopoly.$wpayTax ww ww6 ww2 ww3 ww4 ww5 ds8 } } } } }
+                                       -> case Monopoly.$wpayPrictRent
+                                                 ww
+                                                 ww1
+                                                 ww2
+                                                 ww3
+                                                 ww4
+                                                 ww5 of ww6 { (#,,,,,#) ww7 ww8 ww9 ww10 ww11 ww12 ->
+                                          Monopoly.$wgetPriceRent ww7 ww8 ww9 ww10 ww11 ww12 } }
                                   GHC.Types.True
                                   -> (# ww,
                                         case ww1 of wild4 { GHC.Types.I# x ->
@@ -730,7 +892,102 @@ bad03acef8ee0b70fe7001269c377ec2
                              ww5
                              Monopoly.makeStepFeatures1 }
                    GHC.Types.True -> (# ww, ww1, ww2, ww3, ww4, ww5 #) }) -}
-b0adcd5982e7913be1cfc403d8778ea9
+6b9b79e661a5de10650a09d24d1c72ee
+  $wpayPrictRent ::
+    [Monopoly.Player]
+    -> GHC.Types.Int
+    -> GHC.Base.Maybe GHC.Types.Int
+    -> Monopoly.Cubes
+    -> [Monopoly.Street]
+    -> GHC.Base.String
+    -> (# [Monopoly.Player], GHC.Types.Int,
+          GHC.Base.Maybe GHC.Types.Int, Monopoly.Cubes, [Monopoly.Street],
+          GHC.Base.String #)
+  {- Arity: 6, Strictness: <L,U><L,U(U)><L,U><L,U><L,U><L,U>,
+     Inline: [0],
+     Unfolding: (\ (ww :: [Monopoly.Player])
+                   (ww1 :: GHC.Types.Int)
+                   (ww2 :: GHC.Base.Maybe GHC.Types.Int)
+                   (ww3 :: Monopoly.Cubes)
+                   (ww4 :: [Monopoly.Street])
+                   (ww5 :: GHC.Base.String) ->
+                 (# case ww1 of wild { GHC.Types.I# x ->
+                    let {
+                      y :: GHC.Prim.Int# = GHC.Prim.-# x 1#
+                    } in
+                    let {
+                      n :: Monopoly.Player
+                      = case GHC.List.$w!!
+                               @ Monopoly.Player
+                               ww
+                               y of wild1 { Monopoly.Player ds ds1 ds2 ds3 ds4 ->
+                        Monopoly.Player
+                          ds
+                          (case ds1 of wild2 { GHC.Types.I# x1 ->
+                           case ds3 of wild3 { GHC.Types.I# x2 ->
+                           case GHC.List.$w!!
+                                  @ Monopoly.Street
+                                  ww4
+                                  (GHC.Prim.-#
+                                     x2
+                                     1#) of wild4 { Monopoly.Street ds5 ds6 ds7 ds8 ds9 ->
+                           case ds8 of wild5 { GHC.Types.I# x3 ->
+                           GHC.Types.I# (GHC.Prim.+# x1 (GHC.Prim.*# x3 -1#)) } } } })
+                          ds2
+                          ds3
+                          ds4 }
+                    } in
+                    let {
+                      n1 :: [Monopoly.Player]
+                      = case GHC.List.$wlenAcc
+                               @ Monopoly.Player
+                               ww
+                               0# of ww6 { DEFAULT ->
+                        let {
+                          y1 :: GHC.Prim.Int# = GHC.Prim.-# ww6 x
+                        } in
+                        case GHC.Prim.tagToEnum#
+                               @ GHC.Types.Bool
+                               (GHC.Prim.<# 0# y1) of wild1 {
+                          GHC.Types.False -> Monopoly.changePlayerCell21
+                          GHC.Types.True
+                          -> GHC.List.reverse1
+                               @ Monopoly.Player
+                               (GHC.List.$wunsafeTake
+                                  @ Monopoly.Player
+                                  y1
+                                  (GHC.List.reverse1
+                                     @ Monopoly.Player
+                                     ww
+                                     (GHC.Types.[] @ Monopoly.Player)))
+                               (GHC.Types.[] @ Monopoly.Player) } }
+                    } in
+                    let {
+                      n2 :: [Monopoly.Player] = GHC.Types.: @ Monopoly.Player n n1
+                    } in
+                    case GHC.Prim.tagToEnum#
+                           @ GHC.Types.Bool
+                           (GHC.Prim.<# 0# y) of wild1 {
+                      GHC.Types.False -> n2
+                      GHC.Types.True
+                      -> letrec {
+                           $wgo :: [Monopoly.Player] -> GHC.Prim.Int# -> [Monopoly.Player]
+                             {- Arity: 2, Strictness: <S,1*U><L,1*U>, Inline: [0] -}
+                           = \ (w :: [Monopoly.Player]) (ww6 :: GHC.Prim.Int#) ->
+                             case w of wild2 {
+                               [] -> n2
+                               : y1 ys
+                               -> case ww6 of ds1 {
+                                    DEFAULT
+                                    -> GHC.Types.:
+                                         @ Monopoly.Player
+                                         y1
+                                         ($wgo ys (GHC.Prim.-# ds1 1#))
+                                    1# -> GHC.Types.: @ Monopoly.Player y1 n2 } }
+                         } in
+                         $wgo ww y } },
+                    ww1, ww2, ww3, ww4, ww5 #)) -}
+e41133266fa081c203811794c2fb5c1e
   $wpayTax ::
     [Monopoly.Player]
     -> GHC.Types.Int
@@ -783,7 +1040,7 @@ b0adcd5982e7913be1cfc403d8778ea9
                         case GHC.Prim.tagToEnum#
                                @ GHC.Types.Bool
                                (GHC.Prim.<# 0# y1) of wild1 {
-                          GHC.Types.False -> Monopoly.changePlayerCell17
+                          GHC.Types.False -> Monopoly.changePlayerCell21
                           GHC.Types.True
                           -> GHC.List.reverse1
                                @ Monopoly.Player
@@ -823,6 +1080,13 @@ b0adcd5982e7913be1cfc403d8778ea9
                     case ww1 of wild1 { GHC.Types.I# x ->
                     GHC.Types.I# (GHC.Prim.+# (GHC.Prim.andI# x 3#) 1#) },
                     ww2, ww3, ww4, ww5 #)) -}
+4722d1a2b76bd9c017b2a63bbf7ee43b
+  type Cards = [Monopoly.ChanceCard]
+6bcfbccc32ada50007df2a427dd97d7b
+  data ChanceCard
+    = ChanceCard {num :: GHC.Types.Int,
+                  price2 :: GHC.Types.Int,
+                  text2 :: GHC.Base.String}
 d15a78157415196aa8616bbb4f87e4e1
   data Cubes
     = Cubes {firstCube :: GHC.Types.Int, secondCube :: GHC.Types.Int}
@@ -874,7 +1138,23 @@ b6b00bf78dc3a464729bafe1bdc8000f
   {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,U,U,U)>m,
      Unfolding: InlineRule (1, True, True)
                 (\ (gameState :: Monopoly.GameState) -> gameState) -}
-5765d8b6c89ce6d73672a3f721160584
+8f7ff710511213de6f5acd3bf26e9bbc
+  changeBalance ::
+    Monopoly.Player -> GHC.Types.Int -> Monopoly.Player
+  {- Arity: 2, HasNoCafRefs,
+     Strictness: <S,1*U(U,1*U(U),U,U,U)><L,1*U(U)>m,
+     Unfolding: InlineRule (2, True, False)
+                (\ (player :: Monopoly.Player) (sum :: GHC.Types.Int) ->
+                 case player of wild { Monopoly.Player ds ds1 ds2 ds3 ds4 ->
+                 Monopoly.Player
+                   ds
+                   (case ds1 of wild1 { GHC.Types.I# x ->
+                    case sum of wild2 { GHC.Types.I# y ->
+                    GHC.Types.I# (GHC.Prim.+# x y) } })
+                   ds2
+                   ds3
+                   ds4 }) -}
+76057cc18a616ea811398bffaee197d0
   changePlayerCell :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, Strictness: <S,1*U(U,U(U),U,U(U(U),U(U)),U,A)>m,
      Inline: [0],
@@ -888,73 +1168,89 @@ b6b00bf78dc3a464729bafe1bdc8000f
                         ww4
                         ww5 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
                  Monopoly.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }) -}
-b391cef512292acd0a43b1cfb6737c2a
-  changePlayerCell1 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+f3bb4cfd306f3df9bb48d85237af5fdd
+  changePlayerCell1 :: GHC.Base.String
+  {- Unfolding: (Control.Exception.Base.absentError
+                   @ GHC.Base.String
                    Monopoly.changePlayerCell2) -}
-3362c2a8ca0ea6e1df3e5a3a7e683dde
+d699fea37affff12209eda7d686d9521
   changePlayerCell10 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
-2c3dc01d380a781efa110a4a66546fa7
+     Unfolding: ("\\209\\136\\208\\176\\208\\189\\209\\129"#) -}
+2f29ec810b19dea003154fdb50eeeabf
   changePlayerCell11 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell12) -}
-f51f6f41186854a57e0a4df077fd4dc8
+ea09e869dff1801db041da946f67ec1a
   changePlayerCell12 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
-d169c794ec4d6689e95453be176e23d2
+     Unfolding: ("\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+cd926b5fae5259054bb67e6fb27ac1e2
   changePlayerCell13 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell14) -}
-246fe6afc7174413e1692894a35a6864
+2404cb72de8a8b7f01da3279bb5675f3
   changePlayerCell14 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\209\\129\\209\\130\\208\\176\\209\\128\\209\\130"#) -}
-054ce920e65960aeab4efc47dde1581c
+     Unfolding: ("\\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
+4c020f4aff0cd69d2b33bf03737aa1f1
   changePlayerCell15 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell16) -}
-09beff40332bf720d57581a86e53858e
+7c8642dadd467211670a4641a48756f9
   changePlayerCell16 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\209\\131\\208\\187\\208\\184\\209\\134\\208\\176"#) -}
-cd3f089b02584dc53534088eec965f92
-  changePlayerCell17 :: [Monopoly.Player]
+     Unfolding: ("\\209\\129\\209\\130\\208\\176\\209\\128\\209\\130"#) -}
+7ce63d9257b81f50aeb748cb7af68ac2
+  changePlayerCell17 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.changePlayerCell18) -}
+3c36c49e2d6e451d5ec1e5cea7930190
+  changePlayerCell18 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\186\\208\\176\\209\\132\\208\\181\\208\\180\\209\\128\\208\\176 \\208\\183\\208\\176\\208\\189\\209\\143\\209\\130\\208\\176"#) -}
+a38b67e7d4462ca74ae137a72546274c
+  changePlayerCell19 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.changePlayerCell20) -}
+1ba26251152451b6e5cfbaed1eb9ca74
+  changePlayerCell2 :: GHC.Prim.Addr#
+  {- HasNoCafRefs, Unfolding: ("ww String"#) -}
+cbba80a3e45c9f01429c954936b2882f
+  changePlayerCell20 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\186\\208\\176\\209\\132\\208\\181\\208\\180\\209\\128\\208\\176 \\209\\129\\208\\178\\208\\190\\208\\177\\208\\190\\208\\180\\208\\189\\208\\176\\209\\143"#) -}
+18aed774567890064b3f1b3f7c673973
+  changePlayerCell21 :: [Monopoly.Player]
   {- Unfolding: (GHC.List.reverse1
                    @ Monopoly.Player
                    (GHC.Types.[] @ Monopoly.Player)
                    (GHC.Types.[] @ Monopoly.Player)) -}
-fc0be2d4fbf86a7401778308b516830a
-  changePlayerCell2 :: GHC.Prim.Addr#
-  {- HasNoCafRefs,
-     Unfolding: ("\\209\\129\\208\\178\\208\\181\\209\\128\\209\\133\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
-799c498ee2d6cf79c08b24d47ed29ed3
+9916b6a70897379b6e8dac8f07ed9c78
   changePlayerCell3 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell4) -}
-563bcad3b6e0cd81668b189a2aad3978
+cf1b90aa4e4fa16ecd2ae4e0278712da
   changePlayerCell4 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\209\\130\\209\\142\\209\\128\\209\\140\\208\\188\\208\\176"#) -}
-c5fbbc02688e5e717f7677f441277bdb
+     Unfolding: ("\\209\\129\\208\\178\\208\\181\\209\\128\\209\\133\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
+edc1a5d923000451407141922f834054
   changePlayerCell5 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell6) -}
-db064de95049ef5015b25b8570ef6dee
+9114718b3629a33ef1150da536680143
   changePlayerCell6 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\209\\129\\209\\130\\208\\190\\209\\143\\208\\189\\208\\186\\208\\176"#) -}
-4504dbc5290fa36d931966c1e62289e5
+     Unfolding: ("\\209\\130\\209\\142\\209\\128\\209\\140\\208\\188\\208\\176"#) -}
+1efbe2a1417f7e9d56c46247ccbaaa88
   changePlayerCell7 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell8) -}
-02fb028924f8a123fe5118217867ad7c
+9c4d0cf3a4a11faceca820ce5f3a9f78
   changePlayerCell8 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
-     Unfolding: ("\\209\\136\\208\\176\\208\\189\\209\\129"#) -}
-2ecec5dcb1804cc450cf8643f5a5f0ed
+     Unfolding: ("\\209\\129\\209\\130\\208\\190\\209\\143\\208\\189\\208\\186\\208\\176"#) -}
+cd7840be7cf9a96028b0a575ad137803
   changePlayerCell9 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
                    Monopoly.changePlayerCell10) -}
@@ -975,7 +1271,7 @@ e82b4e3318daaeb987adaca730bd19d2
                 (\ (ds :: Monopoly.GameState) ->
                  case ds of wild { Monopoly.GameState ds1 ds2 ds3 ds4 ds5 ds6 ->
                  ds4 }) -}
-308dfd1dfd5b5728d906936b51f34bf8
+a8dad92446ef6e8ef3a5d6fdfd7daf30
   doStep ::
     Graphics.Gloss.Internals.Data.Picture.Point
     -> Monopoly.GameState -> Monopoly.GameState
@@ -1094,13 +1390,30 @@ b655285bd9c24a5669506db8d0aa31f4
                  case w1 of ww { GHC.Types.I# ww1 ->
                  case Monopoly.$wgetPlayerPosition w ww1 of ww2 { (#,#) ww3 ww4 ->
                  (ww3, ww4) } }) -}
-d2d7e1aa8cdf55698718289f8fc1cb99
-  getTypeCell :: GHC.Types.Int -> GHC.Base.String
-  {- Arity: 1, Strictness: <S(S),1*U(1*U)>, Inline: [0],
+9e1ded17f4b1622c711e91f2407bd91a
+  getPriceRent :: Monopoly.GameState -> Monopoly.GameState
+  {- Arity: 1, Strictness: <S,1*U(U,U(U),U,U,U,U)>m, Inline: [0],
      Unfolding: InlineRule (1, True, False)
-                (\ (w :: GHC.Types.Int) ->
-                 case w of ww { GHC.Types.I# ww1 -> Monopoly.$wgetTypeCell ww1 }) -}
-3b9dc76a5e246c84ff8bedcb4db5c93a
+                (\ (w :: Monopoly.GameState) ->
+                 case w of ww { Monopoly.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case Monopoly.$wgetPriceRent
+                        ww1
+                        ww2
+                        ww3
+                        ww4
+                        ww5
+                        ww6 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                 Monopoly.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }) -}
+318b780aa8efd5e8d9d462abd90f6868
+  getTypeCell ::
+    GHC.Types.Int -> Monopoly.GameState -> GHC.Base.String
+  {- Arity: 2, Strictness: <S(S),1*U(1*U)><L,1*U(A,A,A,A,1*U,A)>,
+     Inline: [0],
+     Unfolding: InlineRule (2, True, False)
+                (\ (w :: GHC.Types.Int) (w1 :: Monopoly.GameState) ->
+                 case w of ww { GHC.Types.I# ww1 ->
+                 Monopoly.$wgetTypeCell ww1 w1 }) -}
+cb11fff5e00a79ba097cc910e13069e4
   handleGame ::
     Graphics.Gloss.Internals.Interface.Event.Event
     -> Monopoly.GameState -> Monopoly.GameState
@@ -1125,7 +1438,7 @@ d2d7e1aa8cdf55698718289f8fc1cb99
                                        GHC.Types.False
                                        -> case GHC.Base.eqString
                                                  ww6
-                                                 Monopoly.changePlayerCell15 of wild5 {
+                                                 Monopoly.changePlayerCell19 of wild5 {
                                             GHC.Types.False
                                             -> Monopoly.GameState ww1 ww2 ww3 ww4 ww5 ww6
                                             GHC.Types.True
@@ -1284,255 +1597,385 @@ e82b4e3318daaeb987adaca730bd19d2
                 (\ (ds :: Monopoly.Images) ->
                  case ds of wild { Monopoly.Images ds1 ds2 ds3 ds4 ds5 ds6 ->
                  ds5 }) -}
-d3fc263873253c6dd4ef9e6814a3a85a
+7b969a07be6f667395fe33cd601c38de
+  initCards :: Monopoly.Cards -> Monopoly.Cards
+  {- Arity: 1, Strictness: <L,A>m2,
+     Unfolding: InlineRule (1, True, True)
+                (\ (cards :: Monopoly.Cards) -> Monopoly.initCards1) -}
+c0a2929a017870d148b1bfe73509ab5d
+  initCards1 :: [Monopoly.ChanceCard]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.ChanceCard
+                   Monopoly.initCards23
+                   Monopoly.initCards2) -}
+e559df9c2fffa1806d64bb9f3ecbe418
+  initCards10 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 4#) -}
+53b70f639174effde1c940ed2f4c3772
+  initCards11 :: Monopoly.ChanceCard
+  {- Strictness: m,
+     Unfolding: (Monopoly.ChanceCard
+                   Monopoly.initCards15
+                   Monopoly.initCards14
+                   Monopoly.initCards12) -}
+f94131f0d87a4459f050a4b7647b3b5a
+  initCards12 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initCards13) -}
+f56dfdd1fceb29d9a84d452919287e1b
+  initCards13 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\168\\209\\130\\209\\128\\208\\176\\209\\132 200 \\208\\177\\208\\176\\208\\187\\208\\187\\208\\190\\208\\178!"#) -}
+d0737303cc745408157e2b0e1ba51bce
+  initCards14 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# -200#) -}
+51c1f9e06921667c91e1a3f99e96ced4
+  initCards15 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 3#) -}
+0922ae8076202812335b6b220f54ddf5
+  initCards16 :: Monopoly.ChanceCard
+  {- Strictness: m,
+     Unfolding: (Monopoly.ChanceCard
+                   Monopoly.doStep2
+                   Monopoly.makeStepFeatures1
+                   Monopoly.initCards17) -}
+c52b63e51a55784d03be7055f7c55e03
+  initCards17 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initCards18) -}
+f7c2daf92a70ed2f0d5e424dcaae6beb
+  initCards18 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\161 \\208\\180\\208\\189\\208\\181\\208\\188 \\209\\128\\208\\190\\208\\182\\208\\180\\208\\181\\208\\189\\208\\184\\209\\143! \\208\\146\\208\\176\\208\\188 \\208\\191\\208\\190\\208\\180\\208\\176\\209\\128\\208\\190\\208\\186 200 \\208\\177\\208\\176\\208\\187\\208\\187\\208\\190\\208\\178"#) -}
+e5a8c55d79089200e037650451e56086
+  initCards19 :: Monopoly.ChanceCard
+  {- Strictness: m,
+     Unfolding: (Monopoly.ChanceCard
+                   Monopoly.doStep3
+                   Monopoly.initCards22
+                   Monopoly.initCards20) -}
+bc3aea453631dcc21b91a76651da0329
+  initCards2 :: [Monopoly.ChanceCard]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.ChanceCard
+                   Monopoly.initCards19
+                   Monopoly.initCards3) -}
+e611c5f51258599ec51e8ba24d7caad3
+  initCards20 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initCards21) -}
+0c1cae426e05abf7c6e65f62060ac3ff
+  initCards21 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\168\\209\\130\\209\\128\\208\\176\\209\\132 100 \\208\\177\\208\\176\\208\\187\\208\\187\\208\\190\\208\\178!"#) -}
+edd46c6d9f631bde3986157e7ff4ea0b
+  initCards22 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# -100#) -}
+34e8107efcd81e0c70e8ee5499592f6f
+  initCards23 :: Monopoly.ChanceCard
+  {- Strictness: m,
+     Unfolding: (Monopoly.ChanceCard
+                   Monopoly.initCards9
+                   Monopoly.makeStepFeatures2
+                   Monopoly.initCards24) -}
+127b6fa2ea492eae7ecfa4f30492031f
+  initCards24 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initCards25) -}
+f9ce5fc86527778eebc17bb7613b3483
+  initCards25 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\146\\208\\176\\208\\188 \\208\\191\\208\\190\\208\\180\\208\\176\\209\\128\\208\\190\\208\\186 100 \\208\\177\\208\\176\\208\\187\\208\\187\\208\\190\\208\\178!"#) -}
+40cf2813c80e8f7a0cbea9f48836d284
+  initCards3 :: [Monopoly.ChanceCard]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.ChanceCard
+                   Monopoly.initCards16
+                   Monopoly.initCards4) -}
+00398ef6dcb565864ceead0fb10a6405
+  initCards4 :: [Monopoly.ChanceCard]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.ChanceCard
+                   Monopoly.initCards11
+                   Monopoly.initCards5) -}
+68d5eafef04eb4f63ae2ff93a5035616
+  initCards5 :: [Monopoly.ChanceCard]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.ChanceCard
+                   Monopoly.initCards6
+                   (GHC.Types.[] @ Monopoly.ChanceCard)) -}
+4f6c2f626f5684521c4f51f90c10db85
+  initCards6 :: Monopoly.ChanceCard
+  {- Strictness: m,
+     Unfolding: (Monopoly.ChanceCard
+                   Monopoly.initCards10
+                   Monopoly.initCards9
+                   Monopoly.initCards7) -}
+41bc4a0053675513d4a1c3345dc52cf2
+  initCards7 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initCards8) -}
+2c9b6f46cc81726d55ba913460ee0a71
+  initCards8 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\150\\208\\184\\208\\178\\208\\184\\209\\130\\208\\181 \\209\\129\\208\\191\\208\\190\\208\\186\\208\\190\\208\\185\\208\\189\\208\\190!"#) -}
+941f7910bf709bbbeb1ea673c77a8234
+  initCards9 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
+d3082f7a4fa566dc4d235c241332eaf4
   initGame :: Monopoly.GameState
   {- Strictness: m,
      Unfolding: (Monopoly.GameState
-                   Monopoly.initGame214
+                   Monopoly.initGame213
                    Monopoly.doStep3
                    (GHC.Base.Nothing @ GHC.Types.Int)
-                   Monopoly.initGame213
+                   Monopoly.initGame212
                    Monopoly.initGame1
                    Monopoly.handleGame3) -}
-9ded3b4ab8701f277e564a74624e8614
+318082e3f36a3f4649672228e246ff34
   initGame1 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame206
+                   Monopoly.initGame205
                    Monopoly.initGame2) -}
-6a779bb39cf8d656a26ced54a9395fe3
+e858ad0c5b94394a6800fd723cfcd09f
   initGame10 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame172
+                   Monopoly.initGame171
                    Monopoly.initGame11) -}
-5133123ce6e3b86d42680f4a756a995b
-  initGame100 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 260#) -}
-8a8a888ccab1b7684fb0a7aeeaab612c
-  initGame101 :: [GHC.Types.Char]
+1486d89abafb629db7672cce5bcb7d96
+  initGame100 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame102) -}
-312bf7c4c87e49537e9fc821828ea703
-  initGame102 :: GHC.Prim.Addr#
+                   Monopoly.initGame101) -}
+bc62945fa6898419a5acc620b0876433
+  initGame101 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\155\\208\\146\\208\\154"#) -}
-077f32dcac8a4c280f50b74e9b2becbe
-  initGame103 :: Monopoly.Street
+7756d45d1f20413ae49363eef9956062
+  initGame102 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame104
-                   Monopoly.initGame100
+                   Monopoly.initGame103
+                   Monopoly.initGame99
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-d21e342eef0e7b5b03569800688b27ba
-  initGame104 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+150fd1070a73200d9e16372bc22e5f9f
+  initGame103 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame105) -}
-b0d55fe47636a8f184ff133c2c5ff354
-  initGame105 :: GHC.Prim.Addr#
+                   Monopoly.initGame104) -}
+3ec258dc184e2bec3510e581e993b547
+  initGame104 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\155\\208\\145\\208\\152\\208\\161"#) -}
-068efe1df208dc11faf5167cf68287cb
-  initGame106 :: Monopoly.Street
+51883a47f622ae98d84df69802af7f05
+  initGame105 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame107
+                   Monopoly.initGame106
                    Monopoly.makeStepFeatures1
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-b1b5226f8aea47654b85681a7214572c
-  initGame107 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+e1e7898293221a300523ff7fb21cc2ce
+  initGame106 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame108) -}
-046510bc7d998186ef91eb306cd6ffec
-  initGame108 :: GHC.Prim.Addr#
+                   Monopoly.initGame107) -}
+5bddc8ed7406d7d49077067ece48f9a6
+  initGame107 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 3"#) -}
-901378eff2c335b98c0f39600bfa0eda
-  initGame109 :: Monopoly.Street
+2ff828e1332c621938fb926d61a26feb
+  initGame108 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame111
                    Monopoly.initGame110
+                   Monopoly.initGame109
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-43b784d0d40f9f29fa04ca4e5f51b2b8
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+9743de3e65cc959f1de0d01e7fce1973
+  initGame109 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 240#) -}
+385767ac10a4b5af832a1496f352d4df
   initGame11 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame165
+                   Monopoly.initGame164
                    Monopoly.initGame12) -}
-a742fcd23ae490f08e974a76e253a1b0
-  initGame110 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 240#) -}
-b4e41cb85acfaddf91f8f55826daf1d0
-  initGame111 :: [GHC.Types.Char]
+301a83ee66ed9bdc01bd33986ad037be
+  initGame110 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame112) -}
-76e31fdfbcedfe2538b0618ac10f6e04
-  initGame112 :: GHC.Prim.Addr#
+                   Monopoly.initGame111) -}
+9b50e381a2a348d3d6b7bd3d8e42673b
+  initGame111 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\156\\208\\158\\208\\162\\208\\146\\208\\171"#) -}
-da8178ff52cd942a45252d3de0f37776
-  initGame113 :: Monopoly.Street
+1ef8a422169313d447871496d94dc19c
+  initGame112 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame115
                    Monopoly.initGame114
+                   Monopoly.initGame113
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-d87e3ee4b961263401326e653e653d1e
-  initGame114 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+a28d3d3c24002dcc69a97af8e27a17af
+  initGame113 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 220#) -}
-4ca6b4153d58d000b043a22030542c81
-  initGame115 :: [GHC.Types.Char]
+1b6f047fe5db80e88c75b204afa64eda
+  initGame114 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame116) -}
-d3a57e52606e8d6b301a35644f063bf9
-  initGame116 :: GHC.Prim.Addr#
+                   Monopoly.initGame115) -}
+514f578aa9f7295939087862070edf59
+  initGame115 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\148\\208\\147\\208\\156\\208\\161"#) -}
-e7ee8f517b50153a57c201a0156834a9
-  initGame117 :: Monopoly.Street
+e96856707657bc9816408f7eb8dda3bd
+  initGame116 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame61
-                   Monopoly.initGame121
+                   Monopoly.initGame60
                    Monopoly.initGame120
                    Monopoly.initGame119
-                   Monopoly.initGame118) -}
+                   Monopoly.initGame118
+                   Monopoly.initGame117) -}
+6f993c1830e39bf23e54b06b86c582fc
+  initGame117 :: GHC.Types.Int
+  {- Strictness: x -}
 dd90afafbd3d601e394801fbca3890fa
   initGame118 :: GHC.Types.Int
   {- Strictness: x -}
-f97aae5ca74adbc628abd01b0f6905b7
-  initGame119 :: GHC.Types.Int
+60c7fc6929e39c2c86048c6719f501ac
+  initGame119 :: GHC.Types.Bool
   {- Strictness: x -}
-917b00e93077dd67e629a9d43598be33
+1789da1be29cc1839f1f98218e0ffa4a
   initGame12 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame162
+                   Monopoly.initGame161
                    Monopoly.initGame13) -}
-530e85557264608b0a9d8936e1361bfd
-  initGame120 :: GHC.Types.Bool
+29bdd87f9480a488993680612e4b6d5c
+  initGame120 :: GHC.Types.Int
   {- Strictness: x -}
-6901997c917f91af68873759c547ebb2
-  initGame121 :: GHC.Types.Int
-  {- Strictness: x -}
-fd299a9510a043f9685d744d0d73192c
-  initGame122 :: Monopoly.Street
+67860d075957a1f86ce9997d5d20e38a
+  initGame121 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame123
-                   Monopoly.initGame114
+                   Monopoly.initGame122
+                   Monopoly.initGame113
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-19222a0c7aea16d25c614277dd790a87
-  initGame123 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+8fffc15b5b88f7805fea4e082e4d00b4
+  initGame122 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame124) -}
-430575de93a5faf64b956f66e35ec262
-  initGame124 :: GHC.Prim.Addr#
+                   Monopoly.initGame123) -}
+fa011df3e5fdf7c8efb70f280e5341ea
+  initGame123 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\144\\208\\162\\208\\161\\208\\162\\208\\144\\208\\162 \\208\\162\\208\\181\\208\\190\\209\\128\\208\\184\\209\\143 \\209\\128\\208\\184\\209\\129\\208\\186\\208\\190\\208\\178"#) -}
-0c1633ff9b063f47ef19338f3e8bed91
-  initGame125 :: Monopoly.Street
+905d4adb83dcd984b1a1300346a7712b
+  initGame124 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame130
                    Monopoly.initGame129
                    Monopoly.initGame128
                    Monopoly.initGame127
-                   Monopoly.initGame126) -}
+                   Monopoly.initGame126
+                   Monopoly.initGame125) -}
+b1a25aa3f992ccad46e171805439abd0
+  initGame125 :: GHC.Types.Int
+  {- Strictness: x -}
 b2bd02c73c92796f0060c0e5602083c4
   initGame126 :: GHC.Types.Int
   {- Strictness: x -}
-56906a64b8d7217f8c2c4814baa13e25
-  initGame127 :: GHC.Types.Int
+625f85b3c4874b4c43e1cb9a1c9d6a23
+  initGame127 :: GHC.Types.Bool
   {- Strictness: x -}
-a8f3104793c46a806a71845a733a66ca
-  initGame128 :: GHC.Types.Bool
+9f5f5e06bddad48b963930fef8b15aa1
+  initGame128 :: GHC.Types.Int
   {- Strictness: x -}
-da5c684069588a7b414b605e37dbed83
-  initGame129 :: GHC.Types.Int
-  {- Strictness: x -}
-4704e9f6e2c45c684e2c8542d9f5f399
+f0f9399195eb572107aaf65e2e06b2df
+  initGame129 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initGame130) -}
+11a018a8858cfa12894315a4a7cfa8c2
   initGame13 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame159
+                   Monopoly.initGame158
                    Monopoly.initGame14) -}
-48cf60a586f034f27c5bc9591295224f
-  initGame130 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame131) -}
-aa7a3b5af731cbd187670328350fcd1a
-  initGame131 :: GHC.Prim.Addr#
+d96d257c37f5f0ad9b25442f10580b1f
+  initGame130 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\145\\208\\181\\209\\129\\208\\191\\208\\187\\208\\176\\209\\130\\208\\189\\208\\176\\209\\143 \\208\\186\\209\\131\\209\\128\\208\\184\\208\\187\\208\\186\\208\\176"#) -}
-81d44a433037b73519c6f4c5c26967f4
-  initGame132 :: Monopoly.Street
+1e28e00e24464d280cddff1874e7428d
+  initGame131 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame133
+                   Monopoly.initGame132
                    Monopoly.makeStepFeatures1
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-d58a001da973f13883d99cf4eee7c1fc
-  initGame133 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+d26b7bfd7fd21df71f3585e64043c3ab
+  initGame132 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame134) -}
-c1299aaeaab6e1577146db3cbc4a19a8
-  initGame134 :: GHC.Prim.Addr#
+                   Monopoly.initGame133) -}
+c073bf6bb3d06fc696340eb778d0427d
+  initGame133 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\152\\208\\158 \\208\\148\\208\\181\\208\\189\\208\\184\\209\\129\\208\\190\\208\\178"#) -}
-cd3471ccd408ff9d3be691043b900945
-  initGame135 :: Monopoly.Street
+d583ef562a384f218f33800b8a0c1778
+  initGame134 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame137
                    Monopoly.initGame136
+                   Monopoly.initGame135
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-2fecb95f64a82c84439f2ab4a6822ea4
-  initGame136 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+508d5f17b1ee3e15f8692b3a4f9a9f6c
+  initGame135 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 180#) -}
-403b390df1f9c79bde9313920c744e22
-  initGame137 :: [GHC.Types.Char]
+ca443cd101b50cf8cd5e21f7dd7d0e6e
+  initGame136 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame138) -}
-912483ec4430f37789032f5649b09625
-  initGame138 :: GHC.Prim.Addr#
+                   Monopoly.initGame137) -}
+0306fb6d932c4412f4877df5858935da
+  initGame137 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\152\\208\\158 \\208\\157\\208\\190\\208\\178\\208\\184\\208\\186\\208\\190\\208\\178\\208\\176"#) -}
-c4ca305c27a0f1850f55c0c5d56b55ef
-  initGame139 :: Monopoly.Street
+b36aa489fbfae6172b4de1ee2653d6a3
+  initGame138 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame143
                    Monopoly.initGame142
-                   GHC.Types.False
                    Monopoly.initGame141
-                   Monopoly.initGame140) -}
-cff77d2f2169ea444f5f6830cd22d5f3
+                   GHC.Types.False
+                   Monopoly.initGame140
+                   Monopoly.initGame139) -}
+776663a4bfe7f45840edc1e4930d5242
+  initGame139 :: GHC.Types.Int
+  {- Strictness: x -}
+cbc6afee5607e54363de2fe0f0f24c14
   initGame14 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame155
+                   Monopoly.initGame154
                    Monopoly.initGame15) -}
 bd514a06ebb1fbe3e9d7b0f93ef124c5
   initGame140 :: GHC.Types.Int
@@ -1540,346 +1983,346 @@ bd514a06ebb1fbe3e9d7b0f93ef124c5
 cd0b4fe7617db8aa53680671e94035c2
   initGame141 :: GHC.Types.Int
   {- Strictness: x -}
-c15c3e03f91890e05a29637856677804
-  initGame142 :: GHC.Types.Int
-  {- Strictness: x -}
-58b22a4f84ce3ebe14ded01acc6f8caf
-  initGame143 :: [GHC.Types.Char]
+013aa6ddb5f83945028f19919aa24519
+  initGame142 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame144) -}
-492596c6b673b06fff7ccc486ef987e8
-  initGame144 :: GHC.Prim.Addr#
+                   Monopoly.initGame143) -}
+ad8f42668d9fa96ee100bd336cbc9af3
+  initGame143 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\158\\208\\177\\209\\137\\208\\181\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\189\\208\\176\\209\\143 \\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
-646fba1ca5b820585f1780d70f831c80
-  initGame145 :: Monopoly.Street
+1242f2d021db391f539d415bbd4e5bd1
+  initGame144 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame146
-                   Monopoly.initGame136
+                   Monopoly.initGame145
+                   Monopoly.initGame135
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-a1758c02be381517db1baf0e7377b846
-  initGame146 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+4785016e1d7bb3b1701355f9f14690c7
+  initGame145 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame147) -}
-96b6b59fc899ae1e1ff7c25cf412e45b
-  initGame147 :: GHC.Prim.Addr#
+                   Monopoly.initGame146) -}
+8f8f5a4554d514a2ad39f65dbbae00ba
+  initGame146 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\152\\208\\158 \\208\\156\\208\\190\\209\\128\\208\\190\\208\\183\\208\\190\\208\\178"#) -}
-2ebf888ed4e8b2cb7104740564c9c224
-  initGame148 :: Monopoly.Street
+ece6ff3766938eba27cb159f70ba6f4f
+  initGame147 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame149
+                   Monopoly.initGame148
                    Monopoly.makeStepFeatures1
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-ed114f2a4dd83434a6285f87b59b81f9
-  initGame149 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+e7ba78d7f3eadb0b918415805d24d7ad
+  initGame148 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame150) -}
-00d13f69e431dc37ecf486e658e7d928
+                   Monopoly.initGame149) -}
+68994e4ec5612281c0a0121c8d07caef
+  initGame149 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 2"#) -}
+55997bb9e577cba9db9ca4c9c53e5495
   initGame15 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame151
+                   Monopoly.initGame150
                    Monopoly.initGame16) -}
-6332374813b9473fb066406461c3c8b4
-  initGame150 :: GHC.Prim.Addr#
-  {- HasNoCafRefs,
-     Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 2"#) -}
-055e3e482ebd30f1f79d50ef6c391ebb
-  initGame151 :: Monopoly.Street
+675a141046976ac4747b7701ed26a3fd
+  initGame150 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame153
                    Monopoly.initGame152
+                   Monopoly.initGame151
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-e9abe3d7c76d3b18df414f53c359abe0
-  initGame152 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+c1874261c28a8fc0bdd30798d200947d
+  initGame151 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 160#) -}
-39df0dda4c0f48cdb54932aa7628fd09
-  initGame153 :: [GHC.Types.Char]
+91904b9db973668f5cb28584949a33f0
+  initGame152 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame154) -}
-d7b2a8f4e4bc7cab395772011e3a163a
-  initGame154 :: GHC.Prim.Addr#
+                   Monopoly.initGame153) -}
+c8058c89fd2806a15281ddd747af7cba
+  initGame153 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\186\\208\\184\\208\\177 \\208\\148\\208\\184\\209\\129\\208\\186\\209\\128\\208\\181\\209\\130\\208\\189\\209\\139\\208\\185 \\208\\176\\208\\189\\208\\176\\208\\187\\208\\184\\208\\183"#) -}
-9a3453b23f1c3f75b029260d86d0df26
-  initGame155 :: Monopoly.Street
+4ad1338d69a93e1ca39df77d84e30624
+  initGame154 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame157
                    Monopoly.initGame156
+                   Monopoly.initGame155
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-d4855cad160bcbfda873668a5e2ca590
-  initGame156 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+c93719a9f27b397c7f1b5e476368987c
+  initGame155 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 140#) -}
-15e0f70053c7ea8fad86fe2208db8240
-  initGame157 :: [GHC.Types.Char]
+3721b8b312c88e65431c73d548392b88
+  initGame156 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame158) -}
-9db49072fd3ad9ab8c360c051a475358
-  initGame158 :: GHC.Prim.Addr#
+                   Monopoly.initGame157) -}
+26c54cc37017a2bc1d7eb334444e166a
+  initGame157 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\154\\208\\184\\208\\177 \\208\\148\\208\\164\\208\\161\\208\\144"#) -}
-24725fe2d9bed3455cd05725e961a475
-  initGame159 :: Monopoly.Street
+47383cb7b4b59f60e9693347e0853995
+  initGame158 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame160
-                   Monopoly.initGame96
+                   Monopoly.initGame159
+                   Monopoly.initGame95
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-1dde2697bfa7f5eaa0f4afa3f0d73bd1
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+f01c4e66f34ba468febda496e451ffd3
+  initGame159 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initGame160) -}
+1d6780fee7631e5022ef70aa2e3e0a2e
   initGame16 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame148
+                   Monopoly.initGame147
                    Monopoly.initGame17) -}
-2a7c332f62afac7805607c4e3d9eebe1
-  initGame160 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame161) -}
-c185bddd69fb817647b7950163719aae
-  initGame161 :: GHC.Prim.Addr#
+6eb10203fb9aa751909319a6e96554ef
+  initGame160 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\159\\208\\190\\209\\130\\208\\181\\209\\128\\209\\143\\209\\136\\208\\186\\208\\184"#) -}
-a8e7b78a10246f93f384e1d49ff44e90
-  initGame162 :: Monopoly.Street
+3c6de2ae22eaa3232ad22875e63c2edd
+  initGame161 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame163
-                   Monopoly.initGame156
+                   Monopoly.initGame162
+                   Monopoly.initGame155
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-2e1c138c7f242e7601b67533939f1aef
-  initGame163 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+98e75af71842dbdebe39f87a5cb4dbdc
+  initGame162 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame164) -}
-a6625195f868efe5c1ce58a58457f22b
-  initGame164 :: GHC.Prim.Addr#
+                   Monopoly.initGame163) -}
+56ab403e7c2b4530c777e8657d1119e2
+  initGame163 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\130\\208\\154\\208\\184\\208\\177 \\208\\148\\208\\156\\208\\156\\208\\154"#) -}
-2b343587c74cc9896321d54ead803d4d
-  initGame165 :: Monopoly.Street
+f72c7854fd40b70446533a4f6089f9e3
+  initGame164 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame170
                    Monopoly.initGame169
                    Monopoly.initGame168
                    Monopoly.initGame167
-                   Monopoly.initGame166) -}
+                   Monopoly.initGame166
+                   Monopoly.initGame165) -}
+ec5ed9b4be6b695e1e1d9c2ec78ab8cd
+  initGame165 :: GHC.Types.Int
+  {- Strictness: x -}
 b5b07f225ec8ae980555e4ed3020ad56
   initGame166 :: GHC.Types.Int
   {- Strictness: x -}
-d117d84f6ae87e27ec47cf0f737be3ec
-  initGame167 :: GHC.Types.Int
+c1484f772cec59ba3a8d27a22461762d
+  initGame167 :: GHC.Types.Bool
   {- Strictness: x -}
-7f2bbd2d680b6c9baf4fac71d5ef356a
-  initGame168 :: GHC.Types.Bool
+609d9a79dc954dd8dc9cf29828c86951
+  initGame168 :: GHC.Types.Int
   {- Strictness: x -}
-fa0f598c5c25dc1a2d915f31058d71d0
-  initGame169 :: GHC.Types.Int
-  {- Strictness: x -}
-84e452a9ca52f8a384bae8f5a55f6575
+e04cd858ecf3ac741368c3b4f365159c
+  initGame169 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initGame170) -}
+144db85a1ebb20744899e1d929198c03
   initGame17 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame145
+                   Monopoly.initGame144
                    Monopoly.initGame18) -}
-976f183a9cf6b83cd5182b3727936f32
-  initGame170 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame171) -}
-1e5c7924fcd878c7bc0c2835233e09ed
-  initGame171 :: GHC.Prim.Addr#
+01964f0602cd96b9fbea3ba59e3df849
+  initGame170 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\186\\208\\176\\208\\180\\208\\181\\208\\188"#) -}
-40ac129dc162aafd58ec0f4ac62c80f1
-  initGame172 :: Monopoly.Street
+085aa0248021f18e79f917ac671bb283
+  initGame171 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame174
                    Monopoly.initGame173
+                   Monopoly.initGame172
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-d7b7fa404a109ec09fd86c6c9c8c4b02
-  initGame173 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+d3fa1492dbf0ed13ff501e2e561ca9ec
+  initGame172 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 120#) -}
-8cf3ed3e8c0706d5010cfb3d8e5e66ed
-  initGame174 :: [GHC.Types.Char]
+6354387650738a437b160701f34aed7a
+  initGame173 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame175) -}
-5e66cd7e7335b9218191c356f1e6ffc8
-  initGame175 :: GHC.Prim.Addr#
+                   Monopoly.initGame174) -}
+3488b17e6fef1124650db2e258812fd4
+  initGame174 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\159 \\208\\154\\208\\190\\209\\128\\209\\128\\208\\181\\208\\186\\209\\130\\208\\189\\208\\190\\209\\129\\209\\130\\209\\140 \\208\\191\\209\\128\\208\\190\\208\\179\\209\\128\\208\\176\\208\\188\\208\\188"#) -}
-8411040aa456929fc3247f808ebd3d86
-  initGame176 :: Monopoly.Street
+bd763c8079c27b711ffd825190e00b1a
+  initGame175 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame177
+                   Monopoly.initGame176
                    Monopoly.makeStepFeatures2
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-a150431a3bbd0f59c73c5027fd11acb4
-  initGame177 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+ecb59050548024a3bf5fd5a23c289a2d
+  initGame176 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame178) -}
-7c5d77fe299dee3ed72b1435315f4498
-  initGame178 :: GHC.Prim.Addr#
+                   Monopoly.initGame177) -}
+a597303c88850da3948a1316b0b52768
+  initGame177 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\159 \\208\\163\\208\\148\\208\\152\\208\\161"#) -}
-257eb2bfee667e20bc5181bca84eb81f
-  initGame179 :: Monopoly.Street
+1ac176004a153f6c8da306c29900daa0
+  initGame178 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame61
-                   Monopoly.initGame183
+                   Monopoly.initGame60
                    Monopoly.initGame182
                    Monopoly.initGame181
-                   Monopoly.initGame180) -}
-2f0c8e75dc20d133ba8d20bf753db7b8
+                   Monopoly.initGame180
+                   Monopoly.initGame179) -}
+71dcbc9d866fddbfdbef9dcef0379e94
+  initGame179 :: GHC.Types.Int
+  {- Strictness: x -}
+ac870f3c0fd7656982f911797befefe4
   initGame18 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame139
+                   Monopoly.initGame138
                    Monopoly.initGame19) -}
 77bdc44207b41a14970b9f61feb9cf7f
   initGame180 :: GHC.Types.Int
   {- Strictness: x -}
-82338cb5613e1617acf2dd28c93880b4
-  initGame181 :: GHC.Types.Int
+3257cc3c805913018c50e1a92a66c22d
+  initGame181 :: GHC.Types.Bool
   {- Strictness: x -}
-f91c399269d6ded26878dd917e8c9843
-  initGame182 :: GHC.Types.Bool
+1d63c9e8e250f98a20e7fb49faf41d20
+  initGame182 :: GHC.Types.Int
   {- Strictness: x -}
-34a7fbbf72456c2dd99eeb1031883eb6
-  initGame183 :: GHC.Types.Int
-  {- Strictness: x -}
-888f072410f879cea0ab73e922faff2e
-  initGame184 :: Monopoly.Street
+f79730cdfe61fddf8a8d056fd6b9cd2c
+  initGame183 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame185
+                   Monopoly.initGame184
                    Monopoly.makeStepFeatures2
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-fe01d92e33dd831e6dada8b6d29170a6
-  initGame185 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+7e607007aa7b599ef83796f4041242bf
+  initGame184 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame186) -}
-ebef1c69ab7a079d055b62c20ee480d0
-  initGame186 :: GHC.Prim.Addr#
+                   Monopoly.initGame185) -}
+c2a6912a978774d4dd3d40703c4f3759
+  initGame185 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\159 \\208\\159\\208\\166\\208\\148"#) -}
-72f5fb6548d054913a971b680b2155ba
-  initGame187 :: Monopoly.Street
+982d64d54452035cc8d1eb997087fa69
+  initGame186 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame188
+                   Monopoly.initGame187
                    Monopoly.makeStepFeatures1
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-6842644fe404c81bc7cef77004dde6eb
-  initGame188 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+b190e4bfea1e045168b0faa15d4c16e9
+  initGame187 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame189) -}
-2b0b4bc23d46de4e0c50c818bed0bfd0
-  initGame189 :: GHC.Prim.Addr#
+                   Monopoly.initGame188) -}
+2f86a8558f00d14b63165d4728e154df
+  initGame188 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 1"#) -}
-3e61eb1e24280676e73a5965284227c1
+82ca4c68e5aa252f099502993ab24df3
+  initGame189 :: Monopoly.Street
+  {- Strictness: m,
+     Unfolding: (Monopoly.Street
+                   Monopoly.initGame192
+                   Monopoly.makeStepFeatures1
+                   Monopoly.initGame191
+                   Monopoly.initCards9
+                   Monopoly.initGame190) -}
+ed9e880398e2dc80069565710c7caf9c
   initGame19 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame135
+                   Monopoly.initGame134
                    Monopoly.initGame20) -}
-6ae4e8a1cc8440ed770a8f636ce54c79
-  initGame190 :: Monopoly.Street
-  {- Strictness: m,
-     Unfolding: (Monopoly.Street
-                   Monopoly.initGame193
-                   Monopoly.makeStepFeatures1
-                   Monopoly.initGame192
-                   Monopoly.initGame42
-                   Monopoly.initGame191) -}
-a6c9cce33e5594f7e8c55ede964ae70b
-  initGame191 :: GHC.Types.Int
+15f141f7beb094d96a64b610d0f809a0
+  initGame190 :: GHC.Types.Int
   {- Strictness: x -}
-f442dc252bc9329b3cb6c4affdd30123
-  initGame192 :: GHC.Types.Bool
+8948fca527639c650ed7224ee8a5f70c
+  initGame191 :: GHC.Types.Bool
   {- Strictness: x -}
-237ea21b98a38b358801f33a5b5740d1
-  initGame193 :: [GHC.Types.Char]
+b2fd6af8aa7ea809127d7928817c7d4c
+  initGame192 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame194) -}
-2aaeb2ebf323992f3b620d1ac0c1bc1b
-  initGame194 :: GHC.Prim.Addr#
+                   Monopoly.initGame193) -}
+1fb13734c9010eee8c867a147a55956e
+  initGame193 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\157\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
-5e73f973d398a708e33b4782da0fe90e
-  initGame195 :: Monopoly.Street
+2d5eb0b7fdaf5e0d6ff58d9554bc450e
+  initGame194 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame197
                    Monopoly.initGame196
+                   Monopoly.initGame195
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-3031a110093fc42c68c56d8ff31abf08
-  initGame196 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+ceb838341d53de1ba84f4da519633c28
+  initGame195 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 60#) -}
-96aee84e00252cb6eba1081a570b0ddd
-  initGame197 :: [GHC.Types.Char]
+defecaa2f48a22032b83f64e74f47e5b
+  initGame196 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame198) -}
-65d36fd21ff69e82cd7fc1bd3a1c426d
-  initGame198 :: GHC.Prim.Addr#
+                   Monopoly.initGame197) -}
+c7b013159da8080cae5d24166bd5cecf
+  initGame197 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\154\\208\\152 \\208\\159\\208\\176\\209\\128\\208\\176\\208\\187\\208\\187\\208\\181\\208\\187\\209\\140\\208\\189\\209\\139\\208\\181 \\208\\178\\209\\139\\209\\135\\208\\184\\209\\129\\208\\187\\208\\181\\208\\189\\208\\184\\209\\143"#) -}
-b8094b4a3b67db295ce58f82911b89a2
-  initGame199 :: Monopoly.Street
+9aba4493761edebc79c086c42684c6b1
+  initGame198 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame143
-                   Monopoly.initGame202
-                   GHC.Types.False
+                   Monopoly.initGame142
                    Monopoly.initGame201
-                   Monopoly.initGame200) -}
-7dc136afd3b0cf55cee390d55ed5343f
+                   GHC.Types.False
+                   Monopoly.initGame200
+                   Monopoly.initGame199) -}
+0a0bcbcb4ace9da7ae5670eb86a4a327
+  initGame199 :: GHC.Types.Int
+  {- Strictness: x -}
+3954f8674416907b19df7c1a9061cd54
   initGame2 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame203
+                   Monopoly.initGame202
                    Monopoly.initGame3) -}
-b5c7134ae37c8c328560405f60c6d532
+605361d3e97eb02a3ba4fdb5b40af66d
   initGame20 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame132
+                   Monopoly.initGame131
                    Monopoly.initGame21) -}
 da8b3e5debc00c0f0140f94d00de055b
   initGame200 :: GHC.Types.Int
@@ -1887,624 +2330,615 @@ da8b3e5debc00c0f0140f94d00de055b
 bb9ce4603e99b3cc08551d4a23808193
   initGame201 :: GHC.Types.Int
   {- Strictness: x -}
-0107ed721cf517f8c8352cc63fa4c398
-  initGame202 :: GHC.Types.Int
-  {- Strictness: x -}
-45bb6619ae9d0e26b8b13b9d6d25b422
-  initGame203 :: Monopoly.Street
+9f4426872b57bbba571cbcb6f26b5c81
+  initGame202 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame204
-                   Monopoly.initGame196
+                   Monopoly.initGame203
+                   Monopoly.initGame195
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-ca28a6b5c23ece0b0868896d9bab802c
-  initGame204 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+60895bf44bc0e4d8f63dae2881c7f202
+  initGame203 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame205) -}
-86f8b2bda8d5646350a88c62aa8454b2
-  initGame205 :: GHC.Prim.Addr#
+                   Monopoly.initGame204) -}
+8bc0a2649ffe4aff846d6d04f6297449
+  initGame204 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\154\\208\\152 \\208\\154\\208\\178\\208\\176\\208\\189\\209\\130\\208\\190\\208\\178\\208\\176\\209\\143 \\208\\184\\208\\189\\209\\132\\208\\190\\209\\128\\208\\188\\208\\176\\209\\130\\208\\184\\208\\186\\208\\176"#) -}
-4035a68f4da41edf9b0d4e31355555d9
-  initGame206 :: Monopoly.Street
+d7320e93cb5bd071bf3eb44a4964adce
+  initGame205 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame211
                    Monopoly.initGame210
                    Monopoly.initGame209
                    Monopoly.initGame208
-                   Monopoly.initGame207) -}
+                   Monopoly.initGame207
+                   Monopoly.initGame206) -}
+c364ecd1b31fc78ac0b51c670c8cbdb5
+  initGame206 :: GHC.Types.Int
+  {- Strictness: x -}
 1be294bbc72fbe13eef1bc72c322bd47
   initGame207 :: GHC.Types.Int
   {- Strictness: x -}
-7bfb2843ca467d6343f6e0c44686da58
-  initGame208 :: GHC.Types.Int
+8d45fcc6ed2494433b00e8b0935f806c
+  initGame208 :: GHC.Types.Bool
   {- Strictness: x -}
-7e4b6b1f1d86b30395055b98e95bbc64
-  initGame209 :: GHC.Types.Bool
+263b43fce7c51831da71e3c7332d9d88
+  initGame209 :: GHC.Types.Int
   {- Strictness: x -}
-88cf896e0ac65e640db217be422936b5
+0075e8599fae43eb41923fc989097cce
   initGame21 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame125
+                   Monopoly.initGame124
                    Monopoly.initGame22) -}
-55ba8e915fb2fd96700d1652e5fd541f
-  initGame210 :: GHC.Types.Int
-  {- Strictness: x -}
-872e6527285f92ec9f21b6ad82247d62
-  initGame211 :: [GHC.Types.Char]
+4652a4459eea3fbb484e6821eba14cac
+  initGame210 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame212) -}
-a23b30c5e48db487f2719e8b760c7ae6
-  initGame212 :: GHC.Prim.Addr#
+                   Monopoly.initGame211) -}
+801f92bb0b9cb73331dd67d89c50fb06
+  initGame211 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\209\\130\\208\\176\\209\\128\\209\\130"#) -}
-e8b30c842fc551d54df7f1f18080db82
-  initGame213 :: Monopoly.Cubes
+db89ae3d89d34a638b14772b9888ddb2
+  initGame212 :: Monopoly.Cubes
   {- HasNoCafRefs, Strictness: m,
-     Unfolding: (Monopoly.Cubes Monopoly.doStep3 Monopoly.initGame42) -}
-d110b4480f882a23602804b256ff0d65
+     Unfolding: (Monopoly.Cubes Monopoly.doStep3 Monopoly.initCards9) -}
+a56b457f717e3f1e0cc56093c84afaac
+  initGame213 :: [Monopoly.Player]
+  {- Strictness: m2,
+     Unfolding: (GHC.Types.:
+                   @ Monopoly.Player
+                   Monopoly.initGame224
+                   Monopoly.initGame214) -}
+038d8e857d456a23387bcde567ab46ae
   initGame214 :: [Monopoly.Player]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Player
-                   Monopoly.initGame227
+                   Monopoly.initGame222
                    Monopoly.initGame215) -}
-1f2fe594cdd5aa7bdd0e4be2ff5d6d00
+d02a54a94ed9204ca7c232fa6163bd32
   initGame215 :: [Monopoly.Player]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Player
-                   Monopoly.initGame225
+                   Monopoly.initGame220
                    Monopoly.initGame216) -}
-a6cf25993f5f2c094ff43b0e541becbb
+0633a683e85b36ecdce602d9c945464f
   initGame216 :: [Monopoly.Player]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Player
-                   Monopoly.initGame222
-                   Monopoly.initGame217) -}
-176459fccffbd9305ee8c5085ca82bcd
-  initGame217 :: [Monopoly.Player]
-  {- Strictness: m2,
-     Unfolding: (GHC.Types.:
-                   @ Monopoly.Player
-                   Monopoly.initGame218
+                   Monopoly.initGame217
                    (GHC.Types.[] @ Monopoly.Player)) -}
-c409bd90f60047104857eef458acee91
-  initGame218 :: Monopoly.Player
+89e8a9387e87b2abcd2cdff5b3216ca6
+  initGame217 :: Monopoly.Player
   {- Strictness: m,
      Unfolding: (Monopoly.Player
-                   Monopoly.initGame220
-                   Monopoly.initGame221
+                   Monopoly.initCards10
+                   Monopoly.initGame219
                    (GHC.Types.[] @ Monopoly.Street)
                    Monopoly.doStep3
-                   Monopoly.initGame219) -}
-2a5158308be27e381b4fb32986b94903
-  initGame219 :: Graphics.Gloss.Internals.Data.Picture.Point
+                   Monopoly.initGame218) -}
+25ea4524ddcb3b2889ff52a5774f6ce3
+  initGame218 :: Graphics.Gloss.Internals.Data.Picture.Point
   {- Unfolding: (case Monopoly.$wgetPlayerPosition
-                        Monopoly.initGame220
+                        Monopoly.initCards10
                         1# of ww { (#,#) ww1 ww2 ->
                  (ww1, ww2) }) -}
-d828a652b54227d91600f0b8ec57edbe
+7400db411c5c335ad48339b8a4629576
+  initGame219 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 15000#) -}
+1c203c545b8a1b8efaa8406e81f9e133
   initGame22 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame122
+                   Monopoly.initGame121
                    Monopoly.initGame23) -}
-793ea3fad2bdca81e4564b9072ba640e
-  initGame220 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 4#) -}
-65e0591c4ac21cd3f9aeb3761310b9dd
-  initGame221 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 15000#) -}
-e604b7fa2af1d8087357f59c5ac2b484
+aa1387b94f133268e76d76f9a606adf7
+  initGame220 :: Monopoly.Player
+  {- Strictness: m,
+     Unfolding: (Monopoly.Player
+                   Monopoly.initCards15
+                   Monopoly.initGame219
+                   (GHC.Types.[] @ Monopoly.Street)
+                   Monopoly.doStep3
+                   Monopoly.initGame221) -}
+a62f19d8d9746d524baa86264344fb93
+  initGame221 :: Graphics.Gloss.Internals.Data.Picture.Point
+  {- Unfolding: (case Monopoly.$wgetPlayerPosition
+                        Monopoly.initCards15
+                        1# of ww { (#,#) ww1 ww2 ->
+                 (ww1, ww2) }) -}
+55eba1f12ffbcd8b201b8410563a642d
   initGame222 :: Monopoly.Player
   {- Strictness: m,
      Unfolding: (Monopoly.Player
-                   Monopoly.initGame224
-                   Monopoly.initGame221
+                   Monopoly.doStep2
+                   Monopoly.initGame219
                    (GHC.Types.[] @ Monopoly.Street)
                    Monopoly.doStep3
                    Monopoly.initGame223) -}
-9ebf0d64cd6c418ffc20cde8a662da15
+e79ef2f0c43be889a02d1881eee9e456
   initGame223 :: Graphics.Gloss.Internals.Data.Picture.Point
-  {- Unfolding: (case Monopoly.$wgetPlayerPosition
-                        Monopoly.initGame224
-                        1# of ww { (#,#) ww1 ww2 ->
-                 (ww1, ww2) }) -}
-ec036f12b81eb35bbcb3e9383ed6db0d
-  initGame224 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 3#) -}
-9b9a0db538d91bda6e33daa805390f70
-  initGame225 :: Monopoly.Player
-  {- Strictness: m,
-     Unfolding: (Monopoly.Player
-                   Monopoly.doStep2
-                   Monopoly.initGame221
-                   (GHC.Types.[] @ Monopoly.Street)
-                   Monopoly.doStep3
-                   Monopoly.initGame226) -}
-d1d53713f619eca009b8ff3627d4e355
-  initGame226 :: Graphics.Gloss.Internals.Data.Picture.Point
   {- Unfolding: (case Monopoly.$wgetPlayerPosition
                         Monopoly.doStep2
                         1# of ww { (#,#) ww1 ww2 ->
                  (ww1, ww2) }) -}
-552bb70834920e97c25d2485a517f35c
-  initGame227 :: Monopoly.Player
+4988b872f5cf6b3b158acc58094a3398
+  initGame224 :: Monopoly.Player
   {- Strictness: m,
      Unfolding: (Monopoly.Player
                    Monopoly.doStep3
-                   Monopoly.initGame221
+                   Monopoly.initGame219
                    (GHC.Types.[] @ Monopoly.Street)
                    Monopoly.doStep3
-                   Monopoly.initGame228) -}
-e5185dc3087755c69d40acca08ac7dda
-  initGame228 :: Graphics.Gloss.Internals.Data.Picture.Point
+                   Monopoly.initGame225) -}
+33e74cd5e1381a156b7bc807011b4ce0
+  initGame225 :: Graphics.Gloss.Internals.Data.Picture.Point
   {- Unfolding: (case Monopoly.$wgetPlayerPosition
                         Monopoly.doStep3
                         1# of ww { (#,#) ww1 ww2 ->
                  (ww1, ww2) }) -}
-8f20000caa0b62db2e372bac8e97a5aa
+916a91ea3be30454ede76e72e87c0239
   initGame23 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame117
+                   Monopoly.initGame116
                    Monopoly.initGame24) -}
-96202ed3e69649f0bec93727483bba80
+581949ff4c82dfb62b036f1708a93aea
   initGame24 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame113
+                   Monopoly.initGame112
                    Monopoly.initGame25) -}
-f933a686d075edae983a271c624c7fd2
+95144ccaf99e29c282b18a325b536133
   initGame25 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame109
+                   Monopoly.initGame108
                    Monopoly.initGame26) -}
-6ac22f9b5d1580e847f27bd36e913e6c
+ba7a8ea880f9135e78ee3131fc7c5ebd
   initGame26 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame106
+                   Monopoly.initGame105
                    Monopoly.initGame27) -}
-509bb3ff618bfc0c91813d8dcc622ee2
+39de9fb0015385f524fcc8ff64095ba8
   initGame27 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame103
+                   Monopoly.initGame102
                    Monopoly.initGame28) -}
-f801d7bf7cbb5da3f7d6b7693ca244cd
+f19b9ad11608579df95230e4be5199a7
   initGame28 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame99
+                   Monopoly.initGame98
                    Monopoly.initGame29) -}
-b656ddbfad8aaf580e5d0f6069f9dfe3
+ffc678dace67c6163f7a13f96e93dc10
   initGame29 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame95
+                   Monopoly.initGame94
                    Monopoly.initGame30) -}
-6ce026009041501ecc37bd37b697adad
+46cb58790cb147443f7494917d607e1a
   initGame3 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame199
+                   Monopoly.initGame198
                    Monopoly.initGame4) -}
-ed4894889a02dacf8fee37377ec7d855
+4ea6fc1dcdad023edb48ff56902338b5
   initGame30 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame91
+                   Monopoly.initGame90
                    Monopoly.initGame31) -}
-f3941237e1b934c73593b7b156c2929b
+34468c876ac9efe6584759b04bd0fa7f
   initGame31 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame84
+                   Monopoly.initGame83
                    Monopoly.initGame32) -}
-e5ff5aa2bbd9b642d7b0beb72e24ab7c
+4fd9ae87fcd9594b57c2d8dd2e1f489a
   initGame32 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame81
+                   Monopoly.initGame80
                    Monopoly.initGame33) -}
-a6c9fb84a1f84aba2ccc6f6ad5f605c5
+b8d6db9e8f6e3aa93e9d368b2a41246c
   initGame33 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame77
+                   Monopoly.initGame76
                    Monopoly.initGame34) -}
-ba6e83ef5f348a6a897bdd99941aa4e8
+2b255523bc12bf797c03d433a2df8985
   initGame34 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame70
+                   Monopoly.initGame69
                    Monopoly.initGame35) -}
-c77ed1669d91da70e9293442f98bd491
+05ce4733a158d0c079e6fb384c6046b7
   initGame35 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame66
+                   Monopoly.initGame65
                    Monopoly.initGame36) -}
-9399d89b5ce02aca56488d280f360ccb
+be57c5020227cec36afdf0f650ddb280
   initGame36 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame63
+                   Monopoly.initGame62
                    Monopoly.initGame37) -}
-6ae4d0d8c25fbf4e8c5eb99b73df5ebb
+28d11f927019f514f37bdc55576c83a0
   initGame37 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame56
+                   Monopoly.initGame55
                    Monopoly.initGame38) -}
-1b02f950c57475a5bb9e0f93d4db66d6
+d072c31cf321eba9d269f5b4c1f2d217
   initGame38 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame52
+                   Monopoly.initGame51
                    Monopoly.initGame39) -}
-c34290d76fe222f172e95ad037412189
+ea6d2d4727777925b1b8379522ef58f6
   initGame39 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame46
+                   Monopoly.initGame45
                    Monopoly.initGame40) -}
-be02fa15e03c2dfa2d0b052a00c3912e
+09bba693f92033b89aa9f50a238b2600
   initGame4 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame195
+                   Monopoly.initGame194
                    Monopoly.initGame5) -}
-517fa406fa806549138ad5a160241ccd
+a51626d218d94acdcbc88333e18f935a
   initGame40 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
                    Monopoly.initGame41
                    (GHC.Types.[] @ Monopoly.Street)) -}
-c2c1aeeab31b2dd5449ca384395fe20b
+7bd15f70be96291735f19614b6a6b2e3
   initGame41 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame44
                    Monopoly.initGame43
-                   GHC.Types.False
                    Monopoly.initGame42
-                   Monopoly.initGame42) -}
-c874d72714a8627f6f85d8a93ac129b0
+                   GHC.Types.False
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+2aebb4927f2742b86ed15e2ee4242a19
   initGame42 :: GHC.Types.Int
-  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 0#) -}
-a06c16c725d22a91f5314c800d5dc606
-  initGame43 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 400#) -}
-290e72617ba4531be8462da602b3f984
-  initGame44 :: [GHC.Types.Char]
+31dcb23d1810b84ece26c3d7ce60a0e1
+  initGame43 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame45) -}
-7554b4f7326b0047aab33e369212449c
-  initGame45 :: GHC.Prim.Addr#
+                   Monopoly.initGame44) -}
+e944637825fc2f43cc3d462105292e8a
+  initGame44 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\156\\208\\159 \\208\\145\\208\\156\\208\\156\\208\\158"#) -}
-21a4b4e812da9d6d0d56894d426d58c0
-  initGame46 :: Monopoly.Street
+84802f5c8ec74e4d4550eb2133e13f0d
+  initGame45 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame50
-                   Monopoly.makeStepFeatures2
                    Monopoly.initGame49
+                   Monopoly.makeStepFeatures2
                    Monopoly.initGame48
-                   Monopoly.initGame47) -}
+                   Monopoly.initGame47
+                   Monopoly.initGame46) -}
+070e87f621ec67d4a616de50dce76232
+  initGame46 :: GHC.Types.Int
+  {- Strictness: x -}
 d622d7a32badfe31424f81c7325e0f58
   initGame47 :: GHC.Types.Int
   {- Strictness: x -}
-404d23dfb0c71d636e899fedab3ed3d0
-  initGame48 :: GHC.Types.Int
+ed3220b121b866d69391a0d432613291
+  initGame48 :: GHC.Types.Bool
   {- Strictness: x -}
-7fd479f3655eee1d0aa174a76fef3354
-  initGame49 :: GHC.Types.Bool
-  {- Strictness: x -}
-15e4ca5717a1bfd5830d4f82cbe4136a
+7f4622fbf710d21b0e319aa9f668d87c
+  initGame49 :: [GHC.Types.Char]
+  {- Unfolding: (GHC.CString.unpackCStringUtf8#
+                   Monopoly.initGame50) -}
+05cfbf572bc5d42e33f57e6e3eabd8d2
   initGame5 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame190
+                   Monopoly.initGame189
                    Monopoly.initGame6) -}
-8aa6e2639ca65ab130f203ad4ec77b27
-  initGame50 :: [GHC.Types.Char]
-  {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame51) -}
-fa689f6922c799f688cadbc1f857d392
-  initGame51 :: GHC.Prim.Addr#
+fcb5a5ddf3aacda56f0d2e4dd2d5669a
+  initGame50 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\161\\208\\178\\208\\181\\209\\128\\209\\133\\208\\189\\208\\176\\208\\187\\208\\190\\208\\179"#) -}
-606bb75ff8c0665ee8c560ef0367b096
-  initGame52 :: Monopoly.Street
+d091b9f7f4a2b5fc89e1c4d570b562b8
+  initGame51 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame54
                    Monopoly.initGame53
+                   Monopoly.initGame52
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-356c85768312ff0ece5724b1167824ed
-  initGame53 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+232f150528e6c2f5b005ad4bcdaaada4
+  initGame52 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 350#) -}
-b7c55a62962b4ea55fa8187c15cfe5da
-  initGame54 :: [GHC.Types.Char]
+b1a1ce72b156b6d9c56fd65ea94df038
+  initGame53 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame55) -}
-20cde2e075a930d50531a4e900e5b032
-  initGame55 :: GHC.Prim.Addr#
+                   Monopoly.initGame54) -}
+c96c053ba2722aee54b672fac2c0d5c0
+  initGame54 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\156\\208\\159 \\208\\156\\208\\144\\208\\162"#) -}
-14d32fe420c6cbe3d0ddbfce5d4f0918
-  initGame56 :: Monopoly.Street
+8669a39b7b464f0f34f37d7d1d8aa0e0
+  initGame55 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame61
                    Monopoly.initGame60
                    Monopoly.initGame59
                    Monopoly.initGame58
-                   Monopoly.initGame57) -}
+                   Monopoly.initGame57
+                   Monopoly.initGame56) -}
+79f26ee1c6a9207a5f01f4fcb49c1659
+  initGame56 :: GHC.Types.Int
+  {- Strictness: x -}
 10fa8ae55d7c24a94a8bc903d2118ee0
   initGame57 :: GHC.Types.Int
   {- Strictness: x -}
-cdbb1b7728142c5c1de040b850c9f37b
-  initGame58 :: GHC.Types.Int
+af87d30f12c95c826764775b59e7ab69
+  initGame58 :: GHC.Types.Bool
   {- Strictness: x -}
-c4be9c55d8550762941aebc582f616b8
-  initGame59 :: GHC.Types.Bool
+9a67f0262bb7de88fe0f11f5dc357eec
+  initGame59 :: GHC.Types.Int
   {- Strictness: x -}
-869cf0bdf73a2f3d5f2e59d63ddf6b37
+9c6aea9345440552504791bc76a1ec3f
   initGame6 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame187
+                   Monopoly.initGame186
                    Monopoly.initGame7) -}
-0abccfdb42b355ac49bc44d6212c5d7b
-  initGame60 :: GHC.Types.Int
-  {- Strictness: x -}
-c5e73be6813b81e21d80776e80e5ee9c
-  initGame61 :: [GHC.Types.Char]
+6597836b68a4ed10d8d3c0720cd8a0fc
+  initGame60 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame62) -}
-0e68de0a9556e3e9992d1560ae123f48
-  initGame62 :: GHC.Prim.Addr#
+                   Monopoly.initGame61) -}
+a11339bdcd97bc28eb6b7a37d5064a98
+  initGame61 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\168\\208\\176\\208\\189\\209\\129"#) -}
-a07d8351d36dd91014cb16b53bab3b79
-  initGame63 :: Monopoly.Street
+88a66617c84373af503e0d202750b275
+  initGame62 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame64
+                   Monopoly.initGame63
                    Monopoly.makeStepFeatures1
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-65d0d4af20384e9604150293f53c5069
-  initGame64 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+6c7bd91b7b8d5590fb804083a68a8981
+  initGame63 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame65) -}
-6b5bfdb97c00107a1d2f38c1b854559a
-  initGame65 :: GHC.Prim.Addr#
+                   Monopoly.initGame64) -}
+01e3c0f8641656a82e4bd98acbb9848f
+  initGame64 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\156\\208\\176\\209\\136\\208\\183\\208\\176\\208\\187 4"#) -}
-5ab2f529daa4e13f096f506fcb0a2739
-  initGame66 :: Monopoly.Street
+cdb1e71bb1b7edf8439ab9beec5cb209
+  initGame65 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame68
                    Monopoly.initGame67
+                   Monopoly.initGame66
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-865c2541703ee80ec08cf0a4f6df3f91
-  initGame67 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+b5a5e9315b8f364a510a637bfd9cb2d3
+  initGame66 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 320#) -}
-bc46151e6ad076fa632baa9b340f94ac
-  initGame68 :: [GHC.Types.Char]
+91e84fc11f941efe42b12173d0a4ffed
+  initGame67 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame69) -}
-b630f53a82aa1c56a64e10ca3196e010
-  initGame69 :: GHC.Prim.Addr#
+                   Monopoly.initGame68) -}
+c9e3d356db5fb86844370278221f29a8
+  initGame68 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\175 \\208\\152\\209\\129\\208\\186\\209\\131\\209\\129\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\189\\209\\139\\208\\185 \\208\\184\\208\\189\\209\\130\\208\\181\\208\\187\\208\\187\\208\\181\\208\\186\\209\\130"#) -}
-b9f7730899880c7d07f45d2452197f9b
+0c062cda735a6cac5c56a2e819b68e2b
+  initGame69 :: Monopoly.Street
+  {- Strictness: m,
+     Unfolding: (Monopoly.Street
+                   Monopoly.initGame74
+                   Monopoly.initGame73
+                   Monopoly.initGame72
+                   Monopoly.initGame71
+                   Monopoly.initGame70) -}
+f4d7f05e729c752415df2fc5497a0e38
   initGame7 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame184
+                   Monopoly.initGame183
                    Monopoly.initGame8) -}
-358c7ead1aa792a38e84eb5315042f87
-  initGame70 :: Monopoly.Street
-  {- Strictness: m,
-     Unfolding: (Monopoly.Street
-                   Monopoly.initGame75
-                   Monopoly.initGame74
-                   Monopoly.initGame73
-                   Monopoly.initGame72
-                   Monopoly.initGame71) -}
+89027e6f5d5a248eb29d8ae152b9d02c
+  initGame70 :: GHC.Types.Int
+  {- Strictness: x -}
 158a034eab5ecc11908c319122225543
   initGame71 :: GHC.Types.Int
   {- Strictness: x -}
-0c27bbe8e814fd175b14e992b670f3f3
-  initGame72 :: GHC.Types.Int
+1e5e15f76c2471077bf0c6b492c5cf85
+  initGame72 :: GHC.Types.Bool
   {- Strictness: x -}
-ff3c2fff94c91aa17819f979c272f858
-  initGame73 :: GHC.Types.Bool
+b7d91e2a5447b073e47f502c4d710d41
+  initGame73 :: GHC.Types.Int
   {- Strictness: x -}
-8ba4c17b13ba49b702b1c94853536759
-  initGame74 :: GHC.Types.Int
-  {- Strictness: x -}
-265fd37bb93600ccd800cefd3f1901a4
-  initGame75 :: [GHC.Types.Char]
+118fc16b540e509e2ac3e899f342f913
+  initGame74 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame76) -}
-680132b92f60fba51c21d795c21b9dae
-  initGame76 :: GHC.Prim.Addr#
+                   Monopoly.initGame75) -}
+c06f3c9e68fef0a0eac3f98735aff8f5
+  initGame75 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\158\\208\\177\\209\\137\\208\\181\\209\\129\\209\\130\\208\\178\\208\\181\\208\\189\\208\\176\\209\\143 \\208\\186\\208\\176\\208\\183\\208\\189\\208\\176"#) -}
-2f338a70dfaa0ea3662c73ea8823011c
-  initGame77 :: Monopoly.Street
+ced5672733ed31e018ad6ca7b46dcc49
+  initGame76 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame79
                    Monopoly.initGame78
+                   Monopoly.initGame77
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-e9b9f7db47489ca415d3d90789b985db
-  initGame78 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+8723dbcddee227fbceeeffa17f2c4363
+  initGame77 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 300#) -}
-c659a5d5b8534bf7a627b4196e48f85f
-  initGame79 :: [GHC.Types.Char]
+e397bf743cf39cbc007420548efcd9bf
+  initGame78 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame80) -}
-b50be008a506c45d863167a97fc783ec
+                   Monopoly.initGame79) -}
+d2743b460c513c67d2e307c1335e63ba
+  initGame79 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\144\\208\\175 \\208\\154\\208\\190\\208\\188\\208\\191\\209\\140\\209\\142\\209\\130\\208\\181\\209\\128\\208\\189\\208\\176\\209\\143 \\208\\187\\208\\184\\208\\189\\208\\179\\208\\178\\208\\184\\209\\129\\209\\130\\208\\184\\208\\186\\208\\176"#) -}
+f32d6e724939514acf638322bef39842
   initGame8 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame179
+                   Monopoly.initGame178
                    Monopoly.initGame9) -}
-5bcb443cc82646abc7853b2a15d92e3c
-  initGame80 :: GHC.Prim.Addr#
-  {- HasNoCafRefs,
-     Unfolding: ("\\208\\144\\208\\175 \\208\\154\\208\\190\\208\\188\\208\\191\\209\\140\\209\\142\\209\\130\\208\\181\\209\\128\\208\\189\\208\\176\\209\\143 \\208\\187\\208\\184\\208\\189\\208\\179\\208\\178\\208\\184\\209\\129\\209\\130\\208\\184\\208\\186\\208\\176"#) -}
-4391f2a69ea76ef6054662c2ae946e7b
-  initGame81 :: Monopoly.Street
+77484580a735d27c7da44e7e21be05bd
+  initGame80 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame82
-                   Monopoly.initGame78
+                   Monopoly.initGame81
+                   Monopoly.initGame77
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-c6424784d7e836e3ac873120ff0f6954
-  initGame82 :: [GHC.Types.Char]
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+9891e84e1afb611602b8515af9759d01
+  initGame81 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame83) -}
-e64d6122af1ce4d443abcbe491a66ea0
-  initGame83 :: GHC.Prim.Addr#
+                   Monopoly.initGame82) -}
+64851c6c079b588e98340cdde7a9c23c
+  initGame82 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\175 \\208\\159\\208\\176\\209\\128\\208\\176\\208\\180\\208\\184\\208\\179\\208\\188\\209\\139 \\208\\191\\209\\128\\208\\190\\208\\179\\209\\128\\208\\176\\208\\188\\208\\188\\208\\184\\209\\128\\208\\190\\208\\178\\208\\176\\208\\189\\208\\184\\209\\143"#) -}
-6c60ec50b45d6e0868da358f05fe62d9
-  initGame84 :: Monopoly.Street
+da8cec4ab0358f28ffe57f7fc3bec0af
+  initGame83 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame89
                    Monopoly.initGame88
                    Monopoly.initGame87
                    Monopoly.initGame86
-                   Monopoly.initGame85) -}
+                   Monopoly.initGame85
+                   Monopoly.initGame84) -}
+1e33b54118894a2032403083f3d2758e
+  initGame84 :: GHC.Types.Int
+  {- Strictness: x -}
 c1a15d1024cd0c73be4149f8b8e40afe
   initGame85 :: GHC.Types.Int
   {- Strictness: x -}
-2b9666b2675c2467bc5aef9d124a5791
-  initGame86 :: GHC.Types.Int
+9322e8cae60b15a4056ce1a8b3c53c66
+  initGame86 :: GHC.Types.Bool
   {- Strictness: x -}
-236be7ba0370fe6f9ac2f61d3d7009a7
-  initGame87 :: GHC.Types.Bool
+665c2cf1a920b9d0d9592e6f17839be4
+  initGame87 :: GHC.Types.Int
   {- Strictness: x -}
-dce6dfb1269fc1abdd13999dd9c4d6ad
-  initGame88 :: GHC.Types.Int
-  {- Strictness: x -}
-225430e55d3eacf07df8245b8c2ba4b1
-  initGame89 :: [GHC.Types.Char]
+ecf64cdf1cc91d1a9987c878d95b01a3
+  initGame88 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame90) -}
-7400542a592709029bacbae6eae02276
+                   Monopoly.initGame89) -}
+02b2078fae59fb67fb6a5036db489fd0
+  initGame89 :: GHC.Prim.Addr#
+  {- HasNoCafRefs,
+     Unfolding: ("\\208\\158\\209\\130\\208\\191\\209\\128\\208\\176\\208\\178\\208\\187\\209\\143\\208\\185\\209\\129\\209\\143 \\208\\178 \\208\\176\\208\\186\\208\\176\\208\\180\\208\\181\\208\\188"#) -}
+9c974a7f1e6c786b59531d922cc87cbe
   initGame9 :: [Monopoly.Street]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ Monopoly.Street
-                   Monopoly.initGame176
+                   Monopoly.initGame175
                    Monopoly.initGame10) -}
-9c56f13f0bb90112b98d8acb95565726
-  initGame90 :: GHC.Prim.Addr#
-  {- HasNoCafRefs,
-     Unfolding: ("\\208\\158\\209\\130\\208\\191\\209\\128\\208\\176\\208\\178\\208\\187\\209\\143\\208\\185\\209\\129\\209\\143 \\208\\178 \\208\\176\\208\\186\\208\\176\\208\\180\\208\\181\\208\\188"#) -}
-018d7393a4d13cfdc80a4499a5dd05ca
-  initGame91 :: Monopoly.Street
+cbba17f353f623552b409aaacb999805
+  initGame90 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame93
                    Monopoly.initGame92
+                   Monopoly.initGame91
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-1d710776cc73ab3d6da3a8071c0bde1b
-  initGame92 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+253eb4b016cbe02941b3bb265295d8ac
+  initGame91 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 280#) -}
-c53bf03fbc50f43f6b976260c3060259
-  initGame93 :: [GHC.Types.Char]
+d0b5c386f39794d124e09002c64cc4b1
+  initGame92 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame94) -}
-c8de2c80ec1b5426a25d186b8bc07dfe
-  initGame94 :: GHC.Prim.Addr#
+                   Monopoly.initGame93) -}
+00fbd8559086eefedc8936718488c73b
+  initGame93 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\144\\208\\161\\208\\146\\208\\154 \\208\\156\\208\\181\\208\\180\\208\\184\\208\\176\\208\\187\\208\\176\\208\\177"#) -}
-4bdf53bf58c819a48b65218472e8c994
-  initGame95 :: Monopoly.Street
+2f2e47f6f73352b556d88fb2829722db
+  initGame94 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame97
                    Monopoly.initGame96
+                   Monopoly.initGame95
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
-a8e9bfac5735df885c0ceea75be571e9
-  initGame96 :: GHC.Types.Int
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+fd17a69f3aec7c79330024a5142a6f02
+  initGame95 :: GHC.Types.Int
   {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 150#) -}
-1baae8ab4ba6c82bf344fa3e8bdf6568
-  initGame97 :: [GHC.Types.Char]
+a691bea110b17a0803d4a8f02f58ac20
+  initGame96 :: [GHC.Types.Char]
   {- Unfolding: (GHC.CString.unpackCStringUtf8#
-                   Monopoly.initGame98) -}
-406a25d926abddcda4587934ae959b47
-  initGame98 :: GHC.Prim.Addr#
+                   Monopoly.initGame97) -}
+2541c23920b1745c686ec6e1e4ba758e
+  initGame97 :: GHC.Prim.Addr#
   {- HasNoCafRefs,
      Unfolding: ("\\208\\162\\208\\181\\209\\133\\208\\189\\208\\190\\209\\129\\209\\132\\208\\181\\209\\128\\208\\176"#) -}
-7759bbf58b25a497b62c80ff956fede1
-  initGame99 :: Monopoly.Street
+226ae069895c8c512865a183793a0209
+  initGame98 :: Monopoly.Street
   {- Strictness: m,
      Unfolding: (Monopoly.Street
-                   Monopoly.initGame101
                    Monopoly.initGame100
+                   Monopoly.initGame99
                    GHC.Types.False
-                   Monopoly.initGame42
-                   Monopoly.initGame42) -}
+                   Monopoly.initCards9
+                   Monopoly.initCards9) -}
+8980f7d188827f79f468c509f7eda995
+  initGame99 :: GHC.Types.Int
+  {- HasNoCafRefs, Strictness: m, Unfolding: (GHC.Types.I# 260#) -}
 a24465c4a3a38b245b9db1f72c10337c
   initPay :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,U,U,U)>m,
@@ -2567,7 +3001,7 @@ fcd3efbe8c88223f79694930fb28ca09
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, Monopoly.Images #)
   {- Arity: 1, Strictness: <S,U> -}
-8131782c99eb255495f9fc60f510018d
+30fd1e2a3fe267efa704d2d4b00a7f70
   makeMove :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, Strictness: <S,1*U(U,U(U),U,A,U,A)>m,
      Unfolding: InlineRule (1, True, False)
@@ -2590,7 +3024,7 @@ fcd3efbe8c88223f79694930fb28ca09
                    ds3
                    ds4
                    Monopoly.handleGame3 }) -}
-3ea580095dde4872feb23056f9b2c970
+3e09619abbaf1d578f5cadb48c45b779
   makeStepFeatures :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, Strictness: <S(LLLLLS),1*U(U,U(U),U,U,U,U)>m,
      Inline: [0],
@@ -2670,6 +3104,13 @@ b6b00bf78dc3a464729bafe1bdc8000f
      Unfolding: InlineRule (1, True, False)
                 (\ (ds :: Monopoly.Street) ->
                  case ds of wild { Monopoly.Street ds1 ds2 ds3 ds4 ds5 -> ds1 }) -}
+6bcfbccc32ada50007df2a427dd97d7b
+  num :: Monopoly.ChanceCard -> GHC.Types.Int
+  RecSel Left Monopoly.ChanceCard
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(SLL),1*U(1*U(U),A,A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Monopoly.ChanceCard) ->
+                 case ds of wild { Monopoly.ChanceCard ds1 ds2 ds3 -> ds1 }) -}
 b6b00bf78dc3a464729bafe1bdc8000f
   owner :: Monopoly.Street -> GHC.Types.Int
   RecSel Left Monopoly.Street
@@ -2678,7 +3119,21 @@ b6b00bf78dc3a464729bafe1bdc8000f
      Unfolding: InlineRule (1, True, False)
                 (\ (ds :: Monopoly.Street) ->
                  case ds of wild { Monopoly.Street ds1 ds2 ds3 ds4 ds5 -> ds5 }) -}
-1e6688b8a82215fa18fabeda29f06bb5
+b568f09998b4fba439049bc2bf7dc70f
+  payPrictRent :: Monopoly.GameState -> Monopoly.GameState
+  {- Arity: 1, Strictness: <S,1*U(U,U(U),U,U,U,U)>m, Inline: [0],
+     Unfolding: InlineRule (1, True, False)
+                (\ (w :: Monopoly.GameState) ->
+                 case w of ww { Monopoly.GameState ww1 ww2 ww3 ww4 ww5 ww6 ->
+                 case Monopoly.$wpayPrictRent
+                        ww1
+                        ww2
+                        ww3
+                        ww4
+                        ww5
+                        ww6 of ww7 { (#,,,,,#) ww8 ww9 ww10 ww11 ww12 ww13 ->
+                 Monopoly.GameState ww8 ww9 ww10 ww11 ww12 ww13 } }) -}
+3c29d567890de449c0cf3eb480535961
   payTax :: Monopoly.GameState -> GHC.Types.Int -> Monopoly.GameState
   {- Arity: 2, Strictness: <S,1*U(U,U(U),U,U,U,U)><L,1*U(U)>m,
      Inline: [0],
@@ -2728,6 +3183,13 @@ b6b00bf78dc3a464729bafe1bdc8000f
      Unfolding: InlineRule (1, True, False)
                 (\ (ds :: Monopoly.Street) ->
                  case ds of wild { Monopoly.Street ds1 ds2 ds3 ds4 ds5 -> ds2 }) -}
+6bcfbccc32ada50007df2a427dd97d7b
+  price2 :: Monopoly.ChanceCard -> GHC.Types.Int
+  RecSel Left Monopoly.ChanceCard
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LSL),1*U(A,1*U(U),A)>m,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Monopoly.ChanceCard) ->
+                 case ds of wild { Monopoly.ChanceCard ds1 ds2 ds3 -> ds2 }) -}
 b6b00bf78dc3a464729bafe1bdc8000f
   priceRent :: Monopoly.Street -> GHC.Types.Int
   RecSel Left Monopoly.Street
@@ -2770,14 +3232,14 @@ d15a78157415196aa8616bbb4f87e4e1
      Unfolding: InlineRule (1, True, False)
                 (\ (ds :: Monopoly.Cubes) ->
                  case ds of wild { Monopoly.Cubes ds1 ds2 -> ds2 }) -}
-fc832d6e35cf6709167cfc9e385e82aa
+6f40410dcc35e17594bff1c02f4cdb52
   startGame :: Monopoly.Images -> GHC.Types.IO ()
   {- Arity: 2, Strictness: <L,U(U,U,U,U,U,U)><S,U>,
      Unfolding: InlineRule (0, True, True)
                 Monopoly.startGame1
                   `cast`
                 (<Monopoly.Images>_R ->_R Sym (GHC.Types.N:IO[0] <()>_R)) -}
-9d6bbea38d9ba384d36fb9423cb5a2a7
+c121759d2e72fa648926659ca01ece94
   startGame1 ::
     Monopoly.Images
     -> GHC.Prim.State# GHC.Prim.RealWorld
@@ -2826,7 +3288,7 @@ cc15bb2c0f873381bf1002f3f988f768
                    (world1 :: Monopoly.GameState)
                    (s1 :: GHC.Prim.State# GHC.Prim.RealWorld) ->
                  (# s1, world1 #)) -}
-21ebec0697a2ab6e18f8760c0554cbea
+88fb903fad8188a6727f9e32f44ccffc
   startGame3 ::
     Graphics.Gloss.Internals.Interface.Event.Event
     -> Monopoly.GameState
@@ -2838,7 +3300,7 @@ cc15bb2c0f873381bf1002f3f988f768
                    (world1 :: Monopoly.GameState)[OneShot]
                    (s1 :: GHC.Prim.State# GHC.Prim.RealWorld)[OneShot] ->
                  (# s1, Monopoly.handleGame event world1 #)) -}
-7989a8aeddcb858b7b013a0598e3eaf2
+37bc29a988e31ca7acb8ea522ffc1769
   streetMove :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, Strictness: <S(SS(S)LLSL),1*U(U,U(U),U,U,U,U)>m,
      Inline: [0],
@@ -2872,6 +3334,13 @@ cc15bb2c0f873381bf1002f3f988f768
                              ww6
                              ds8 of ww9 { (#,,,,,#) ww10 ww11 ww12 ww13 ww14 ww15 ->
                       Monopoly.GameState ww10 ww11 ww12 ww13 ww14 ww15 } } } } } } }) -}
+6bcfbccc32ada50007df2a427dd97d7b
+  text2 :: Monopoly.ChanceCard -> GHC.Base.String
+  RecSel Left Monopoly.ChanceCard
+  {- Arity: 1, HasNoCafRefs, Strictness: <S(LLS),1*U(A,A,1*U)>,
+     Unfolding: InlineRule (1, True, False)
+                (\ (ds :: Monopoly.ChanceCard) ->
+                 case ds of wild { Monopoly.ChanceCard ds1 ds2 ds3 -> ds3 }) -}
 a74b6cdd0ec1c506a545a8f82f714a6e
   throwCubes :: Monopoly.GameState -> Monopoly.GameState
   {- Arity: 1, HasNoCafRefs, Strictness: <S,1*U(U,U,U,A,U,U)>m,

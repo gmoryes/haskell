@@ -1,11 +1,11 @@
 
 ==================== FINAL INTERFACE ====================
-2018-03-20 10:54:42.498381 UTC
+2018-03-20 12:25:04.731526 UTC
 
 interface main:Main 8022
-  interface hash: a645309c0d8657deab0866e61e706f1b
-  ABI hash: 500d3edf5188a69a10f43ee9b7a10d54
-  export-list hash: bf5aba79750a9089c8be045cdd759fbc
+  interface hash: 47f4cd22a5c583d6647e3e70c073dbd9
+  ABI hash: 4f08390345432387051bdeb2533e7bac
+  export-list hash: 7f3ba4c165f45b0dd2c6a5e71d03b965
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: 961eaf704bff75cb9a17cdc7c410f04c
   sig of: Nothing
@@ -21,8 +21,8 @@ package dependencies: GLURaw-2.0.0.3 GLUT-2.7.0.12
                       deepseq-1.4.3.0 fixed-0.2.1.1 ghc-prim-0.5.1.1 gloss-1.11.1.1
                       gloss-juicy-0.2.2 gloss-rendering-1.11.1.1 half-0.2.2.3
                       integer-gmp-1.0.1.0 monopoly-0.1 mtl-2.2.1 primitive-0.6.3.0
-                      random-1.1 stm-2.4.5.0 text-1.2.2.2 time-1.8.0.2
-                      transformers-0.5.2.0 vector-0.12.0.1 zlib-0.6.1.2
+                      stm-2.4.5.0 text-1.2.2.2 transformers-0.5.2.0 vector-0.12.0.1
+                      zlib-0.6.1.2
 orphans: vector-0.12.0.1:Data.Vector.Unboxed
          gloss-rendering-1.11.1.1:Graphics.Gloss.Internals.Data.Picture
          stm-2.4.5.0:Control.Monad.STM text-1.2.2.2:Data.Text
@@ -30,11 +30,7 @@ orphans: vector-0.12.0.1:Data.Vector.Unboxed
          bytestring-0.10.8.2:Data.ByteString.Builder
          vector-0.12.0.1:Data.Vector.Fusion.Bundle
          transformers-0.5.2.0:Control.Monad.Trans.Error
-         time-1.8.0.2:Data.Time.Format.Parse
-         time-1.8.0.2:Data.Time.LocalTime.Internal.ZonedTime
-         time-1.8.0.2:Data.Time.LocalTime.Internal.LocalTime
-         time-1.8.0.2:Data.Time.Calendar.Gregorian base-4.10.1.0:GHC.Float
-         base-4.10.1.0:GHC.Base
+         base-4.10.1.0:GHC.Float base-4.10.1.0:GHC.Base
 family instance modules: JuicyPixels-3.2.9.4:Codec.Picture.Tga
                          JuicyPixels-3.2.9.4:Codec.Picture.Tiff
                          JuicyPixels-3.2.9.4:Codec.Picture.Types
@@ -63,7 +59,7 @@ family instance modules: JuicyPixels-3.2.9.4:Codec.Picture.Tga
                          zlib-0.6.1.2:Codec.Compression.Zlib.Stream
 import  -/  base-4.10.1.0:Prelude 31945b7d0084063347fc52506d3a4020
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
-import  -/  monopoly-0.1:Monopoly 1be2582dab5cc1125ef409c67e97b03e
+import  -/  monopoly-0.1:Monopoly 4d75e63b75d43bb0f7aed7e2b2c738d4
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
   {- HasNoCafRefs, Strictness: m,
@@ -82,12 +78,12 @@ e5875966b74dad2d29772660b8a75e33
 d026be77cb9ced20e35a61514e0458aa
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("main"#) -}
-630a23cc75ec7adc00d4433bfb1f4747
+1be971b99ff9edf625bd9bd13b3f0c25
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-77321e3aa8e76044e56eb0f40d254a6e
+921ef08e137eed87defaa745d9c093b0
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -96,7 +92,7 @@ d026be77cb9ced20e35a61514e0458aa
                 (\ (s :: GHC.Prim.State# GHC.Prim.RealWorld) ->
                  case Monopoly.loadImages1 s of ds1 { (#,#) ipv ipv1 ->
                  Monopoly.startGame1 ipv1 ipv }) -}
-c7268d47b6825e68572ecae7fd1ea066
+0da18ea207ce33de66fc7b39b3de940c
   main2 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
