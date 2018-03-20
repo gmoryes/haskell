@@ -1,6 +1,6 @@
 module Main where
 
-import SpaceJunk
+import Monopoly
 
 main :: IO ()
 main = do

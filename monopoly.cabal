@@ -1,6 +1,6 @@
-name:                demo-space-junk
+name:                monopoly
 version:             0.1
-synopsis:            Моделирование космического мусора.
+synopsis:            Монополия
 -- description:
 homepage:            https://github.com/cmc-haskell-2017/demo-space-junk#readme
 license:             MIT
@@ -14,19 +14,19 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     SpaceJunk
+  exposed-modules:     Monopoly
   ghc-options:         -Wall -fno-warn-type-defaults
   build-depends:       base >= 4.7 && < 5
                      , gloss
                      , gloss-juicy
   default-language:    Haskell2010
 
-executable demo-space-junk
+executable monopoly
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
-                     , demo-space-junk
+                     , monopoly
   default-language:    Haskell2010
 
 test-suite doctest
@@ -34,7 +34,7 @@ test-suite doctest
   hs-source-dirs:      test
   main-is:             Doctest.hs
   build-depends:       base
-                     , demo-space-junk
+                     , monopoly
                      , doctest >= 0.11.1
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
