@@ -125,6 +125,7 @@ initGame = GameState
   , land = 
     [ Street 
       { name ="Старт"
+      , price = 0
       }
     , Street
       { name = "СКИ Квантовая информатика"
@@ -136,6 +137,7 @@ initGame = GameState
     , Street 
       { name = "Общественная казна"
       , isRent = False
+      , price = 0
       }
     , Street 
       { name = "СКИ Параллельные вычисления"
@@ -165,6 +167,7 @@ initGame = GameState
       }
     , Street 
       { name = "Шанс"
+      , price = 0
       }
     , Street 
       { name = "СП УДИС"
@@ -182,6 +185,7 @@ initGame = GameState
       }
     , Street 
       { name = "Академ"
+      , price = 0
       }
     , Street
       { name = "МатКиб ДММК"
@@ -245,6 +249,7 @@ initGame = GameState
       }
     , Street 
       { name = "Бесплатная курилка"
+      , price = 0
       }
     , Street 
       { name = "МАТСТАТ Теория рисков"
@@ -255,6 +260,7 @@ initGame = GameState
       }
     , Street 
       { name = "Шанс"
+      , price = 0
       }
     , Street 
       { name = "МАТСТАТ ДГМС"
@@ -307,6 +313,7 @@ initGame = GameState
       }
     , Street 
       { name = "Отправляйся в академ"
+      , price = 0
       }
     , Street 
       { name = "АЯ Парадигмы программирования"
@@ -324,6 +331,7 @@ initGame = GameState
       }
     , Street 
       { name = "Общественая казна"
+      , price = 0
       }
     , Street 
       { name = "АЯ Искусственный интеллект"
@@ -341,6 +349,7 @@ initGame = GameState
       }
     , Street 
       { name = "Шанс"
+      , price = 0
       }
     , Street 
       { name = "ММП МАТ"
