@@ -84,6 +84,8 @@ class Physical a where
   getCell :: a -> Int
   setPosition :: Point -> a -> a
   setCell :: Int -> a -> a
+  getMoney :: a -> Int
+  getColour :: a -> Int
   
 -- | Переместить физический объект.
 --
@@ -105,6 +107,8 @@ move dt object = setPosition new object
 instance Physical Player where
   getPosition = playerPosition
   getCell = playerCell
+  getColour = colour
+  getMoney = money
   setPosition new player = player
     { playerPosition = new }
   setCell new player = player
@@ -406,6 +410,10 @@ drawGameState images gameState
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
     | (typeStep gameState) == "улица" = pictures
         [ drawPlayingField (imagePlayingField images)
@@ -414,6 +422,10 @@ drawGameState images gameState
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
     | otherwise = pictures
         [ drawPlayingField (imagePlayingField images)
@@ -421,6 +433,10 @@ drawGameState images gameState
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
+        , drawMoney player1
+        , drawMoney player2
+        , drawMoney player3
+        , drawMoney player4
         ]
 
   where
@@ -429,6 +445,13 @@ drawGameState images gameState
     player3 = ((players gameState) !! 2)
     player4 = ((players gameState) !! 3)
 
+drawMoney :: Player -> Picture
+drawMoney player = translate x y (scale r r (text money))
+    where
+        (x, y) = (-630, 400 - 50 * (fromIntegral (getColour player)))
+        money = "Player " ++ color ++ ": " ++ show (getMoney player)
+        r = 1 / fromIntegral 5
+        color = show (getColour player)
 
 drawPayMenu :: Picture -> Picture
 drawPayMenu image = translate 0 0 image
