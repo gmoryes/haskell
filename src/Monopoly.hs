@@ -1,4 +1,4 @@
-module Monopoly where
+module SpaceJunk where
 
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game
@@ -22,14 +22,14 @@ loadImages = do
   Just pieceGreen   <- loadJuicyPNG "images/pieceGreen.png"
   Just pieceYellow  <- loadJuicyPNG "images/pieceYellow.png"
   Just playingField <- loadJuicyPNG "images/field.png"
-  Just payMenu <- loadJuicePNG "images/payMenu.png"
+  Just payMenu <- loadJuicyPNG "images/payMenu.png"
   return Images
     { imagePieceRed    = scale 0.1 0.1 pieceRed
     , imagePieceBlue   = scale 0.1 0.1 pieceBlue
     , imagePieceGreen  = scale 0.1 0.1 pieceGreen
     , imagePieceYellow = scale 0.1 0.1 pieceYellow
     , imagePlayingField = playingField
-    , imagePayMen = payMenu
+    , imagePayMenu = scale 0.6 0.6 payMenu
     }
 
 -- =========================================
@@ -47,10 +47,7 @@ data Images = Images
   }
 
 data GameState = GameState
-  { player1 :: Player
-  , player2 :: Player
-  , player3 :: Player
-  , player4 :: Player
+  { players :: [Player]
   , gamePlayer :: Int
   , haveWinner :: Maybe Int
   , cubes :: Cubes
@@ -117,34 +114,36 @@ instance Physical Player where
 -- | Сгенерировать начальное состояние игры.
 initGame :: GameState
 initGame = GameState
-  { player1 = Player 
-      { colour = 1
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 1 1
-      }
-  , player2 = Player 
-      { colour = 2
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 2 1
-      }
-  , player3 = Player 
-      { colour = 3
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 3 1
-      }
-  , player4 = Player 
-      { colour = 4
-      , money = 15000
-      , property = []
-      , playerCell = 1
-      , playerPosition = getPlayerPosition 4 1
-      }
+  { players = 
+      [ Player 
+        { colour = 1
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 1 1
+        }
+      ,  Player 
+        { colour = 2
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 2 1
+        }
+      , Player 
+        { colour = 3
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 3 1
+        }
+      , Player 
+        { colour = 4
+        , money = 15000
+        , property = []
+        , playerCell = 1
+        , playerPosition = getPlayerPosition 4 1
+        }
+      ]
   , cubes = Cubes 
       { firstCube = 1
       , secondCube = 0
@@ -332,21 +331,29 @@ initGame = GameState
 -- | Отобразить состояние игры.
 drawGameState :: Images -> GameState -> Picture
 drawGameState images gameState 
-    | (typeStep gameState) == "ход" = pictures
+    | (typeStep gameState) == "ход" ||
+      (typeStep gameState) == "старт" = pictures
         [ drawPlayingField (imagePlayingField images)
-        , drawPiece (imagePieceRed images) (player1 gameState)
-        , drawPiece (imagePieceBlue  images) (player2 gameState)
-        , drawPiece (imagePieceGreen  images) (player3 gameState)
-        , drawPiece (imagePieceYellow  images) (player4 gameState)
+        , drawPiece (imagePieceRed images) player1
+        , drawPiece (imagePieceBlue  images) player2
+        , drawPiece (imagePieceGreen  images) player3
+        , drawPiece (imagePieceYellow  images) player4
         ]
-    | otherwise{-(typeStep gameState) == "покупка"-} = pictures
+    | (typeStep gameState) == "улица" = pictures
         [ drawPlayingField (imagePlayingField images)
-        , drawPiece (imagePieceRed images) (player1 gameState)
-        , drawPiece (imagePieceBlue  images) (player2 gameState)
-        , drawPiece (imagePieceGreen  images) (player3 gameState)
-        , drawPiece (imagePieceYellow  images) (player4 gameState)
+        , drawPiece (imagePieceRed images) player1
+        , drawPiece (imagePieceBlue  images) player2
+        , drawPiece (imagePieceGreen  images) player3
+        , drawPiece (imagePieceYellow  images) player4
         , drawPayMenu (imagePayMenu images)
         ]
+    | (typeStep gameState) == "" = pictures[]
+  where
+    player1 = ((players gameState) !! 0)
+    player2 = ((players gameState) !! 1)
+    player3 = ((players gameState) !! 2)
+    player4 = ((players gameState) !! 3)
+
 
 drawPayMenu :: Picture -> Picture
 drawPayMenu image = translate 0 0 image
@@ -369,22 +376,27 @@ drawPlayingField image = translate 0 0 image --(scale r r image)
 handleGame :: Event -> GameState -> GameState
 handleGame (EventKey (MouseButton LeftButton) Down _ mouse) gameState
     | (typeStep gameState) == "ход" && (isStep mouse) = doStep mouse gameState
-    | (typeStep gameState) == "покупка" && (isPay mouse) = makePay gameState
-    | (typeStep gameState) == "покупкa" && (isntPay mouse) = gameState 
-        { typeStep = "ход"
-        , gamePlayer = (mod (gamePlayer gameState) 4) + 1
-        }
+    | ((typeStep gameState) == "улица") = case (isPay mouse) of
+        Just True -> makePay gameState
+        Just False -> gameState
+          { typeStep = "ход"
+          , gamePlayer = (mod (gamePlayer gameState) 4) + 1
+          }
+        Nothing -> gameState
     | otherwise = gameState
-handleGame _ = id
+handleGame _ gameState = gameState
 
-isPay :: Point -> Bool
-isPay (x, y) | x > 200 = True
-             | otherwise = False
+isStep :: Point -> Bool
+isStep _ = True
 
 isntPay :: Point -> Bool
-isnt (x, y) | x < -200 = True
-            |otherwise = False
+isntPay (x, y) | x > 0 = True
+             | otherwise = False
 
+isPay :: Point -> Maybe Bool
+isPay (x, y) | x < 0 && x > -100 && y > -50 && y < 50 = Just True
+             | x > 0 && x < 100 && y > -50 && y < 50 = Just False
+             | otherwise = Nothing
 
 doStep :: Point -> GameState -> GameState
 doStep point gameState =
@@ -399,46 +411,42 @@ canGo :: GameState -> Maybe GameState
 canGo gameState = Just (gameState)
 
 makeMove :: GameState -> GameState
-makeMove gameState
-  | (gamePlayer gameState) == 1 = gameState {
-      cubes = Cubes {
-        firstCube = 1, secondCube = 0
-      }
-      , player1 = changePlayerCell cubesSum (player1 gameState)
-      , typeStep = "покупка"
+makeMove gameState = (makeStepFeatures (changePlayerCell (throwCubes gameState)))
+
+makeStepFeatures :: GameState -> GameState
+makeStepFeatures gameState
+    | field == "старт" = gameState
+    | field == "налог" = payTax gameState 200
+    | field == "сверхналог" = payTax gameState 100
+    | field == "стоянка" = gameState { gamePlayer = mod (gamePlayer gameState) 4 + 1}
+    | otherwise = gameState
+  where
+    field = (typeStep gameState)
+
+payTax :: GameState -> Int -> GameState
+payTax gameState count = gameState
+    { players = firstPlayers ++ [(player) { money = (money (player)) - count}]
+        ++ lastPlayers
+    , gamePlayer = mod (gamePlayer gameState) 4 + 1
     }
-  | (gamePlayer gameState) == 2 = gameState {
-      cubes = Cubes {
-        firstCube = 1, secondCube = 0
-      }
-      , player2 = changePlayerCell cubesSum (player2 gameState)
-      , typeStep = "покупка"
-    }
-  | (gamePlayer gameState) == 3 = gameState {
-      cubes = Cubes {
-        firstCube = 1, secondCube = 0
-      }
-      , player3 = changePlayerCell cubesSum (player3 gameState)
-      , typeStep = "покупка"
-    }
-  | (gamePlayer gameState) == 4 = gameState {
-      cubes = Cubes {
-        firstCube = 1, secondCube = 0
+  where
+    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+
+throwCubes :: GameState -> GameState
+throwCubes gameState = gameState
+    { cubes = Cubes
+        { firstCube = 1
+        , secondCube = 2
         }
-      , player4 = changePlayerCell cubesSum (player4 gameState)
-      , typeStep = "покупка"
     }
-    where
-      cubesSum = (firstCube (cubes gameState)) + (secondCube (cubes gameState))
-
---changePlayer :: Int -> Player -> Player
---changePlayer cubes player = (makePay (changePlayerCell cubes player))
-
---makePay :: Player -> Player
---makePay = 
 
 makePay :: GameState -> GameState
-makePay gameState = gameState {typeStep = "ход"}
+makePay gameState = gameState 
+    { typeStep = "ход"
+    , gamePlayer = (mod (gamePlayer gameState) 4) + 1
+    }
 
 
 
@@ -452,12 +460,45 @@ updatePay _ = id
 initPay :: GameState -> GameState
 initPay gameState = gameState
 
-changePlayerCell :: Int -> Player -> Player
-changePlayerCell num player = player {
-    playerCell = (mod ((playerCell player) - 1) 41) + 1 + num
-    , playerPosition = getPlayerPosition (colour player) ((mod ((playerCell player) - 1) 40) + 1 + num)
+changePlayerCell :: GameState -> GameState
+changePlayerCell gameState = gameState
+    { players = firstPlayers ++ [(movePlayer player (gamePlayer gameState) cubesSum)] ++ lastPlayers
+    , typeStep = getTypeCell (playerCell (movePlayer player (gamePlayer gameState) cubesSum))
     }
+{-| (gamePlayer gameState) == 2 = gameState
+    { player2  = movePlayer (player2 gameState) 2 cubesSum
+    , typeStep = getTypeCell (playerCell (movePlayer (player2 gameState) 2 cubesSum))
+    }
+  | (gamePlayer gameState) == 3 = gameState
+    { player3  = movePlayer (player3 gameState) 3 cubesSum
+    , typeStep = getTypeCell (playerCell (movePlayer (player3 gameState) 3 cubesSum))
+    }
+  | (gamePlayer gameState) == 4 = gameState
+    { player4  = movePlayer (player4 gameState) 4 cubesSum
+    , typeStep = getTypeCell (playerCell (movePlayer (player4 gameState) 4 cubesSum))
+    }-}
+  where
+    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+    cubesSum = (firstCube (cubes gameState)) + (secondCube (cubes gameState))
 
+getTypeCell :: Int -> String
+getTypeCell num 
+  | num == 1 = "старт"
+  | num == 3 || num == 18 || num == 34 = "казна"
+  | num == 5 = "налог"
+  | num == 8 || num == 23 || num == 37 = "шанс"
+  | num == 11 || num == 21 = "стоянка"
+  | num == 31 = "тюрьма"
+  | num == 39 = "сверхналог"
+  | otherwise = "улица"
+
+movePlayer :: Player -> Int -> Int -> Player
+movePlayer player num cubesSum = player 
+    { playerCell = (mod ((playerCell player) + cubesSum - 1) 40) + 1
+    , playerPosition = getPlayerPosition num ((mod ((playerCell player) + cubesSum - 1) 40) + 1)
+    }
 
 chanceCard :: Player -> Player
 chanceCard player = player
@@ -479,18 +520,12 @@ actionCell player colour gameState num
 
 getPlayerPosition :: Int -> Int -> Point
 getPlayerPosition colour num
-    | (num >= 1  && num <= 11) =  (fromIntegral (-375 + 15 + colour * 15), fromIntegral (-365 + 15 + (num ) * 60))
+    | (num >= 1  && num <= 11) =  (fromIntegral (-375 + 15 + colour * 15), fromIntegral (-365 + 15 + (num) * 60))
     | (num >= 12 && num <= 21) = (fromIntegral (-365 + (num - 10) * 60), fromIntegral (375 - 15 - colour * 15))
     | (num >= 22 && num <= 31) = (fromIntegral (375 - 15 - colour * 15), fromIntegral (365 - (num - 20) * 60))
     | otherwise = (fromIntegral(365 - (num - 30) * 60), fromIntegral(-375 + 15 + colour * 15))
 
-{-
-mouseToCell :: Point -> Point
-mouseToCell (x, y) = (i, j)
-    where
-      i = div (floor (x + fromIntegral screenWidth / 2)) cellSize
-      j = div (floor (y + fromIntegral screenHeight / 2)) cellSize
--}
+
 -- =========================================
 -- Функции обновления
 -- =========================================
@@ -498,28 +533,7 @@ mouseToCell (x, y) = (i, j)
 -- | Обновить космический мусор.
 updateGameState :: Float -> GameState -> GameState
 updateGameState _ = id
-{-{ player1  = updatePlayer  dt (player1 gameState)
-  , player2  = updatePlayer  dt (player2 gameState)
-  , player3  = updatePlayer  dt (player3 gameState)
-  , player4  = updatePlayer  dt (player4 gameState)
-  }-}
 
--- | Обновить положение астероида.
-{-
-updatePlayer :: Float -> Player -> Player
-updatePlayer = move-}
-
--- | Обновить положение спутника.
-{-
-updateSatellite :: Float -> Satellite -> Satellite
-updateSatellite dt satellite = move dt satellite
-  { satelliteAngle = satelliteAngle satellite + satelliteRotationSpeed}
-
--- | Обновить положение НЛО.
-updateUFO :: Float -> UFO -> UFO
-updateUFO dt ufo = move dt ufo
-  { ufoVelocity = ufoVelocity ufo + mulSV (dt * ufoAccel) (normalizeV (ufoTarget ufo - ufoPosition ufo)) }
--}
 -- =========================================
 -- Параметры моделирования
 -- =========================================

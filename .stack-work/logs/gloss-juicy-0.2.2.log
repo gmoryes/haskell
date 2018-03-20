@@ -1,7 +1,7 @@
 Configuring gloss-juicy-0.2.2...
 Preprocessing library for gloss-juicy-0.2.2..
 Building library for gloss-juicy-0.2.2..
-[1 of 1] Compiling Graphics.Gloss.Juicy ( Graphics/Gloss/Juicy.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/Graphics/Gloss/Juicy.o )
+[1 of 1] Compiling Graphics.Gloss.Juicy ( Graphics/Gloss/Juicy.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/Graphics/Gloss/Juicy.o )
 
 [;1mGraphics/Gloss/Juicy.hs:30:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wincomplete-patterns[0m[0m[;1m][0m[0m[;1m
     Pattern match(es) are non-exhaustive
@@ -28,7 +28,7 @@ Building executable 'gloss-juicy-viewer' for gloss-juicy-0.2.2..
 
 [;1m<no location info>: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wmissing-home-modules[0m[0m[;1m][0m[0m[;1m
     These modules are needed for compilation but not listed in your .cabal file's other-modules: Graphics.Gloss.Juicy[0m[0m
-[0m[0m[0m[1 of 2] Compiling Graphics.Gloss.Juicy ( Graphics/Gloss/Juicy.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer-tmp/Graphics/Gloss/Juicy.o )
+[0m[0m[0m[1 of 2] Compiling Graphics.Gloss.Juicy ( Graphics/Gloss/Juicy.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer-tmp/Graphics/Gloss/Juicy.o )
 
 [;1mGraphics/Gloss/Juicy.hs:30:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wincomplete-patterns[0m[0m[;1m][0m[0m[;1m
     Pattern match(es) are non-exhaustive
@@ -50,7 +50,7 @@ Building executable 'gloss-juicy-viewer' for gloss-juicy-0.2.2..
 [;1m[34m   |[0m[0m
 [;1m[34m40 |[0m[0m fromImageRGBA8 (Image { imageWidth = w, imageHeight = h, imageData = [;1m[35mid[0m[0m }) =
 [;1m[34m   |[0m[0m[;1m[35m                                                                      ^^[0m[0m
-[0m[0m[0m[2 of 2] Compiling Main             ( gloss-juicy.hs, .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer-tmp/Main.o )
+[0m[0m[0m[2 of 2] Compiling Main             ( gloss-juicy.hs, .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer-tmp/Main.o )
 
 [;1mgloss-juicy.hs:9:1: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wtabs[0m[0m[;1m][0m[0m[;1m
     Tab character found here, and in five further locations.
@@ -61,7 +61,7 @@ Building executable 'gloss-juicy-viewer' for gloss-juicy-0.2.2..
 [0m[0m[0m
 [;1m<no location info>: [;1m[35mwarning:[0m[0m[;1m [[;1m[35m-Wmissing-home-modules[0m[0m[;1m][0m[0m[;1m
     These modules are needed for compilation but not listed in your .cabal file's other-modules: Graphics.Gloss.Juicy[0m[0m
-[0m[0m[0mLinking .stack-work/dist/x86_64-linux/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer ...
-Installing library in /home/alenushka/Документы/haskell/Безымянная папка/haskell/.stack-work/install/x86_64-linux/lts-10.5/8.2.2/lib/x86_64-linux-ghc-8.2.2/gloss-juicy-0.2.2-jamg3yIniL26bMd5U6Ax7
-Installing executable gloss-juicy-viewer in /home/alenushka/Документы/haskell/Безымянная папка/haskell/.stack-work/install/x86_64-linux/lts-10.5/8.2.2/bin
+[0m[0m[0mLinking .stack-work/dist/x86_64-osx/Cabal-2.0.1.0/build/gloss-juicy-viewer/gloss-juicy-viewer ...
+Installing library in /Users/nadya73/Documents/university/haskell/monopoly_git/haskell/.stack-work/install/x86_64-osx/lts-10.5/8.2.2/lib/x86_64-osx-ghc-8.2.2/gloss-juicy-0.2.2-jamg3yIniL26bMd5U6Ax7
+Installing executable gloss-juicy-viewer in /Users/nadya73/Documents/university/haskell/monopoly_git/haskell/.stack-work/install/x86_64-osx/lts-10.5/8.2.2/bin
 Registering library for gloss-juicy-0.2.2..
