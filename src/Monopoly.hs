@@ -610,8 +610,16 @@ throwCubes gameState = gameState
 makePay :: GameState -> GameState
 makePay gameState = gameState 
     { typeStep = "ход"
+    , players = firstPlayers ++ [changeBalance player sum] ++ lastPlayers
     , gamePlayer = (mod (gamePlayer gameState) 4) + 1
     }
+  where
+    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
+    player = (players gameState) !! ((gamePlayer gameState) - 1)
+    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+    sum = (price ((land gameState) !! (playerCell player))) * (-1)
+
+
 
 handlePay :: Event -> GameState -> GameState
 handlePay (EventKey (MouseButton LeftButton) Down _ mouse) = id
@@ -622,6 +630,7 @@ updatePay _ = id
 
 initPay :: GameState -> GameState
 initPay gameState = gameState
+
 
 changePlayerCell :: GameState -> GameState
 changePlayerCell gameState = gameState
