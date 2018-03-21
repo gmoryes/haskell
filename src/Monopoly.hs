@@ -576,22 +576,6 @@ streetMove gameState
     player = (players gameState) !! ((gamePlayer gameState) - 1) 
     field = ((land gameState) !! ((playerCell player) - 1))
 
-{-
-buyField :: GameState -> GameState
-buyField gameState | (price field) <= (money player) = gameState 
-		{ players = firstPlayers ++ [(player) { money = (money (player)) + (price field), property = (property player) ++ (name field) }] ++ lastPlayers
-    , gamePlayer = mod (gamePlayer gameState) 4 + 1
-    }
-									 --как отметить, что недвижимость купили у данного поля
-									 | otherwise = gameState
-									 --вместо просто геймстейт надо выдать завершение для него игры, ибо денег нет
-	where
-		firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
-    player = (players gameState) !! ((gamePlayer gameState) - 1)
-    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState))) 
-		field = ((land gameState) !! ((playerCell player) - 1))
--}
-
 payTax :: GameState -> Int -> GameState
 payTax gameState count = gameState
     { players = firstPlayers ++ [(player) { money = (money (player)) - count}]
@@ -603,16 +587,6 @@ payTax gameState count = gameState
     player = (players gameState) !! ((gamePlayer gameState) - 1)
     lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
 
-{-throwCubes :: GameState -> IO GameState
-throwCubes gameState = do 
-    gen <- getStdGen
-    gen' <- newStdGen
-    gameState
-        { cubes = Cubes
-            { firstCube = randomR (1,6) gen 
-            , secondCube = randomR (1,6) gen'
-            }
-        }-}
 throwCubes :: GameState -> GameState
 throwCubes gameState = gameState
     { cubes = Cubes
