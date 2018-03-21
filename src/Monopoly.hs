@@ -12,9 +12,9 @@ startGame :: Images -> IO ()
 startGame images
   = play display bgColor fps initGame (drawGameState images) handleGame updateGameState
   where
-    display = FullScreen --InWindow "Монополия" (screenWidth, screenHeight) (10, 10)
-    bgColor = white    -- цвет фона
-    fps     = 100      -- кол-во кадров в секунду
+    display = FullScreen -- InWindow "Монополия"
+    bgColor = white      -- Цвет фона
+    fps     = 100        -- Кол-во кадров в секунду
 
 -- | Загрузить изображения из файлов.
 loadImages :: IO Images
@@ -147,9 +147,10 @@ initGame = GameState
       , owner = 0
       }
     , Street 
-      { name = "Налог"
-      , price =200
-      , priceRent = 0
+      { name = "Налог" -- Смотреть описание для "Сверхналога"
+      , priceRent = 200
+      , price = 0
+      , owner = 5
       }
     , Street 
       { name = "Машзал 1"
@@ -232,6 +233,7 @@ initGame = GameState
     , Street 
       { name = "Общественная казна"
       , isRent = False
+      , price = 0
       }
     , Street 
       { name = "ИО Новикова"
@@ -360,7 +362,10 @@ initGame = GameState
       }
     , Street 
       { name = "Сверхналог"
-      , price = 100
+      , priceRent = 100
+      , price = 0
+      , owner = 5 -- По алгоритму работы никто не сможет купить, потому что isRent = True
+      , isRent = True -- Но при этом все будут платить мнимому 5ому игроку 100$
       }
     , Street 
       { name = "ММП БММО"
@@ -695,40 +700,6 @@ getPlayerPosition colour num
 -- Функции обновления
 -- =========================================
 
--- | Обновить космический мусор.
+-- | Обновить состояние игры
 updateGameState :: Float -> GameState -> GameState
 updateGameState _ = id
-
--- =========================================
--- Параметры моделирования
--- =========================================
-
--- | Ширина экрана.
-screenWidth :: Num a => a
-screenWidth = 800
-
--- | Высота экрана.
-screenHeight :: Num a => a
-screenHeight = 800
-
--- | Ускорение НЛО.
-ufoAccel :: Float
-ufoAccel = 15
-
--- | Скорость вращения спутников.
-satelliteRotationSpeed :: Float
-satelliteRotationSpeed = 0.1
-
--- =========================================
--- Секция для настроек автоматических тестов
--- =========================================
-
--- $setup
--- >>> :set -XScopedTypeVariables
--- >>> import Test.QuickCheck
--- >>> class AlmostEq a where (~=) :: a -> a -> Bool
--- >>> instance AlmostEq Float where x ~= y = x == y || abs (x - y) / max (abs x) (abs y) < 0.001
--- >>> instance (AlmostEq a, AlmostEq b) => AlmostEq (a, b) where (x, y) ~= (u, v) = x ~= u && y ~= v
--- >>> instance AlmostEq Asteroid where Asteroid p1 v1 s1 ~= Asteroid p2 v2 s2 = p1 ~= p2 && v1 ~= v2 && s1 ~= s2
--- >>> instance Arbitrary Asteroid where arbitrary = Asteroid <$> arbitrary <*> arbitrary <*> arbitrary
-
