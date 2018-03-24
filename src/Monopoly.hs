@@ -1,10 +1,11 @@
 module Monopoly where
 
 import Graphics.Gloss.Juicy
-import Graphics.Gloss.Data.Vector
+import Graphics.Gloss.Data.Vector()
 import Graphics.Gloss.Interface.Pure.Game
 import Const
-import Debug.Trace
+import Model
+import Debug.Trace()
 
 --import System.Random
 
@@ -34,53 +35,6 @@ loadImages = do
     , imagePlayingField = playingField
     , imagePayMenu = scale 0.6 0.6 payMenu
     }
-
--- =========================================
--- Модель
--- =========================================
-
--- | Изображения объектов.
-
-data Images = Images
-  { imagePieceRed    :: Picture   -- ^ Изображение фишек.
-  , imagePieceBlue   :: Picture
-  , imagePieceGreen  :: Picture
-  , imagePieceYellow :: Picture
-  , imagePlayingField :: Picture
-  , imagePayMenu :: Picture
-  }
-
-data GameState = GameState
-  { players :: [Player]
-  , gamePlayer :: Int
-  , haveWinner :: Maybe Int
-  , cubes :: Cubes
-  , land :: [Street]
-  , typeStep :: Int
-  }
-
-data Player = Player
-  { colour :: Int
-  --, name :: String
-  , money :: Int
-  , property :: [Street]
-  , playerCell :: Int
-  , playerPosition :: Point
-  --, position :: Int
-  }
-
-data Street = Street
-  { name :: String
-  , price :: Int
-  , isRent :: Bool
-  , priceRent :: Int
-  , owner :: Int
-  }
-
-data Cubes = Cubes
-  { firstCube :: Int
-  , secondCube :: Int
-  }
 
 
 -- | Сгенерировать начальное состояние игры.
@@ -496,7 +450,7 @@ nextPlayer gameState = (mod ((gamePlayer gameState) + 1) playersNumber)
 
 handleGame :: Event -> GameState -> GameState
 handleGame (EventKey (MouseButton LeftButton) Down _ mouse) gameState
-    | (typeStep gameState) == stepGo = doStep mouse gameState
+    | (typeStep gameState) == stepGo = doStep gameState
     | ((typeStep gameState) == stepPay) = case (isPay mouse) of
         Just True -> makePay gameState
         Just False -> gameState
@@ -505,8 +459,6 @@ handleGame (EventKey (MouseButton LeftButton) Down _ mouse) gameState
           }
         Nothing -> gameState
     | otherwise = gameState
-    where
-        next_player_number = nextPlayer gameState
 handleGame _ gameState = gameState
 
 gameNextPlater :: GameState -> GameState
@@ -517,13 +469,13 @@ isPay (x, y) | x < 0 && x > -100 && y > -50 && y < 50 = Just True
              | x > 0 && x < 100 && y > -50 && y < 50 = Just False
              | otherwise = Nothing
 
-doStep :: Point -> GameState -> GameState
-doStep point gameState =
+doStep :: GameState -> GameState
+doStep gameState =
   case (haveWinner gameState) of
     Just _ -> id gameState
     Nothing ->  case canGo gameState of
           Nothing -> gameState
-          Just a -> makeMove gameState
+          Just _ -> makeMove gameState
 
 
 canGo :: GameState -> Maybe GameState
@@ -661,13 +613,12 @@ movePlayer player cubesSum = player
     where
         newPlayerCell = (mod ((playerCell player) + cubesSum) fieldsNumber)
 
-
 getPlayerPosition :: Int -> Int -> Point
-getPlayerPosition colour cell_num
-    | (cell_num >= 0  && cell_num <= 10) = (fromIntegral (-375 + 15 + colour * 15), fromIntegral (-305 + 15 + (cell_num) * 60))
-    | (cell_num >= 11 && cell_num <= 20) = (fromIntegral (-305 + (cell_num - 10) * 60), fromIntegral (375 - 15 - colour * 15))
-    | (cell_num >= 21 && cell_num <= 30) = (fromIntegral (375 - 15 - colour * 15), fromIntegral (305 - (cell_num - 20) * 60))
-    | otherwise = (fromIntegral(305 - (cell_num - 30) * 60), fromIntegral(-375 + 15 + colour * 15))
+getPlayerPosition player_number cell_num
+    | (cell_num >= 0  && cell_num <= 10) = (fromIntegral (-375 + 15 + player_number * 15), fromIntegral (-305 + 15 + (cell_num) * 60))
+    | (cell_num >= 11 && cell_num <= 20) = (fromIntegral (-305 + (cell_num - 10) * 60), fromIntegral (375 - 15 - player_number * 15))
+    | (cell_num >= 21 && cell_num <= 30) = (fromIntegral (375 - 15 - player_number * 15), fromIntegral (305 - (cell_num - 20) * 60))
+    | otherwise = (fromIntegral(305 - (cell_num - 30) * 60), fromIntegral(-375 + 15 + player_number * 15))
 
 
 -- =========================================

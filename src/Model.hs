@@ -3,7 +3,12 @@ module Model where
 import Graphics.Gloss.Juicy
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game
+-- =========================================
+-- Модель
+-- =========================================
+
 -- | Изображения объектов.
+
 data Images = Images
   { imagePieceRed    :: Picture   -- ^ Изображение фишек.
   , imagePieceBlue   :: Picture
@@ -19,7 +24,7 @@ data GameState = GameState
   , haveWinner :: Maybe Int
   , cubes :: Cubes
   , land :: [Street]
-  , typeStep :: String
+  , typeStep :: Int
   }
 
 data Player = Player
@@ -45,7 +50,3 @@ data Cubes = Cubes
   , secondCube :: Int
   }
 
--- | Объект с изменяемым положением.
-class Physical a where
-  getPosition :: a -> Point
-  getCell :: a -> Int
