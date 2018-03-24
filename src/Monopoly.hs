@@ -95,7 +95,7 @@ initGame = GameState
     , Street
       { name = "СКИ Квантовая информатика"
       , price = 60
-      , priceRent = 0
+      , priceRent = 6
       , isRent = False
       , owner = 0
       }
@@ -109,7 +109,7 @@ initGame = GameState
     , Street 
       { name = "СКИ Параллельные вычисления"
       , price = 60
-      , priceRent = 0
+      , priceRent = 7
       , isRent = False
       , owner = 0
       }
@@ -123,14 +123,14 @@ initGame = GameState
     , Street 
       { name = "Машзал 1"
       , price = 200
-      , priceRent = 0
+      , priceRent = 20
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "СП ПЦД"
       , price = 100
-      , priceRent = 0
+      , priceRent = 12
       , isRent = False
       , owner = 0
       }
@@ -144,14 +144,14 @@ initGame = GameState
     , Street 
       { name = "СП УДИС"
       , price = 100
-      , priceRent = 0
+      , priceRent = 10
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "СП Корректность программ"
       , price = 120
-      , priceRent = 0
+      , priceRent = 14
       , isRent = False
       , owner = 0
       }
@@ -165,42 +165,42 @@ initGame = GameState
     , Street
       { name = "МатКиб ДММК"
       , price = 140
-      , priceRent = 0
+      , priceRent = 15
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Потеряшки"
       , price = 150
-      , priceRent = 0
+      , priceRent = 15
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "МатКиб ДФСА"
       , price = 140
-      , priceRent = 0
+      , priceRent = 14
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Маткиб Дискретный анализ"
       , price = 160
-      , priceRent = 0
+      , priceRent = 18
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Машзал 2"
       , price = 200
-      , priceRent = 0
+      , priceRent = 25
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "ИО Морозов"
       , price = 180
-      , priceRent = 0
+      , priceRent = 20
       , isRent = False
       , owner = 0
       }
@@ -214,14 +214,14 @@ initGame = GameState
     , Street 
       { name = "ИО Новикова"
       , price = 180
-      , priceRent = 0
+      , priceRent = 19
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "ИО Денисов"
       , price = 200
-      , priceRent = 0
+      , priceRent = 23
       , isRent = False
       , owner = 0
       }
@@ -235,7 +235,7 @@ initGame = GameState
     , Street 
       { name = "МАТСТАТ Теория рисков"
       , price = 220
-      , priceRent = 0
+      , priceRent = 22
       , isRent = False
       , owner = 0
       }
@@ -249,49 +249,49 @@ initGame = GameState
     , Street 
       { name = "МАТСТАТ ДГМС"
       , price = 220
-      , priceRent = 0
+      , priceRent = 24
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "МАТСТАТ МОТВЫ"
       , price = 240
-      , priceRent = 0
+      , priceRent = 25
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Машзал 3"
       , price = 200
-      , priceRent = 0
+      , priceRent = 22
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "АСВК ЛБИС"
       , price = 260
-      , priceRent = 0
+      , priceRent = 28
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "АСВК ЛВК"
       , price = 260
-      , priceRent = 0
+      , priceRent = 29
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Техносфера"
       , price = 150
-      , priceRent = 0
+      , priceRent = 16
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "АСВК Медиалаб"
       , price = 280
-      , priceRent = 0
+      , priceRent = 30
       , isRent = False
       , owner = 0
       }
@@ -305,14 +305,14 @@ initGame = GameState
     , Street 
       { name = "АЯ Парадигмы программирования"
       , price = 300
-      , priceRent = 0
+      , priceRent = 35
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "АЯ Компьютерная лингвистика"
       , price = 300
-      , priceRent = 0
+      , priceRent = 35
       , isRent = False
       , owner = 0
       }
@@ -326,14 +326,14 @@ initGame = GameState
     , Street 
       { name = "АЯ Искусственный интеллект"
       , price = 320
-      , priceRent = 0
+      , priceRent = 32
       , isRent = False
       , owner = 0
       }
     , Street 
       { name = "Машзал 4"
       , price = 200
-      , priceRent = 0
+      , priceRent = 21
       , isRent = False
       , owner = 0
       }
@@ -347,7 +347,7 @@ initGame = GameState
     , Street 
       { name = "ММП МАТ"
       , price = 350
-      , priceRent = 0
+      , priceRent = 37
       , isRent = False
       , owner = 0
       }
@@ -361,7 +361,7 @@ initGame = GameState
     , Street 
       { name = "ММП БММО"
       , price = 400
-      , priceRent = 0
+      , priceRent = 40
       , isRent = False
       , owner = 0
       }
@@ -579,12 +579,19 @@ makePay gameState = gameState
     { typeStep = stepGo
     , players = firstPlayers ++ [changeBalance player price_value] ++ lastPlayers
     , gamePlayer = nextPlayer gameState
+    , land = firstLands ++ [changeOwner current_land (gamePlayer gameState) ] ++ lastLands
     }
   where
     firstPlayers = take (gamePlayer gameState) (players gameState)
     player = (players gameState) !! (gamePlayer gameState)
     lastPlayers = reverse (take (length (players gameState) - (length firstPlayers) - 1) (reverse (players gameState)))
     price_value = (price ((land gameState) !! (playerCell player))) * (-1)
+    firstLands = take (playerCell player) (land gameState)
+    current_land = (land gameState) !! (playerCell player)
+    lastLands = reverse (take (length (land gameState) - length(firstLands) - 1) (reverse (land gameState)))
+
+changeOwner :: Street -> Int -> Street
+changeOwner prev_street owner_id = prev_street { owner = owner_id, isRent = True }
 
 changePlayerCell :: GameState -> GameState
 changePlayerCell gameState = gameState
