@@ -3,7 +3,8 @@ module Monopoly where
 import Graphics.Gloss.Juicy
 import Graphics.Gloss.Data.Vector
 import Graphics.Gloss.Interface.Pure.Game
-
+import Const
+import Debug.Trace
 
 --import System.Random
 
@@ -55,7 +56,7 @@ data GameState = GameState
   , haveWinner :: Maybe Int
   , cubes :: Cubes
   , land :: [Street]
-  , typeStep :: String
+  , typeStep :: Int
   }
 
 data Player = Player
@@ -90,28 +91,35 @@ initGame = GameState
         { colour = 1
         , money = 1500
         , property = []
-        , playerCell = 1
-        , playerPosition = getPlayerPosition 1 1
+        , playerCell = 0
+        , playerPosition = getPlayerPosition 1 0
         }
       ,  Player 
         { colour = 2
         , money = 1500
         , property = []
-        , playerCell = 1
-        , playerPosition = getPlayerPosition 2 1
+        , playerCell = 0
+        , playerPosition = getPlayerPosition 2 0
         }
       , Player 
         { colour = 3
         , money = 1500
         , property = []
-        , playerCell = 1
-        , playerPosition = getPlayerPosition 3 1
+        , playerCell = 0
+        , playerPosition = getPlayerPosition 3 0
         }
       , Player 
         { colour = 4
         , money = 1500
         , property = []
-        , playerCell = 1
+        , playerCell = 0
+        , playerPosition = getPlayerPosition 4 0
+        }
+      , Player -- Fictitious player
+        { colour = 5
+        , money = 0
+        , property = []
+        , playerCell = 0
         , playerPosition = getPlayerPosition 4 1
         }
       ]
@@ -120,12 +128,15 @@ initGame = GameState
       , secondCube = 0
       }
   , haveWinner = Nothing
-  , gamePlayer = 1
-  , typeStep = "ход"
+  , gamePlayer = 0
+  , typeStep = stepGo
   , land = 
     [ Street 
       { name ="Старт"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street
       { name = "СКИ Квантовая информатика"
@@ -136,8 +147,10 @@ initGame = GameState
       }
     , Street 
       { name = "Общественная казна"
-      , isRent = False
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "СКИ Параллельные вычисления"
@@ -150,7 +163,8 @@ initGame = GameState
       { name = "Налог" -- Смотреть описание для "Сверхналога"
       , priceRent = 200
       , price = 0
-      , owner = 5
+      , owner = 4
+      , isRent = True
       }
     , Street 
       { name = "Машзал 1"
@@ -169,6 +183,9 @@ initGame = GameState
     , Street 
       { name = "Шанс"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "СП УДИС"
@@ -187,6 +204,9 @@ initGame = GameState
     , Street 
       { name = "Академ"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street
       { name = "МатКиб ДММК"
@@ -232,8 +252,10 @@ initGame = GameState
       }
     , Street 
       { name = "Общественная казна"
-      , isRent = False
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "ИО Новикова"
@@ -252,6 +274,9 @@ initGame = GameState
     , Street 
       { name = "Бесплатная курилка"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "МАТСТАТ Теория рисков"
@@ -263,6 +288,9 @@ initGame = GameState
     , Street 
       { name = "Шанс"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "МАТСТАТ ДГМС"
@@ -316,6 +344,9 @@ initGame = GameState
     , Street 
       { name = "Отправляйся в академ"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "АЯ Парадигмы программирования"
@@ -334,6 +365,9 @@ initGame = GameState
     , Street 
       { name = "Общественая казна"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "АЯ Искусственный интеллект"
@@ -352,6 +386,9 @@ initGame = GameState
     , Street 
       { name = "Шанс"
       , price = 0
+      , isRent = True
+      , priceRent = 0
+      , owner = 4
       }
     , Street 
       { name = "ММП МАТ"
@@ -364,7 +401,7 @@ initGame = GameState
       { name = "Сверхналог"
       , priceRent = 100
       , price = 0
-      , owner = 5 -- По алгоритму работы никто не сможет купить, потому что isRent = True
+      , owner = 4 -- По алгоритму работы никто не сможет купить, потому что isRent = True
       , isRent = True -- Но при этом все будут платить мнимому 5ому игроку 100$
       }
     , Street 
@@ -377,6 +414,11 @@ initGame = GameState
     ]
   }
 
+canBuy :: GameState -> Bool
+canBuy gameState = not (isRent ((land gameState) !! (playerCell player)))
+    where
+        player = (players gameState) !! (gamePlayer gameState)
+
 -- =========================================
 -- Функции отрисовки
 -- =========================================
@@ -384,8 +426,7 @@ initGame = GameState
 -- | Отобразить состояние игры.
 drawGameState :: Images -> GameState -> Picture
 drawGameState images gameState
-    | (typeStep gameState) == "ход" ||
-      (typeStep gameState) == "кафедра занята" = pictures
+    | (typeStep gameState) == stepGo = pictures
         [ drawPlayingField (imagePlayingField images)
         , drawPiece (imagePieceRed images) player1
         , drawPiece (imagePieceBlue  images) player2
@@ -396,13 +437,13 @@ drawGameState images gameState
         , drawMoney player3
         , drawMoney player4
         ]
-    | (typeStep gameState) == "кафедра свободная" = pictures
+    | (typeStep gameState) == stepPay = pictures
         [ drawPlayingField (imagePlayingField images)
+        , drawPayMenu (imagePayMenu images)
         , drawPiece (imagePieceRed images) player1
         , drawPiece (imagePieceBlue  images) player2
         , drawPiece (imagePieceGreen  images) player3
         , drawPiece (imagePieceYellow  images) player4
-        , drawPayMenu (imagePayMenu images)
         , drawMoney player1
         , drawMoney player2
         , drawMoney player3
@@ -445,31 +486,31 @@ drawPiece image player = translate x y (scale r r image)
 
 drawPlayingField :: Picture -> Picture
 drawPlayingField image = translate 0 0 image --(scale r r image)
-  --where
-    --r = 1
+
+nextPlayer :: GameState -> Int
+nextPlayer gameState = (mod ((gamePlayer gameState) + 1) playersNumber)
+
 -- =========================================
 -- Обработка событий
 -- =========================================
 
 handleGame :: Event -> GameState -> GameState
 handleGame (EventKey (MouseButton LeftButton) Down _ mouse) gameState
-    | (typeStep gameState) == "ход" && (isStep mouse) = doStep mouse gameState
-    | ((typeStep gameState) == "кафедра свободная") = case (isPay mouse) of
+    | (typeStep gameState) == stepGo = doStep mouse gameState
+    | ((typeStep gameState) == stepPay) = case (isPay mouse) of
         Just True -> makePay gameState
         Just False -> gameState
-          { typeStep = "ход"
-          , gamePlayer = (mod (gamePlayer gameState) 4) + 1
+          { typeStep = stepGo
+          , gamePlayer = nextPlayer gameState
           }
         Nothing -> gameState
     | otherwise = gameState
+    where
+        next_player_number = nextPlayer gameState
 handleGame _ gameState = gameState
 
-isStep :: Point -> Bool
-isStep _ = True
-
-isntPay :: Point -> Bool
-isntPay (x, y) | x > 0 = True
-             | otherwise = False
+gameNextPlater :: GameState -> GameState
+gameNextPlater gameState = gameState { gamePlayer = nextPlayer gameState }
 
 isPay :: Point -> Maybe Bool
 isPay (x, y) | x < 0 && x > -100 && y > -50 && y < 50 = Just True
@@ -493,38 +534,34 @@ makeMove gameState = (makeStepFeatures (changePlayerCell (throwCubes gameState))
 
 makeStepFeatures :: GameState -> GameState
 makeStepFeatures gameState
-    | field == "старт" = gameState
-    | field == "налог" = payTax gameState 200
-    | field == "сверхналог" = payTax gameState 100
-    | field == "стоянка" = gameState { gamePlayer = mod (gamePlayer gameState) 4 + 1}
-    | field == "кафедра занята" = getPriceRent (payPrictRent gameState)
+    -- Если поле нельзя купить => нужно отдать налоги и дать деньги владельцу
+    -- и перейти к следующему игроку
+    | not (canBuy gameState) = gameNextPlater (getPriceRent (payPriceRent gameState))
     | otherwise = gameState
-  where
-    field = (typeStep gameState)
 
-payPrictRent :: GameState -> GameState
-payPrictRent gameState = gameState 
-    { players = firstPlayers ++ [(changeBalance player sum)] ++ lastPlayers
+payPriceRent :: GameState -> GameState
+payPriceRent gameState = gameState 
+    { players = firstPlayers ++ [(changeBalance player rent_value)] ++ lastPlayers
     }
   where
-    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
-    player = (players gameState) !! ((gamePlayer gameState) - 1)
-    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
-    sum = (priceRent ((land gameState) !! ((playerCell player) - 1))) * (-1)
+    firstPlayers = take (gamePlayer gameState) (players gameState)
+    player = (players gameState) !! (gamePlayer gameState)
+    lastPlayers = reverse (take ((length (players gameState)) - (length firstPlayers) - 1) (reverse (players gameState)))
+    rent_value = (priceRent ((land gameState) !! (playerCell player))) * (-1)
 
 getPriceRent :: GameState -> GameState
 getPriceRent gameState = gameState
-    { players = firstPlayers ++ [(changeBalance player sum)] ++ lastPlayers
+    { players = firstPlayers ++ [(changeBalance player rent_value)] ++ lastPlayers
     }
   where
-    player = (players gameState) !! ((owner ((land gameState) !! ((playerCell ((players gameState) !! (gamePlayer gameState))) - 1))) - 1)
+    player = (players gameState) !! (owner ((land gameState) !! (playerCell ((players gameState) !! (gamePlayer gameState)))))
     firstPlayers = take ((colour player) - 1) (players gameState)
     lastPlayers = reverse (take (length (players gameState) - (colour player)) (reverse (players gameState)))
-    sum = (priceRent ((land gameState) !! ((playerCell player) - 1))) * (-1)
+    rent_value = (priceRent ((land gameState) !! (playerCell player)))
 
 changeBalance :: Player -> Int -> Player
-changeBalance player sum = player
-    { money = (money player) + sum }
+changeBalance player value = player
+    { money = (money player) + value }
 
 data ChanceCard = ChanceCard
     { num :: Int
@@ -566,108 +603,71 @@ initCards cards =
 chanceCard :: GameState -> GameState
 chanceCard gameState = gameState
 
-
-
-streetMove :: GameState -> GameState
-streetMove gameState
-    | (isRent field) == False = gameState
-    | otherwise = (payTax gameState (priceRent field))
-  where
-    player = (players gameState) !! ((gamePlayer gameState) - 1) 
-    field = ((land gameState) !! ((playerCell player) - 1))
-
 payTax :: GameState -> Int -> GameState
 payTax gameState count = gameState
     { players = firstPlayers ++ [(player) { money = (money (player)) - count}]
         ++ lastPlayers
-    , gamePlayer = mod (gamePlayer gameState) 4 + 1
+    , gamePlayer = nextPlayer gameState
     }
   where
-    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
-    player = (players gameState) !! ((gamePlayer gameState) - 1)
-    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+    firstPlayers = take (gamePlayer gameState) (players gameState)
+    player = (players gameState) !! (gamePlayer gameState)
+    lastPlayers = reverse (take (length (players gameState) - (length firstPlayers) - 1) (reverse (players gameState)))
 
 throwCubes :: GameState -> GameState
 throwCubes gameState = gameState
     { cubes = Cubes
         { firstCube = 1
-        , secondCube = 2
+        , secondCube = 0
         }
     }
 
 makePay :: GameState -> GameState
 makePay gameState = gameState 
-    { typeStep = "ход"
-    , players = firstPlayers ++ [changeBalance player sum] ++ lastPlayers
-    , gamePlayer = (mod (gamePlayer gameState) 4) + 1
+    { typeStep = stepGo
+    , players = firstPlayers ++ [changeBalance player price_value] ++ lastPlayers
+    , gamePlayer = nextPlayer gameState
     }
   where
-    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
-    player = (players gameState) !! ((gamePlayer gameState) - 1)
-    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
-    sum = (price ((land gameState) !! (playerCell player))) * (-1)
-
-
-
-handlePay :: Event -> GameState -> GameState
-handlePay (EventKey (MouseButton LeftButton) Down _ mouse) = id
-handlePay _ = id
-
-updatePay :: Float -> GameState -> GameState
-updatePay _ = id
-
-initPay :: GameState -> GameState
-initPay gameState = gameState
-
+    firstPlayers = take (gamePlayer gameState) (players gameState)
+    player = (players gameState) !! (gamePlayer gameState)
+    lastPlayers = reverse (take (length (players gameState) - (length firstPlayers) - 1) (reverse (players gameState)))
+    price_value = (price ((land gameState) !! (playerCell player))) * (-1)
 
 changePlayerCell :: GameState -> GameState
 changePlayerCell gameState = gameState
-    { players = firstPlayers ++ [(movePlayer player (gamePlayer gameState) cubesSum)] ++ lastPlayers
-    , typeStep = getTypeCell (playerCell (movePlayer player (gamePlayer gameState) cubesSum)) gameState
+    { players = firstPlayers ++ [player_after_move] ++ lastPlayers
+    , typeStep = getTypeByCell (playerCell player_after_move) gameState
     }
-{-| (gamePlayer gameState) == 2 = gameState
-    { player2  = movePlayer (player2 gameState) 2 cubesSum
-    , typeStep = getTypeCell (playerCell (movePlayer (player2 gameState) 2 cubesSum))
-    }
-  | (gamePlayer gameState) == 3 = gameState
-    { player3  = movePlayer (player3 gameState) 3 cubesSum
-    , typeStep = getTypeCell (playerCell (movePlayer (player3 gameState) 3 cubesSum))
-    }
-  | (gamePlayer gameState) == 4 = gameState
-    { player4  = movePlayer (player4 gameState) 4 cubesSum
-    , typeStep = getTypeCell (playerCell (movePlayer (player4 gameState) 4 cubesSum))
-    }-}
   where
-    firstPlayers = take ((gamePlayer gameState) - 1) (players gameState)
-    player = (players gameState) !! ((gamePlayer gameState) - 1)
-    lastPlayers = reverse (take (length (players gameState) - (gamePlayer gameState)) (reverse (players gameState)))
+    firstPlayers = take (gamePlayer gameState) (players gameState)
+    player = (players gameState) !! (gamePlayer gameState)
+    lastPlayers = reverse (take (length (players gameState) - (length firstPlayers) - 1) (reverse (players gameState)))
     cubesSum = (firstCube (cubes gameState)) + (secondCube (cubes gameState))
+    player_after_move = (movePlayer player cubesSum)
 
-getTypeCell :: Int -> GameState -> String
-getTypeCell num gameState
-  | num == 1 = "старт"
-  | num == 3 || num == 18 || num == 34 = "кафедра свободная" --казна
-  | num == 5 = "налог"
-  | num == 8 || num == 23 || num == 37 = "кафедра свободная" --шанс
-  | num == 11 || num == 21 = "стоянка"
-  | num == 31 = "кафедра свободная" --академ
-  | num == 39 = "сверхналог"
-  | (isRent ((land gameState) !! (num - 1))) == False  = "кафедра свободная"
-  | otherwise = "кафедра занята"
+-- Если кафедра свободна, переходим в состояние "предложить покупку"
+-- Иначе просто совершаем шаг
+getTypeByCell :: Int -> GameState -> Int
+getTypeByCell index gameState
+  | isRent ((land gameState) !! index) == False = stepPay
+  | otherwise = stepGo
 
-movePlayer :: Player -> Int -> Int -> Player
-movePlayer player num cubesSum = player 
-    { playerCell = (mod ((playerCell player) + cubesSum - 1) 40) + 1
-    , playerPosition = getPlayerPosition num ((mod ((playerCell player) + cubesSum - 1) 40) + 1)
+movePlayer :: Player -> Int -> Player
+movePlayer player cubesSum = player 
+    { playerCell = newPlayerCell
+    , playerPosition = getPlayerPosition (colour player) newPlayerCell
     }
+    where
+        newPlayerCell = (mod ((playerCell player) + cubesSum) fieldsNumber)
 
 
 getPlayerPosition :: Int -> Int -> Point
-getPlayerPosition colour num
-    | (num >= 1  && num <= 11) =  (fromIntegral (-375 + 15 + colour * 15), fromIntegral (-365 + 15 + (num) * 60))
-    | (num >= 12 && num <= 21) = (fromIntegral (-365 + (num - 10) * 60), fromIntegral (375 - 15 - colour * 15))
-    | (num >= 22 && num <= 31) = (fromIntegral (375 - 15 - colour * 15), fromIntegral (365 - (num - 20) * 60))
-    | otherwise = (fromIntegral(365 - (num - 30) * 60), fromIntegral(-375 + 15 + colour * 15))
+getPlayerPosition colour cell_num
+    | (cell_num >= 0  && cell_num <= 10) = (fromIntegral (-375 + 15 + colour * 15), fromIntegral (-305 + 15 + (cell_num) * 60))
+    | (cell_num >= 11 && cell_num <= 20) = (fromIntegral (-305 + (cell_num - 10) * 60), fromIntegral (375 - 15 - colour * 15))
+    | (cell_num >= 21 && cell_num <= 30) = (fromIntegral (375 - 15 - colour * 15), fromIntegral (305 - (cell_num - 20) * 60))
+    | otherwise = (fromIntegral(305 - (cell_num - 30) * 60), fromIntegral(-375 + 15 + colour * 15))
 
 
 -- =========================================
