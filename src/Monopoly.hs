@@ -6,6 +6,7 @@ import Graphics.Gloss.Interface.Pure.Game
 import Const
 import Model
 import Debug.Trace()
+import System.Random
 
 --import System.Random
 
@@ -84,6 +85,7 @@ initGame = GameState
   , haveWinner = Nothing
   , gamePlayer = 0
   , typeStep = stepGo
+  , random = []
   , land = 
     [ Street 
       { name ="Старт"
@@ -567,10 +569,11 @@ payTax gameState count = gameState
     lastPlayers = reverse (take (length (players gameState) - (length firstPlayers) - 1) (reverse (players gameState)))
 
 throwCubes :: GameState -> GameState
-throwCubes gameState = gameState
-    { cubes = Cubes
-        { firstCube = 1
-        , secondCube = 0
+throwCubes gameState = 
+    gameState { 
+        cubes = Cubes { 
+            firstCube = 0,
+            secondCube = 1
         }
     }
 
